@@ -1,13 +1,13 @@
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
-export const ModalOverlay = (children) => {
+export const ModalOverlay = () => {
     return (
         <div className="modal-overlay">
-            {children}
+            {/*{children}*/}
         </div>
     )
 }
 
-ModalOverlay.propTypes = {
-    children: PropTypes.element.isRequired,
-}
+// ModalOverlay.propTypes = {
+//     children: PropTypes.element.isRequired,
+// }

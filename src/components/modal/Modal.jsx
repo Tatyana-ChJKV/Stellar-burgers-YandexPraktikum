@@ -4,6 +4,7 @@ import "../../App.css";
 import {useEffect} from "react";
 import {createPortal} from "react-dom";
 import PropTypes from "prop-types";
+// import {OrderDetails} from "../order-details/OrderDetails";
 
 
 export const Modal = ({onClick, children}) => {
@@ -30,8 +31,9 @@ export const Modal = ({onClick, children}) => {
     }, [])
 
     return createPortal(
-        <ModalOverlay onClick={onClick}>
-        <div className="modal" id="modal">
+        <>
+        {/*// <ModalOverlay onClick={onClick}>*/}
+        <div className="modal" id="modal" onClick={onClick}>
             <div className="modal-header modal-closed">
                 <div className="ingredient-details-header mt-10 ml-10 mr-10">
                     <h2 className="text text_type_main-large">Детали ингредиента</h2>
@@ -40,7 +42,9 @@ export const Modal = ({onClick, children}) => {
                     {children}
             </div>
         </div>
-            </ModalOverlay>, document.getElementById('modal'))
+            <ModalOverlay />
+        </>, document.getElementById('modal-windows'))
+
 };
 
 Modal.propTypes = {
