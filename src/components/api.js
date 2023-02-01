@@ -210,12 +210,12 @@ export const data = [
             __v: 0
         }
     ]
-function getIngredientsInfo() {
-    fetch('https://norma.nomoreparties.space/api/ingredients')
-        .then(res => res.json())
-        .then(res => {
-            console.log(res);
-        })
-}
-
-getIngredientsInfo();
+// function getIngredientsInfo() {
+//     fetch('https://norma.nomoreparties.space/api/ingredients')
+//         .then(res => res.json())
+//         .then(res => {
+//             console.log(res);
+//         })
+// }
+//
+// getIngredientsInfo();

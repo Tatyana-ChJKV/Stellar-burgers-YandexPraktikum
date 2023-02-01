@@ -12,16 +12,16 @@ root.render(
   </React.StrictMode>
 );
 
-export function getIngredients() {
-    const API = 'https://norma.nomoreparties.space/api/ingredients';
-    return fetch(API)
-        .then(res => {
-        if (res.ok) {
-            return res.json();
-        }
-        return Promise.reject(res.status);
-    })
-        .catch(error => console.log(error))
-}
-
-getIngredients()
+// export function getIngredients() {
+//     const API = 'https://norma.nomoreparties.space/api/ingredients';
+//     return fetch(API)
+//         .then(res => {
+//         if (res.ok) {
+//             return res.json();
+//         }
+//         return Promise.reject(res.status);
+//     })
+//         .catch(error => console.log(error))
+// }
+//
+// getIngredients()
