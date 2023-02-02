@@ -1,15 +1,17 @@
 import {Button, ConstructorElement, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {data} from "../api";
 import React, {useState} from "react";
-import {OrderDetails} from "../order-details/OrderDetails";
-import {Modal} from "../modal/Modal";
+import {OrderDetails} from "../order-details/order-details";
+import {Modal} from "../modal/modal";
+import styles from "./burger-constructor.module.css"
 
 export const BurgerConstructor = () => {
     function createConstructorCard(card) {
         return (
-            <div className="constructor-card">
+            <div className={styles.constructor_card}>
                 <DragIcon type="primary"/>
                 <ConstructorElement
+                    key={card._id}
                     type={card.type}
                     isLocked={true}
                     text={card.name}
@@ -33,9 +35,8 @@ export const BurgerConstructor = () => {
     }
 
     return (
-        <section className="section-constructor">
-            <div className="mt-25"
-                 style={{display: 'flex', flexDirection: 'column', alignItems: "center", gap: '16px'}}>
+        <section className={styles.section_constructor}>
+            <div className={`${styles.constructor_element} mt-25`}>
                 <ConstructorElement
                     type="top"
                     isLocked={true}
@@ -43,7 +44,7 @@ export const BurgerConstructor = () => {
                     price={200}
                     thumbnail='https://code.s3.yandex.net/react/code/bun-02-mobile.png'
                 />
-                <div className="ingredients-scroll constructor-scroll">
+                <div className={`${styles.ingredients_scroll} ${styles.constructor_scroll}`}>
                     {list}
                 </div>
                 <ConstructorElement
@@ -53,15 +54,17 @@ export const BurgerConstructor = () => {
                     price={200}
                     thumbnail='https://code.s3.yandex.net/react/code/bun-02-mobile.png'
                 />
-                <div className="price-button-constructor mt-10 mr-4"
-                     style={{display: "flex", alignItems: "center", alignSelf: "flex-end"}}>
-                    <div className="mr-10" style={{display: "flex", alignItems: "center"}}>
+                <div className={`${styles.price_button_constructor} mt-10 mr-4`}>
+                    <div className={`${styles.price_button_elements} mr-10`}>
                         <p className="text text_type_digits-medium mr-2">610</p>
                         <CurrencyIcon type="primary"/>
                     </div>
-                    <Button onClick={openModal} htmlType="button" type="primary"
-                            size="medium">Оформить
-                        заказ</Button>
+                    <Button type="primary"
+                            onClick={openModal}
+                            htmlType="button"
+                            size="medium">
+                        Оформить заказ
+                    </Button>
                     {modalOpened && (
                         <Modal onClick={closeModal}>
                             <OrderDetails/>
@@ -69,5 +72,5 @@ export const BurgerConstructor = () => {
                 </div>
             </div>
         </section>
-    );
-};
+    )
+}

@@ -1,0 +1,15 @@
+.ingredient_counter {
+    position: relative;
+    bottom: 220px;
+}
+
+.ingredient_image {
+    width: 240px;
+    height: 120px;
+}
+
+.price_flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

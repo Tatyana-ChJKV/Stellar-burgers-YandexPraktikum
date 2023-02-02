@@ -1,0 +1,52 @@
+.price_button_constructor {
+    display: flex;
+    align-items: center;
+    align-self: flex-end;
+}
+
+.price_button_elements {
+    display: flex;
+    align-items: center;
+}
+
+.ingredients_scroll {
+    height: 700px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: scroll;
+}
+
+.ingredients_scroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+.ingredients_scroll::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
+
+.ingredients_scroll::-webkit-scrollbar-thumb {
+    background: #8585AD;
+}
+
+.constructor_scroll {
+    max-height: 464px;
+}
+
+.constructor_card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: 20px;
+}
+
+.section_constructor {
+    width: 600px;
+}
+
+.constructor_element {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
