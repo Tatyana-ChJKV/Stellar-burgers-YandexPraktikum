@@ -1,17 +1,17 @@
 import React from "react";
-import {data} from "../api";
 import {TabIngredients} from "../tab-ingredients/tab-ingredients";
 import {IngredientsCard} from "../ingredients-card/ingredients-card";
 import styles from "./burger-ingredients.module.css";
+import PropTypes from "prop-types";
 
-export const BurgerIngredients = () => {
-    const buns = data.filter(item => item.type === 'bun').map(item => {
+export const BurgerIngredients = ({cards}) => {
+    const buns = cards.filter(item => item.type === 'bun').map(item => {
         return IngredientsCard(item)
     });
-    const mains = data.filter(item => item.type === 'main').map(item => {
+    const mains = cards.filter(item => item.type === 'main').map(item => {
         return IngredientsCard(item)
     });
-    const sauces = data.filter(item => item.type === 'sauce').map(item => {
+    const sauces = cards.filter(item => item.type === 'sauce').map(item => {
         return IngredientsCard(item)
     });
 
@@ -39,4 +39,8 @@ export const BurgerIngredients = () => {
             </div>
         </section>
     )
+}
+
+BurgerIngredients.propTypes = {
+    cards: PropTypes.array.isRequired
 }

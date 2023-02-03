@@ -1,4 +1,6 @@
 import styles from "./ingredient-details.module.css"
+import PropTypes from "prop-types";
+
 export const IngredientDetails = ({card}) => {
     return (
             <div className={styles.elements_display_flex}>
@@ -25,4 +27,8 @@ export const IngredientDetails = ({card}) => {
                 </ul>
             </div>
     )
+}
+
+IngredientDetails.propTypes = {
+    card: PropTypes.object.isRequired
 }

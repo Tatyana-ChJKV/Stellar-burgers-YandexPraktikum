@@ -6,16 +6,19 @@ import styles from "./ingredients-card.module.css";
 
 export const IngredientsCard = (card) => {
     const [modalOpened, setModalOpened] = useState(false);
-    const closeModal = () => setModalOpened(false);
-    const openModal = () => setModalOpened(true);
+    function openModal() {
+        setModalOpened(true)
+    }
+
+    function closeModal() {
+        setModalOpened(false)
+    }
 
     return (
         <div className="mb-8"
              key={card._id}
              id="open-modal"
-             onClick={() => {
-                 openModal(card)
-             }}>
+             onClick={openModal}>
             <img src={card.image} className={styles.ingredient_image}
                  alt={card.name}/>
             <div className={`${styles.price_flex} mt-1 mb-1`}>
@@ -29,7 +32,8 @@ export const IngredientsCard = (card) => {
                          extraClass="m-1"/>
             </div>
             {modalOpened && (
-                <Modal onClick={closeModal}>
+                <Modal onClick={closeModal}
+                       modalHeader="Детали ингредиента">
                     <IngredientDetails card={card}/>
                 </Modal>)}
         </div>

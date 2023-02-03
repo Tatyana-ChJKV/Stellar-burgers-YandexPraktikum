@@ -1,14 +1,14 @@
 import {Button, ConstructorElement, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {data} from "../api";
 import React, {useState} from "react";
 import {OrderDetails} from "../order-details/order-details";
 import {Modal} from "../modal/modal";
 import styles from "./burger-constructor.module.css"
+import PropTypes from "prop-types";
 
-export const BurgerConstructor = () => {
+export const BurgerConstructor = ({cards}) => {
     function createConstructorCard(card) {
         return (
-            <div className={styles.constructor_card}>
+            <div className={styles.constructor_card} key={card._id}>
                 <DragIcon type="primary"/>
                 <ConstructorElement
                     key={card._id}
@@ -22,7 +22,7 @@ export const BurgerConstructor = () => {
         )
     }
 
-    const list = data.filter(item => item.type !== 'bun').map(item => createConstructorCard(item));
+    const list = cards.filter(item => item.type !== 'bun').map(item => createConstructorCard(item));
 
     const [modalOpened, setModalOpened] = useState(false);
 
@@ -66,11 +66,16 @@ export const BurgerConstructor = () => {
                         Оформить заказ
                     </Button>
                     {modalOpened && (
-                        <Modal onClick={closeModal}>
+                        <Modal onClick={closeModal}
+                               modalHeader=" ">
                             <OrderDetails/>
                         </Modal>)}
                 </div>
             </div>
         </section>
     )
+}
+
+BurgerConstructor.propTypes = {
+    cards: PropTypes.array.isRequired
 }
