@@ -3,6 +3,7 @@ import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-com
 import {Modal} from "../modal/modal";
 import {IngredientDetails} from "../ingredient-details/ingredient-details";
 import styles from "./ingredients-card.module.css";
+import PropTypes from "prop-types";
 
 export const IngredientsCard = (card) => {
     const [modalOpened, setModalOpened] = useState(false);
@@ -38,4 +39,8 @@ export const IngredientsCard = (card) => {
                 </Modal>)}
         </div>
     )
+}
+
+IngredientsCard.propTypes = {
+    card: PropTypes.array.isRequired
 }

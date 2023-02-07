@@ -20,23 +20,23 @@ export const App = () => {
             .then(res => {
                 setIngredients(res.data)
             })
-            .then(() => {
-                setIsLoading(true)
-            })
             .catch(err => {
                 console.log(err)
+            })
+            .finally(() => {
+                setIsLoading(true)
             })
     }
 
     useEffect(getIngredients, [])
 
     return (
-        <div className={styles.app}>
+        <body className={styles.app}>
             <AppHeader/>
-            <div className={styles.ingredients_constructor}>
+            <main className={styles.ingredients_constructor}>
                 {isLoading && <BurgerIngredients cards={ingredients}/>}
                 {isLoading && <BurgerConstructor cards={ingredients}/>}
-            </div>
-        </div>
+            </main>
+        </body>
     )
 }
