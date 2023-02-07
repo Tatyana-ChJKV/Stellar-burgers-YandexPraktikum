@@ -1,0 +1,8 @@
+.app {
+    text-align: center;
+}
+
+.ingredients_constructor {
+    display: flex;
+    justify-content: center;
+}
