@@ -15,4 +15,5 @@
 * реализация всплывающих окон
 * отправка запросов на сервер
 
+![BurgersReact](https://user-images.githubusercontent.com/107503153/222435452-059a0714-4422-4f91-b1f1-ef378795a067.png)
 
