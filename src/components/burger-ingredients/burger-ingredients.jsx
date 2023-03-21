@@ -6,13 +6,13 @@ import PropTypes from "prop-types";
 
 export const BurgerIngredients = ({cards}) => {
     const buns = cards.filter(item => item.type === 'bun').map(item => {
-        return IngredientsCard(item)
+        return <IngredientsCard card={item} key={item._id}/>
     });
     const mains = cards.filter(item => item.type === 'main').map(item => {
-        return IngredientsCard(item)
+        return <IngredientsCard card={item} key={item._id}/>
     });
     const sauces = cards.filter(item => item.type === 'sauce').map(item => {
-        return IngredientsCard(item)
+        return <IngredientsCard card={item} key={item._id}/>
     });
 
     return (

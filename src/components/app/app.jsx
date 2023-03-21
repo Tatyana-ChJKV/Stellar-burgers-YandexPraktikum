@@ -31,12 +31,11 @@ export const App = () => {
     useEffect(getIngredients, [])
 
     return (
-        <body className={styles.app}>
+        <main className={styles.app}>
             <AppHeader/>
-            <main className={styles.ingredients_constructor}>
+            <div className={styles.ingredients_constructor}>
                 {isLoading && <BurgerIngredients cards={ingredients}/>}
                 {isLoading && <BurgerConstructor cards={ingredients}/>}
-            </main>
-        </body>
-    )
+            </div>
+        </main>)
 }

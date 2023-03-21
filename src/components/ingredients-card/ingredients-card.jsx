@@ -5,8 +5,9 @@ import {IngredientDetails} from "../ingredient-details/ingredient-details";
 import styles from "./ingredients-card.module.css";
 import PropTypes from "prop-types";
 
-export const IngredientsCard = (card) => {
+export const IngredientsCard = ({card}) => {
     const [modalOpened, setModalOpened] = useState(false);
+
     function openModal() {
         setModalOpened(true)
     }
@@ -42,5 +43,5 @@ export const IngredientsCard = (card) => {
 }
 
 IngredientsCard.propTypes = {
-    card: PropTypes.array.isRequired
+    card: PropTypes.object.isRequired
 }
