@@ -3,9 +3,13 @@ import React, {useState} from "react";
 import {OrderDetails} from "../order-details/order-details";
 import {Modal} from "../modal/modal";
 import styles from "./burger-constructor.module.css"
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
+import {useSelector} from "react-redux";
 
-export const BurgerConstructor = ({cards}) => {
+export const BurgerConstructor = () => {
+
+    const cards = useSelector(state => state.ingredientsStore.data)
+
     function createConstructorCard(card) {
         return (
             <div className={styles.constructor_card} key={card._id}>
@@ -76,6 +80,6 @@ export const BurgerConstructor = ({cards}) => {
     )
 }
 
-BurgerConstructor.propTypes = {
-    cards: PropTypes.array.isRequired
-}
+// BurgerConstructor.propTypes = {
+//     cards: PropTypes.array.isRequired
+// }
