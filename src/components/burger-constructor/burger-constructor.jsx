@@ -3,21 +3,22 @@ import React, {useState} from "react";
 import {OrderDetails} from "../order-details/order-details";
 import {Modal} from "../modal/modal";
 import styles from "./burger-constructor.module.css"
-// import PropTypes from "prop-types";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {addConstructor} from "../../services/reducers/constructor";
 
 export const BurgerConstructor = () => {
 
-    const cards = useSelector(state => state.ingredientsStore.data)
-
-    function createConstructorCard(card) {
+    const bun = useSelector( state => state.constructorStore.bun)
+    // console.log(bun)
+    const card = useSelector( state => state.constructorStore.ingredients)
+    // const price = useSelector()
+    function createConstructorCard() {
         return (
-            <div className={styles.constructor_card} key={card._id}>
+            <div className={styles.constructor_card} key={card.uuid}>
                 <DragIcon type="primary"/>
                 <ConstructorElement
-                    key={card._id}
+                    key={card.uuid}
                     type={card.type}
-                    // isLocked={true}
                     text={card.name}
                     price={card.price}
                     thumbnail={card.image_mobile}
@@ -26,12 +27,13 @@ export const BurgerConstructor = () => {
         )
     }
 
-    const list = cards.filter(item => item.type !== 'bun').map(item => createConstructorCard(item));
+    const list = card.filter(item => item.type !== 'bun').map(item => createConstructorCard(item));
 
     const [modalOpened, setModalOpened] = useState(false);
-
+    // const dispatch = useDispatch();
     function openModal() {
         setModalOpened(true)
+        // dispatch(addConstructor())
     }
 
     function closeModal() {
@@ -42,31 +44,39 @@ export const BurgerConstructor = () => {
         <section className={styles.section_constructor}>
             <div className={`${styles.constructor_element} mt-25`}>
                 <ConstructorElement
+                    {...bun}
                     type="top"
                     isLocked={true}
-                    text="Краторная булка N-200i (верх)"
-                    price={200}
-                    thumbnail='https://code.s3.yandex.net/react/code/bun-02-mobile.png'
+                    // text={`${bun.name} (верх)`}
+                    // price={bun.price}
+                    // thumbnail={bun.image_mobile}
                 />
                 <div className={`${styles.ingredients_scroll} ${styles.constructor_scroll}`}>
+
+
                     {list}
+
+
                 </div>
                 <ConstructorElement
+                    {...bun}
                     type="bottom"
                     isLocked={true}
-                    text="Краторная булка N-200i (низ)"
-                    price={200}
-                    thumbnail='https://code.s3.yandex.net/react/code/bun-02-mobile.png'
+                    // text={`${bun.name} (низ)`}
+                    // price={bun.price}
+                    // thumbnail={bun.image}
                 />
                 <div className={`${styles.price_button_constructor} mt-10 mr-4`}>
                     <div className={`${styles.price_button_elements} mr-10`}>
-                        <p className="text text_type_digits-medium mr-2">610</p>
+                        <p className="text text_type_digits-medium mr-2">price</p>
                         <CurrencyIcon type="primary"/>
                     </div>
                     <Button type="primary"
                             onClick={openModal}
                             htmlType="button"
-                            size="medium">
+                            size="medium"
+                    // disabled={!bun || !ingredients.length}
+                    >
                         Оформить заказ
                     </Button>
                     {modalOpened && (
@@ -79,7 +89,3 @@ export const BurgerConstructor = () => {
         </section>
     )
 }
-
-// BurgerConstructor.propTypes = {
-//     cards: PropTypes.array.isRequired
-// }

@@ -7,8 +7,8 @@ const initialState = {
     error: null
 }
 
-export const fetchIngredients = createAsyncThunk(
-    'ingredients/fetchIngredients',
+export const receiveIngredients = createAsyncThunk(
+    'ingredients/receiveIngredients',
     async (_, {dispatch, getState, rejectWithValue}) => {
         try {
             const data = await getIngredients();
@@ -16,7 +16,6 @@ export const fetchIngredients = createAsyncThunk(
             if (!Array.isArray(data)) {
                 return rejectWithValue({message: 'Ошибка в получении данных', statusCode: 404})
             }
-            // console.log(data)
             return data;
         } catch (error) {
             if (error.statusCode) {
@@ -30,20 +29,17 @@ export const fetchIngredients = createAsyncThunk(
 export const ingredientSlice = createSlice({
     name: 'ingredients',
     initialState,
-    // reducers: {
-    //     addIngredient: (state, action) => {}
-    // },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchIngredients.pending, (state) => {
+            .addCase(receiveIngredients.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
             })
-            .addCase(fetchIngredients.fulfilled, (state, action) => {
+            .addCase(receiveIngredients.fulfilled, (state, action) => {
                 state.data = action.payload;
                 state.isLoading = true;
             })
-            .addCase(fetchIngredients.rejected, (state, action) => {
+            .addCase(receiveIngredients.rejected, (state, action) => {
                 state.error = action.payload;
                 state.isLoading = true;
             })

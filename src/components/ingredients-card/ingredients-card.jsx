@@ -4,12 +4,18 @@ import {Modal} from "../modal/modal";
 import {IngredientDetails} from "../ingredient-details/ingredient-details";
 import styles from "./ingredients-card.module.css";
 import PropTypes from "prop-types";
+import {useDispatch, useSelector} from "react-redux";
+import {addConstructor} from "../../services/reducers/constructor";
 
 export const IngredientsCard = ({card}) => {
+    // console.log(card)
+    const count = useSelector(state => state.constructorStore.counters[card.uuid]);
     const [modalOpened, setModalOpened] = useState(false);
+    const dispatch = useDispatch();
 
     function openModal() {
-        setModalOpened(true)
+        setModalOpened(true);
+        dispatch(addConstructor(card));
     }
 
     function closeModal() {
@@ -18,9 +24,10 @@ export const IngredientsCard = ({card}) => {
 
     return (
         <div className="mb-8"
-             key={card._id}
+             key={card.uuid}
              id="open-modal"
              onClick={openModal}>
+            {/*counter*/}
             <img src={card.image} className={styles.ingredient_image}
                  alt={card.name}/>
             <div className={`${styles.price_flex} mt-1 mb-1`}>
@@ -29,9 +36,9 @@ export const IngredientsCard = ({card}) => {
             </div>
             <p className="text text_type_main-default">{card.name}</p>
             <div className={styles.ingredient_counter}>
-                <Counter count={0}
+                {count && <Counter count={count}
                          size="default"
-                         extraClass="m-1"/>
+                         extraClass="m-1"/>}
             </div>
             {modalOpened && (
                 <Modal onClick={closeModal}
