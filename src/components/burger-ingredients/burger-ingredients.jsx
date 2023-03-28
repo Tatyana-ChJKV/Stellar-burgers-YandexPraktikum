@@ -2,21 +2,19 @@ import React from "react";
 import {TabIngredients} from "../tab-ingredients/tab-ingredients";
 import {IngredientsCard} from "../ingredients-card/ingredients-card";
 import styles from "./burger-ingredients.module.css";
-// import PropTypes from "prop-types";
 import {useSelector} from "react-redux";
 
 export const BurgerIngredients = () => {
-
-    const cards = useSelector(state => state.ingredientsStore.data)
+    const cards = useSelector(state => state.ingredientsStore.data);
 
     const buns = cards.filter(item => item.type === 'bun').map(item => {
-        return <IngredientsCard card={item} key={item._id}/>
+        return <IngredientsCard card={item} key={item.uuid}/>
     });
     const mains = cards.filter(item => item.type === 'main').map(item => {
-        return <IngredientsCard card={item} key={item._id}/>
+        return <IngredientsCard card={item} key={item.uuid}/>
     });
     const sauces = cards.filter(item => item.type === 'sauce').map(item => {
-        return <IngredientsCard card={item} key={item._id}/>
+        return <IngredientsCard card={item} key={item.uuid}/>
     });
 
     return (

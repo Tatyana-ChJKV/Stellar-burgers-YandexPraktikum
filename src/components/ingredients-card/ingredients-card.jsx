@@ -5,7 +5,7 @@ import {IngredientDetails} from "../ingredient-details/ingredient-details";
 import styles from "./ingredients-card.module.css";
 import PropTypes from "prop-types";
 import {useDispatch, useSelector} from "react-redux";
-import {addConstructor} from "../../services/reducers/constructor";
+import {addIngredient} from "../../services/reducers/constructor";
 
 export const IngredientsCard = ({card}) => {
     // console.log(card)
@@ -15,7 +15,7 @@ export const IngredientsCard = ({card}) => {
 
     function openModal() {
         setModalOpened(true);
-        dispatch(addConstructor(card));
+        dispatch(addIngredient(card));
     }
 
     function closeModal() {
