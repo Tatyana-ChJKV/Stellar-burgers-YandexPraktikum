@@ -3,15 +3,14 @@ import React, {useState} from "react";
 import {OrderDetails} from "../order-details/order-details";
 import {Modal} from "../modal/modal";
 import styles from "./burger-constructor.module.css"
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {ConstructorCard} from "./ingredient-card-in-burger-constructor/ingredient-card-in-burger-constructor";
+import {useDrop} from "react-dnd";
+import {addIngredient} from "../../services/reducers/constructor";
 
 export const BurgerConstructor = () => {
     const bun = useSelector(state => state.constructorStore.bun);
-    // console.log(bun)
     const card = useSelector(state => state.constructorStore.ingredients);
-    // console.log(card)
-    // const price = useSelector(state => state.constructorStore.price)
     const [modalOpened, setModalOpened] = useState(false);
     const openModal = () => setModalOpened(true)
     const closeModal = () => setModalOpened(false)
@@ -24,8 +23,18 @@ export const BurgerConstructor = () => {
         }
         return initialPrice
     }
+    const dispatch = useDispatch()
+    const [, dropTarget] = useDrop({
+        accept: "card",
+        drop(card) {
+            dispatch(addIngredient(card));
+        },
+    });
+
     return (
-        <section className={styles.section_constructor}>
+        <section ref={dropTarget}
+                 className={styles.section_constructor}
+        >
             <div className={`${styles.constructor_element} mt-25`}>
                 {bun && <ConstructorElement
                     type="top"
@@ -36,7 +45,9 @@ export const BurgerConstructor = () => {
                 />}
                 {/*<div className={`${styles.ingredients_scroll} ${styles.constructor_scroll}`}>*/}
                 <div className={styles.ingredients_scroll}>
-                    {card.filter(item => item.type !== 'bun').map((card) => <ConstructorCard card={card}/>)}
+                    {card.filter(item => item.type !== 'bun').map((card, index) =>
+                        (<div key={card.uuid}><ConstructorCard card={card} index={index}/></div>)
+                    )}
                 </div>
                 {bun && <ConstructorElement
                     type="bottom"
@@ -47,7 +58,9 @@ export const BurgerConstructor = () => {
                 />}
                 <div className={`${styles.price_button_constructor} mt-10 mr-4`}>
                     <div className={`${styles.price_button_elements} mr-10`}>
-                        <p className="text text_type_digits-medium mr-2">{getPrice(card)}</p>
+                        <p className="text text_type_digits-medium mr-2">
+                            {getPrice(card)}
+                        </p>
                         <CurrencyIcon type="primary"/>
                     </div>
                     <Button type="primary"
@@ -62,7 +75,8 @@ export const BurgerConstructor = () => {
                         <Modal onClick={closeModal}
                                modalHeader=" ">
                             <OrderDetails/>
-                        </Modal>)}
+                        </Modal>)
+                    }
                 </div>
             </div>
         </section>

@@ -5,6 +5,8 @@ import styles from "./app.module.css"
 import {useDispatch} from "react-redux";
 import {receiveIngredients} from "../../services/reducers/ingredients";
 import {useEffect} from "react";
+import {DndProvider} from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend";
 
 export const App = () => {
 
@@ -18,8 +20,11 @@ export const App = () => {
         <main className={styles.app}>
             <AppHeader/>
             <div className={styles.ingredients_constructor}>
-                <BurgerIngredients/>
-                <BurgerConstructor/>
+                <DndProvider backend={HTML5Backend}>
+                    <BurgerIngredients/>
+                    <BurgerConstructor/>
+                </DndProvider>
             </div>
-        </main>)
+        </main>
+    )
 }
