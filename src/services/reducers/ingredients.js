@@ -9,10 +9,9 @@ const initialState = {
 
 export const receiveIngredients = createAsyncThunk(
     'ingredients/receiveIngredients',
-    async (_, {dispatch, getState, rejectWithValue}) => {
+    async (_, { rejectWithValue}) => {
         try {
             const data = await getIngredients();
-            // dispatch
             if (!Array.isArray(data)) {
                 return rejectWithValue({message: 'Ошибка в получении данных', statusCode: 404})
             }
@@ -40,11 +39,10 @@ export const ingredientSlice = createSlice({
                 state.isLoading = true;
             })
             .addCase(receiveIngredients.rejected, (state, action) => {
-                state.error = action.payload;
                 state.isLoading = true;
-            })
-
+                state.error = action.payload;
+            });
     },
-})
+});
 
 export default ingredientSlice.reducer;
