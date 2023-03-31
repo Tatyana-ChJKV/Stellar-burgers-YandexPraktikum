@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {App} from "./components/app/app";
 import './index.css';
-import store from "./services/reducers/store";
+import store from "./services/store";
 import {Provider} from "react-redux";
 // import {compose, createStore, applyMiddleware} from 'redux';
 // import thunk from "redux-thunk";
-// import {rootReducer} from './services/reducers/root-reducer';
+// import {rootReducer} from './services/slices/root-reducer';
 
 // const composeEnhancers =
 //     typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__

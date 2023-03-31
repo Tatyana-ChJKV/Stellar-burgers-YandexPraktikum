@@ -6,52 +6,56 @@ import styles from "./burger-constructor.module.css"
 import {useDispatch, useSelector} from "react-redux";
 import {ConstructorCard} from "./ingredient-card-in-burger-constructor/ingredient-card-in-burger-constructor";
 import {useDrop} from "react-dnd";
-import {addIngredient, clearConstructor} from "../../services/reducers/constructor";
-import {makeOrder} from "../../services/reducers/order";
-import {resetOrder} from "../../services/reducers/order";
+import {addIngredient, clearConstructor} from "../../services/slices/constructorSlice";
+import {makeOrder} from "../../services/slices/orderSlice";
+// import {ingredientSlice} from "../../services/slices/ingredientsSlice";
+// import {resetOrder} from "../../services/slices/orderSlice";
 
 export const BurgerConstructor = () => {
     const bun = useSelector(state => state.constructorStore.bun);
     const card = useSelector(state => state.constructorStore.ingredients);
     const dispatch = useDispatch()
-    const [modalOpened, setModalOpened] = useState(false);
     const order = useSelector(state => state.orderStore.order);
-    // console.log(order)
     // *Оператор опциональной последовательности
     const number = order?.order.number;
-    // console.log(number)
+    const [modalOpened, setModalOpened] = useState(false);
 
     const orderNumber = () => {
-        dispatch(makeOrder({
-            ingredients: bun._id,
-            ...card.map((ingredient) => ingredient._id)
-        }))
+        const ingredientsId = {
+            ingredients: card.map((ingredient) => ingredient._id)
+        };
+        dispatch(makeOrder(ingredientsId))
     }
 
     const openModal = () => {
-        setModalOpened(true)
-        orderNumber()
+        setModalOpened(true);
+        orderNumber();
     }
     const closeModal = () => {
-        setModalOpened(false)
+        setModalOpened(false);
         // dispatch(resetOrder())
-        dispatch(clearConstructor())
+        dispatch(clearConstructor());
     }
-    const getPrice = (card) => {
-        let initialPrice = 0
-        if (card.length > 0) {
-            initialPrice = initialPrice + card.reduce((sum, ingredient) => {
-                return sum + ingredient.price
-            }, 0)
-        }
-        return initialPrice
-    }
+
     const [, dropTarget] = useDrop({
         accept: "card",
         drop(card) {
             dispatch(addIngredient(card));
-        },
+        }
     });
+
+    const getPrice = () => {
+        let initialPrice = 0;
+        if (card.length > 0) {
+            card.filter(ingredient => ingredient.type !== "bun").forEach(ingredient => {
+                initialPrice += ingredient.price;
+            })
+        }
+        if (bun) {
+            initialPrice += bun.price * 2;
+        }
+        return initialPrice;
+    };
 
     return (
         <section ref={dropTarget}
@@ -65,9 +69,9 @@ export const BurgerConstructor = () => {
                     price={bun.price}
                     thumbnail={bun.image_mobile}
                 />}
-                {/*<div className={`${styles.ingredients_scroll} ${styles.constructor_scroll}`}>*/}
-                <div className={styles.ingredients_scroll}>
-                    {card.filter(item => item.type !== 'bun').map((card, index) =>
+                <div className={`${styles.ingredients_scroll} ${styles.constructor_scroll}`}>
+                {/*<div className={styles.ingredients_scroll}>*/}
+                    {card.filter(ingredient => ingredient.type !== 'bun').map((card, index) =>
                         (<div key={card.uuid}><ConstructorCard card={card} index={index}/></div>)
                     )}
                 </div>

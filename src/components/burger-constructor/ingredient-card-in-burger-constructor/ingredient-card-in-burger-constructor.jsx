@@ -2,18 +2,15 @@ import styles from "../burger-constructor.module.css";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import React, {useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteIngredient, orderIngredients} from "../../../services/reducers/constructor";
+import {deleteIngredient, orderIngredients} from "../../../services/slices/constructorSlice";
 import {useDrag, useDrop} from "react-dnd";
 
 export const ConstructorCard = ({card, index}) => {
-    // const card = useSelector( state => state.constructorStore.ingredients)
-    // console.log(card.price)
     const dispatch = useDispatch()
     const deleteCard = (card) => dispatch(deleteIngredient(card));
 
-
-
     const ref = useRef()
+
     const [, dropTarget] = useDrop({
         accept: "ingredient",
         hover(item, monitor) {
@@ -51,12 +48,14 @@ export const ConstructorCard = ({card, index}) => {
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
-        previewOptions: {
-            showPreview: false, // отключить подложку
-        }
+        // previewOptions: {
+        //     showPreview: false, // отключить подложку
+        // }
     });
     const opacity = isDragging ? 0.3 : 2
-            dragTarget(dropTarget(dragPreview(ref)))
+
+    dragTarget(dropTarget(dragPreview(ref)))
+
     return (
         <div ref={ref}
              style={{opacity}}

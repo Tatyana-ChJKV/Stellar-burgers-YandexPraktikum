@@ -1,27 +1,23 @@
-import React, {useState} from "react";
+import React from "react";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./tab-ingredients.module.css";
 
-export const TabIngredients = () => {
-    const [current, setCurrent] = useState('one');
-
-    const scrollToTab = (tab) => {
-        setCurrent(tab);
-        const element = document.getElementById(tab);
-        if (element) {
-            element.scrollIntoView({behavior: 'smooth', block: 'start'})
-        }
-    };
-
+export const TabIngredients = ({current, scrollToTab}) => {
     return (
         <div className={styles.flex}>
-            <Tab value="buns" active={current === 'buns'} onClick={scrollToTab}>
+            <Tab value="bun"
+                 active={current === 'bun'}
+                 onClick={() => scrollToTab('bun')}>
                 Булки
             </Tab>
-            <Tab value="sauces" active={current === 'sauces'} onClick={scrollToTab}>
+            <Tab value="sauce"
+                 active={current === 'sauce'}
+                 onClick={() => scrollToTab('sauce')}>
                 Соусы
             </Tab>
-            <Tab value="mains" active={current === 'mains'} onClick={scrollToTab}>
+            <Tab value="main"
+                 active={current === 'main'}
+                 onClick={() => scrollToTab('main')}>
                 Начинки
             </Tab>
         </div>
