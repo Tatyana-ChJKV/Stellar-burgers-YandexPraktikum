@@ -1,5 +1,6 @@
 import DonePicture from "../../images/done.svg"
 import styles from "./order-details.module.css"
+import PropTypes from "prop-types";
 
 export const OrderDetails = ({orderNumber}) => {
     // console.log(orderNumber)
@@ -14,4 +15,8 @@ export const OrderDetails = ({orderNumber}) => {
             <p className="text text_type_main-default text_color_inactive">Дождитесь готовности на орбитальной станции</p>
         </div>
     )
+}
+
+OrderDetails.propTypes = {
+    orderNumber: PropTypes.any.isRequired
 }

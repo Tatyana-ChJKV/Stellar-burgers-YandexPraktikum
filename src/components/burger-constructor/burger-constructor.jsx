@@ -2,21 +2,19 @@ import {Button, ConstructorElement, CurrencyIcon} from "@ya.praktikum/react-deve
 import React, {useState} from "react";
 import {OrderDetails} from "../order-details/order-details";
 import {Modal} from "../modal/modal";
-import styles from "./burger-constructor.module.css"
+import styles from "./burger-constructor.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {ConstructorCard} from "./ingredient-card-in-burger-constructor/ingredient-card-in-burger-constructor";
 import {useDrop} from "react-dnd";
 import {addIngredient, clearConstructor} from "../../services/slices/constructorSlice";
 import {makeOrder} from "../../services/slices/orderSlice";
-// import {ingredientSlice} from "../../services/slices/ingredientsSlice";
-// import {resetOrder} from "../../services/slices/orderSlice";
 
 export const BurgerConstructor = () => {
     const bun = useSelector(state => state.constructorStore.bun);
     const card = useSelector(state => state.constructorStore.ingredients);
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const order = useSelector(state => state.orderStore.order);
-    // *Оператор опциональной последовательности
+    // *? Оператор опциональной последовательности
     const number = order?.order.number;
     const [modalOpened, setModalOpened] = useState(false);
 
@@ -25,17 +23,17 @@ export const BurgerConstructor = () => {
             ingredients: card.map((ingredient) => ingredient._id)
         };
         dispatch(makeOrder(ingredientsId))
-    }
+    };
 
     const openModal = () => {
         setModalOpened(true);
         orderNumber();
-    }
+    };
+
     const closeModal = () => {
         setModalOpened(false);
-        // dispatch(resetOrder())
         dispatch(clearConstructor());
-    }
+    };
 
     const [, dropTarget] = useDrop({
         accept: "card",
@@ -70,7 +68,6 @@ export const BurgerConstructor = () => {
                     thumbnail={bun.image_mobile}
                 />}
                 <div className={`${styles.ingredients_scroll} ${styles.constructor_scroll}`}>
-                {/*<div className={styles.ingredients_scroll}>*/}
                     {card.filter(ingredient => ingredient.type !== 'bun').map((card, index) =>
                         (<div key={card.uuid}><ConstructorCard card={card} index={index}/></div>)
                     )}

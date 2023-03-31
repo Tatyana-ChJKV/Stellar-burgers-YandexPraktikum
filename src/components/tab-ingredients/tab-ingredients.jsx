@@ -1,6 +1,7 @@
 import React from "react";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./tab-ingredients.module.css";
+import PropTypes from "prop-types";
 
 export const TabIngredients = ({current, scrollToTab}) => {
     return (
@@ -22,4 +23,9 @@ export const TabIngredients = ({current, scrollToTab}) => {
             </Tab>
         </div>
     )
+}
+
+TabIngredients.propTypes = {
+    current: PropTypes.string.isRequired,
+    scrollToTab: PropTypes.func.isRequired
 }

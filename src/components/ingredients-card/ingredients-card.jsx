@@ -8,7 +8,7 @@ import {useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
 
 export const IngredientsCard = ({card}) => {
-    // console.log(card)
+    console.log(card)
     const count = useSelector(state => state.constructorStore.counters[card.uuid]);
     const [modalOpened, setModalOpened] = useState(false);
 
@@ -38,7 +38,7 @@ export const IngredientsCard = ({card}) => {
             </div>
             <p className="text text_type_main-default">{card.name}</p>
             <div className={styles.ingredient_counter}>
-                {count &&
+                {count > 0 &&
                     <Counter count={count}
                              size="default"
                              extraClass="m-1"/>

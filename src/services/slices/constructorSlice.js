@@ -1,13 +1,10 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {v4 as uuidv4} from "uuid";
-// import ingredients from "./ingredients";
-// import ingredients from "./ingredients";
 
 const initialState = {
     bun: null,
     ingredients: [],
-    counters: {},
-    // price: 0
+    counters: {}
 }
 
 export const constructorSlice = createSlice({
@@ -16,15 +13,17 @@ export const constructorSlice = createSlice({
     reducers: {
         addIngredient: (state, action) => {
             if (action.payload.type === 'bun') {
-                state.bun = {...action.payload, uuid: uuidv4()}
-                // state.counters[state.bun.uuid] = 0
-            }
-            // state.counters[action.payload.uuid] = 2
+                if (state.bun) {
 
-            // if (action.payload.type !== 'bun') {
+                    state.counters[state.bun.uuid] = 0
+                }
+                state.bun = {...action.payload, uuid: uuidv4()}
+                state.counters[action.payload.uuid] = 2
+            }
+            if (action.payload.type !== 'bun') {
             state.ingredients.push({...action.payload, uuid: uuidv4()})
             state.counters[action.payload.uuid] = state.counters[action.payload.uuid] ? state.counters[action.payload.uuid] + 1 : 1
-            // }
+            }
         },
         deleteIngredient: (state, action) => {
             state.ingredients = state.ingredients.filter(ingredients => (
@@ -38,14 +37,20 @@ export const constructorSlice = createSlice({
             state.ingredients.splice(dragIndex, 1);
             state.ingredients.splice(hoverIndex, 0, dragIngredients);
         },
-        clearConstructor: (state, action) => {
+        clearConstructor: (state) => {
             state.bun = initialState.bun
             state.ingredients = initialState.ingredients
             state.counters = initialState.counters
         }
     }
-})
+});
 
-export const {addIngredient, deleteIngredient, orderIngredients, clearConstructor} = constructorSlice.actions;
+export const {
+    addIngredient,
+    deleteIngredient,
+    orderIngredients,
+    clearConstructor
+} = constructorSlice.actions;
+
 export default constructorSlice.reducer;
 
