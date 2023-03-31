@@ -93,7 +93,7 @@ export const BurgerConstructor = () => {
                             disabled={!bun}>
                         Оформить заказ
                     </Button>
-                    {modalOpened && (
+                    {modalOpened && number && (
                         <Modal onClick={closeModal}
                                modalHeader=" ">
                             <OrderDetails orderNumber={number}/>

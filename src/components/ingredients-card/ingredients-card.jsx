@@ -8,8 +8,8 @@ import {useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
 
 export const IngredientsCard = ({card}) => {
-    console.log(card)
-    const count = useSelector(state => state.constructorStore.counters[card.uuid]);
+    // console.log(card)
+    const count = useSelector(state => state.constructorStore.counters[card._id]);
     const [modalOpened, setModalOpened] = useState(false);
 
     const openModal = () => setModalOpened(true);
