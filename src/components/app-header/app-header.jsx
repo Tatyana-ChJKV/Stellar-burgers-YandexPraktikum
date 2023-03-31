@@ -26,4 +26,4 @@ export const AppHeader = () => {
             </div>
         </header>
     )
-}
+};

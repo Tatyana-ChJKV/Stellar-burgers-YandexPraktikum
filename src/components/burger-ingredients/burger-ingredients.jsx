@@ -67,4 +67,4 @@ export const BurgerIngredients = () => {
                     </div>
                 </section>
     )
-}
+};

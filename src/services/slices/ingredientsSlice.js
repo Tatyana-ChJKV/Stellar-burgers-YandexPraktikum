@@ -5,11 +5,11 @@ const initialState = {
     data: [],
     isLoading: false,
     error: null
-}
+};
 
 export const receiveIngredients = createAsyncThunk(
     'ingredients/receiveIngredients',
-    async (_, { rejectWithValue}) => {
+    async (_, {rejectWithValue}) => {
         try {
             const data = await getIngredients();
             if (!Array.isArray(data)) {
@@ -23,7 +23,7 @@ export const receiveIngredients = createAsyncThunk(
             return rejectWithValue({message: 'Ошибка на стороне сервера'})
         }
     }
-)
+);
 
 export const ingredientSlice = createSlice({
     name: 'ingredients',
@@ -41,8 +41,8 @@ export const ingredientSlice = createSlice({
             .addCase(receiveIngredients.rejected, (state, action) => {
                 state.isLoading = true;
                 state.error = action.payload;
-            });
-    },
+            })
+    }
 });
 
 export default ingredientSlice.reducer;

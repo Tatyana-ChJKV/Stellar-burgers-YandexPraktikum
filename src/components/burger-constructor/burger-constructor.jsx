@@ -90,7 +90,7 @@ export const BurgerConstructor = () => {
                             onClick={openModal}
                             htmlType="button"
                             size="medium"
-                            disabled={!bun}>
+                            disabled={!card.length || !bun}>
                         Оформить заказ
                     </Button>
                     {modalOpened && number && (
@@ -103,4 +103,4 @@ export const BurgerConstructor = () => {
             </div>
         </section>
     )
-}
+};

@@ -27,4 +27,4 @@ export const App = () => {
             </div>
         </main>
     )
-}
+};

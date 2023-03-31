@@ -3,7 +3,7 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 const initialState = {
     order: null,
     isLoading: false,
-    error: null,
+    error: null
 };
 
 export const makeOrder = createAsyncThunk(
@@ -44,11 +44,8 @@ const orderSlice = createSlice({
             .addCase(makeOrder.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
-            });
-    },
+            })
+    }
 });
 
-
 export default orderSlice.reducer;
-
-// export const getOrder = state => state.order.order
