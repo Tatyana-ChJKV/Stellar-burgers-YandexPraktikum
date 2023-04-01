@@ -1,7 +1,7 @@
 import {configureStore} from "@reduxjs/toolkit";
-import ingredients from "./slices/ingredientsSlice";
-import constructor from "./slices/constructorSlice";
-import order from "./slices/orderSlice"
+import ingredients from "./slices/ingredients-slice";
+import constructor from "./slices/constructor-slice";
+import order from "./slices/order-slice"
 
 export const store = configureStore({
     reducer: {

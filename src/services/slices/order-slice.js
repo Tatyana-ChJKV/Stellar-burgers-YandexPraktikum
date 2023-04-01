@@ -1,4 +1,5 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {BASE_URL} from "../../utils/api";
 
 const initialState = {
     order: null,
@@ -10,7 +11,7 @@ export const makeOrder = createAsyncThunk(
     'order/makeOrder',
     async (ingredients, {rejectWithValue}) => {
         try {
-            const response = await fetch('https://norma.nomoreparties.space/api/orders', {
+            const response = await fetch(`${BASE_URL}/orders`, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

@@ -6,8 +6,8 @@ import styles from "./burger-constructor.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {ConstructorCard} from "./ingredient-card-in-burger-constructor/ingredient-card-in-burger-constructor";
 import {useDrop} from "react-dnd";
-import {addIngredient, clearConstructor} from "../../services/slices/constructorSlice";
-import {makeOrder} from "../../services/slices/orderSlice";
+import {addIngredient, clearConstructor} from "../../services/slices/constructor-slice";
+import {makeOrder} from "../../services/slices/order-slice";
 
 export const BurgerConstructor = () => {
     const bun = useSelector(state => state.constructorStore.bun);
@@ -68,9 +68,9 @@ export const BurgerConstructor = () => {
                     thumbnail={bun.image_mobile}
                 />}
                 <div className={`${styles.ingredients_scroll} ${styles.constructor_scroll}`}>
-                    {card.filter(ingredient => ingredient.type !== 'bun').map((card, index) =>
-                        (<div key={card.uuid}><ConstructorCard card={card} index={index}/></div>)
-                    )}
+                    {card.filter(ingredient => ingredient.type !== 'bun').map((card, index) => (
+                        <ConstructorCard key={card.uuid} card={card} index={index}/>
+                    ))}
                 </div>
                 {bun && <ConstructorElement
                     type="bottom"
