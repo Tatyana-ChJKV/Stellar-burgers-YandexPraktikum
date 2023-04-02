@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {getIngredients} from "../../utils/get-ingredients";
+import {BASE_URL} from "../../utils/api";
+import {checkResponse} from "../../utils/check-response";
 
 const initialState = {
     data: [],
@@ -9,19 +10,14 @@ const initialState = {
 
 export const receiveIngredients = createAsyncThunk(
     'ingredients/receiveIngredients',
-    async (_, {rejectWithValue}) => {
-        try {
-            const data = await getIngredients();
-            if (!Array.isArray(data)) {
-                return rejectWithValue({message: 'Ошибка в получении данных', statusCode: 404})
-            }
-            return data;
-        } catch (error) {
-            if (error.statusCode) {
-                return rejectWithValue(error)
-            }
-            return rejectWithValue({message: 'Ошибка на стороне сервера'})
-        }
+    async (_) => {
+        return await fetch(`${BASE_URL}/ingredients`)
+            .then(checkResponse)
+            .then(data => {
+                if (data.success) {
+                    return data.data;
+                }
+            })
     }
 );
 

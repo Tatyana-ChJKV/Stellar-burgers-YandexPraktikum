@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {BASE_URL} from "../../utils/api";
+import {checkResponse} from "../../utils/check-response";
 
 const initialState = {
     order: null,
@@ -9,8 +10,7 @@ const initialState = {
 
 export const makeOrder = createAsyncThunk(
     'order/makeOrder',
-    async (ingredients, {rejectWithValue}) => {
-        try {
+    async (ingredients) => {
             const response = await fetch(`${BASE_URL}/orders`, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -18,13 +18,7 @@ export const makeOrder = createAsyncThunk(
                 method: 'POST',
                 body: JSON.stringify(ingredients),
             })
-            return await response.json();
-        } catch (error) {
-            if (error.statusCode) {
-                return rejectWithValue(error)
-            }
-            return rejectWithValue({message: 'Ошибка в получении данных'})
-        }
+            return checkResponse(response);
     }
 );
 
