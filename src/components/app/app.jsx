@@ -7,6 +7,12 @@ import {receiveIngredients} from "../../services/slices/ingredients-slice";
 import {useEffect} from "react";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {RegisterPage} from "../../pages/register/register-page";
+import {LoginPage} from "../../pages/login/login-page";
+import {ResetPasswordPage} from "../../pages/reset-password/reset-password-page";
+import {ForgotPasswordPage} from "../../pages/forgot-password/forgot-password-page";
+import {ProfilePage} from "../../pages/profile/profile-page";
 
 export const App = () => {
 
@@ -17,6 +23,7 @@ export const App = () => {
     }, [dispatch])
 
     return (
+        <>
         <div className={styles.app}>
             <AppHeader/>
             <main className={styles.ingredients_constructor}>
@@ -26,5 +33,17 @@ export const App = () => {
                 </DndProvider>
             </main>
         </div>
+        <BrowserRouter>
+             <Routes>
+                 {/*<Route path="/" element={<ProfilePage/>} />*/}
+                 {/*<Route path="/" element={<RegisterPage/>} />*/}
+                 {/*<Route path="/" element={<LoginPage/>} />*/}
+                 {/*<Route path="/" element={<ForgotPasswordPage/>} />*/}
+                 <Route path="/" element={<ResetPasswordPage/>} />
+
+
+             </Routes>
+         </BrowserRouter>
+        </>
     )
 };
