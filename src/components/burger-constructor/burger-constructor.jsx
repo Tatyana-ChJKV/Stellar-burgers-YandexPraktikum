@@ -8,6 +8,7 @@ import {ConstructorCard} from "./ingredient-card-in-burger-constructor/ingredien
 import {useDrop} from "react-dnd";
 import {addIngredient, clearConstructor} from "../../services/slices/constructor-slice";
 import {makeOrder} from "../../services/slices/order-slice";
+import {NavLink} from "react-router-dom";
 
 export const BurgerConstructor = () => {
     const bun = useSelector(state => state.constructorStore.bun);
@@ -86,13 +87,15 @@ export const BurgerConstructor = () => {
                         </p>
                         <CurrencyIcon type="primary"/>
                     </div>
-                    <Button type="primary"
-                            onClick={openModal}
-                            htmlType="button"
-                            size="medium"
-                            disabled={!card.length || !bun}>
-                        Оформить заказ
-                    </Button>
+                    <NavLink to={'/login'}>
+                        <Button type="primary"
+                                onClick={openModal}
+                                htmlType="button"
+                                size="medium"
+                                disabled={!card.length || !bun}>
+                            Оформить заказ
+                        </Button>
+                    </NavLink>
                     {modalOpened && number && (
                         <Modal onClick={closeModal}
                                modalHeader=" ">

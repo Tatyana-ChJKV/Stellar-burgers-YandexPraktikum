@@ -5,6 +5,7 @@ import styles from "../login/login-page.module.css"
 export const ResetPasswordPage = () => {
     const [value, setValue] = useState('')
     const onChange = e => {
+        e.preventDefault()
         setValue(e.target.value)
     }
 
