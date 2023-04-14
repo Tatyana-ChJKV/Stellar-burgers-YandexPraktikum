@@ -4,3 +4,9 @@
     align-items: center;
     margin: 180px auto;
 }
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

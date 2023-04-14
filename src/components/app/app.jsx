@@ -5,8 +5,6 @@ import styles from "./app.module.css"
 import {useDispatch} from "react-redux";
 import {receiveIngredients} from "../../services/slices/ingredients-slice";
 import {useEffect} from "react";
-import {DndProvider} from "react-dnd";
-import {HTML5Backend} from "react-dnd-html5-backend";
 import {Route, Routes} from "react-router-dom";
 import {RegisterPage} from "../../pages/register/register-page";
 import {LoginPage} from "../../pages/login/login-page";
@@ -15,6 +13,7 @@ import {ForgotPasswordPage} from "../../pages/forgot-password/forgot-password-pa
 import {ProfilePage} from "../../pages/profile/profile-page";
 import {AppHeaderFrame} from "../app-header-frame/app-header-frame";
 import {MainPage} from "../main-page/main-page";
+import {ProtectedRoute} from "../protected-route/protected-route";
 
 export const App = () => {
 
@@ -29,12 +28,30 @@ export const App = () => {
             <Routes>
                 <Route path="/" element={<AppHeaderFrame/>}>
                     <Route path="/" element={<MainPage/>}/>
-                    <Route path="/profile" element={<ProfilePage/>}/>
-                    <Route path="/register" element={<RegisterPage/>}/>
+                    <Route path="/profile" element={
+                        <ProtectedRoute onlyUnAuth>
+                            <ProfilePage/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/register" element={
+                        <ProtectedRoute onlyUnAuth>
+                            <RegisterPage/>
+                        </ProtectedRoute>
+                    }/>
                     <Route path="/login" element={<LoginPage/>}/>
-                    <Route path="/forgot-password" element={<ForgotPasswordPage/>}/>
-                    <Route path="/reset-password" element={<ResetPasswordPage/>}/>
+                    <Route path="/forgot-password" element={
+                        <ProtectedRoute onlyUnAuth>
+                            <ForgotPasswordPage/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/reset-password" element={
+                        <ProtectedRoute onlyUnAuth>
+                            <ResetPasswordPage/>
+                        </ProtectedRoute>
+                    }/>
                 </Route>
+                {/*стилизовать 404*/}
+                <Route path='*' element={<div> 404 </div>}/>
             </Routes>
         </>
     )

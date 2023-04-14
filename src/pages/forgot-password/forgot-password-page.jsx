@@ -1,33 +1,48 @@
-import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useState} from "react";
 import styles from "../login/login-page.module.css"
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 
 export const ForgotPasswordPage = () => {
-    const [value, setValue] = useState('')
-    const onChange = e => {
-        setValue(e.target.value)
-    }
+    const navigate = useNavigate()
+    const [userData, setUserData] = useState({
+        email: ''
+    });
+
+    const handleChange = e => {
+        const {name, value} = e.target;
+        setUserData({
+            ...userData,
+            [name]: value
+        });
+    };
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        navigate('/reset-password')
+    };
 
     return (
         <div className={styles.login_modal}>
             <p className="text text_type_main-medium mb-6">Восстановление пароля</p>
-            <EmailInput
-                onChange={onChange}
-                value={value}
-                name={'email'}
-                isIcon={false}
-                extraClass="mb-6"
-                placeholder="Укажите e-mail"
-            />
-            <NavLink to={'/reset-password'}>
-                <Button htmlType="button"
+            <form onSubmit={handleSubmit}
+                  className={styles.form}>
+                <EmailInput
+                    autoFocus
+                    onChange={handleChange}
+                    value={userData.email}
+                    name={'email'}
+                    isIcon={false}
+                    extraClass="mb-6"
+                    placeholder="Укажите e-mail"
+                />
+                <Button htmlType="submit"
                         type="primary"
                         size="medium"
                         extraClass="ml-2">
                     Восстановить
                 </Button>
-            </NavLink>
+            </form>
             <p className="mt-20 pb-1 text text_type_main-default text_color_inactive">Вспомнили пароль?
                 <NavLink to={'/login'}>
                     <Button htmlType="button"
