@@ -24,6 +24,7 @@
     border-radius: 40px;
     border-style: none;
     background-color: transparent;
+    text-underline: none;
 }
 
 .header_element:hover {
@@ -41,4 +42,8 @@
 
 .header_element_profile_icon {
     justify-self: end;
+}
+
+.delete_underline_text {
+    text-decoration: none;
 }

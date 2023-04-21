@@ -3,7 +3,7 @@ import {useState} from "react";
 import styles from "./login-page.module.css"
 import {NavLink, useNavigate} from "react-router-dom";
 
-export const LoginPage = () => {
+export const LoginPage = ({onLogin}) => {
     const navigate = useNavigate()
     const [userData, setUserData] = useState({
         email: '',
@@ -20,7 +20,8 @@ export const LoginPage = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        navigate('/')
+        // navigate('/')
+        onLogin(userData)
     };
 
     return (

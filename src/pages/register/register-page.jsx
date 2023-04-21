@@ -3,7 +3,7 @@ import {useRef, useState} from "react";
 import styles from "./register-page.module.css"
 import {NavLink, useNavigate} from "react-router-dom";
 
-export const RegisterPage = () => {
+export const RegisterPage = ({onRegister}) => {
     const navigate = useNavigate()
     const [userData, setUserData] = useState({
         name: '',
@@ -21,7 +21,8 @@ export const RegisterPage = () => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        navigate('/')
+        onRegister(userData)
+        // navigate('/')
     };
 
     return (

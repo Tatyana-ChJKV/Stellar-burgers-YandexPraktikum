@@ -1,7 +1,3 @@
-import {AppHeader} from "../app-header/app-header";
-import {BurgerIngredients} from "../burger-ingredients/burger-ingredients";
-import {BurgerConstructor} from "../burger-constructor/burger-constructor";
-import styles from "./app.module.css"
 import {useDispatch} from "react-redux";
 import {receiveIngredients} from "../../services/slices/ingredients-slice";
 import {useEffect} from "react";
@@ -14,6 +10,8 @@ import {ProfilePage} from "../../pages/profile/profile-page";
 import {AppHeaderFrame} from "../app-header-frame/app-header-frame";
 import {MainPage} from "../main-page/main-page";
 import {ProtectedRoute} from "../protected-route/protected-route";
+import {Page404} from "../../pages/page-404/page-404";
+import {checkUserAuth, forgotPassword, loginUser, registerUser} from "../../services/slices/authorization-slice";
 
 export const App = () => {
 
@@ -22,6 +20,22 @@ export const App = () => {
     useEffect(() => {
         dispatch(receiveIngredients())
     }, [dispatch])
+
+    useEffect(() => {
+        dispatch(checkUserAuth())
+    }, [dispatch])
+
+    const onRegister = (userData) => {
+        dispatch(registerUser(userData))
+    };
+
+    const onLogin = (userData) => {
+        dispatch(loginUser(userData))
+    };
+
+    const onForgotPassword = (userData) => {
+        dispatch(forgotPassword(userData))
+    };
 
     return (
         <>
@@ -35,13 +49,14 @@ export const App = () => {
                     }/>
                     <Route path="/register" element={
                         <ProtectedRoute onlyUnAuth>
-                            <RegisterPage/>
+                            <RegisterPage onRegister={onRegister}/>
                         </ProtectedRoute>
                     }/>
-                    <Route path="/login" element={<LoginPage/>}/>
+                    <Route path="/login" element={
+                        <LoginPage onLogin={onLogin}/>}/>
                     <Route path="/forgot-password" element={
                         <ProtectedRoute onlyUnAuth>
-                            <ForgotPasswordPage/>
+                            <ForgotPasswordPage onForgotPassword={onForgotPassword}/>
                         </ProtectedRoute>
                     }/>
                     <Route path="/reset-password" element={
@@ -50,8 +65,7 @@ export const App = () => {
                         </ProtectedRoute>
                     }/>
                 </Route>
-                {/*стилизовать 404*/}
-                <Route path='*' element={<div> 404 </div>}/>
+                <Route path='*' element={<Page404 />}/>
             </Routes>
         </>
     )

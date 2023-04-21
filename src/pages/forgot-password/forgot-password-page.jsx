@@ -3,7 +3,7 @@ import {useState} from "react";
 import styles from "../login/login-page.module.css"
 import {NavLink, useNavigate} from "react-router-dom";
 
-export const ForgotPasswordPage = () => {
+export const ForgotPasswordPage = ({onForgotPassword}) => {
     const navigate = useNavigate()
     const [userData, setUserData] = useState({
         email: ''
@@ -19,7 +19,16 @@ export const ForgotPasswordPage = () => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        navigate('/reset-password')
+        onForgotPassword(userData)
+        // if (payload?.success) {
+        //     navigate("/reset-password", {
+        //         state: {
+        //             fromResetPassword: true,
+        //         },
+        //         replace: true,
+        //     });
+        // }
+        // navigate('/reset-password')
     };
 
     return (

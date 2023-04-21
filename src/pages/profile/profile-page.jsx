@@ -34,14 +34,17 @@ export const ProfilePage = () => {
     return (
         <div className={styles.profile_main}>
             <div className="mr-15">
-                <NavLink to={'/profile'}>
-                    <p className={`${styles.menu_text} text text_type_main-medium`}>Профиль</p>
+                <NavLink to={'/profile'}
+                         className={styles.delete_underline_text}>
+                    <p className={`${styles.menu_text} text text_color_primary text_type_main-medium`}>Профиль</p>
                 </NavLink>
-                <NavLink to={'/orders'}>
+                <NavLink to={'/orders'}
+                         className={styles.delete_underline_text}>
                     <p className={`${styles.menu_text} text text_type_main-medium text_color_inactive`}>История
                         заказов</p>
                 </NavLink>
-                <NavLink to={'*'}>
+                <NavLink to={'*'}
+                         className={styles.delete_underline_text}>
                     <p className={`${styles.menu_text} text text_type_main-medium text_color_inactive`}>Выход</p>
                 </NavLink>
                 <p className={`${styles.menu_text} mt-20 text text_type_main-default text_color_inactive`}>В этом
