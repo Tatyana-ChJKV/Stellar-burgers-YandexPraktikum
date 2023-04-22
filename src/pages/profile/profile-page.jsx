@@ -2,9 +2,13 @@ import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-deve
 import {useRef, useState} from "react";
 import styles from "./profile-page.module.css"
 import {NavLink, useNavigate} from "react-router-dom";
+import {forgotPassword, updateUserInformation} from "../../services/slices/authorization-slice";
+import {useDispatch} from "react-redux";
 
-export const ProfilePage = () => {
+export const ProfilePage = ({onLogout}) => {
     const navigate = useNavigate()
+    const dispatch = useDispatch();
+
     const [userData, setUserData] = useState({
         name: '',
         email: '',
@@ -21,8 +25,18 @@ export const ProfilePage = () => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        // ???
-        navigate('/profile')
+        dispatch(updateUserInformation(userData))
+    };
+
+    const handleLogout = e => {
+        e.preventDefault()
+        onLogout(userData)
+        // navigate('/profile')
+    };
+    const handleReset = e => {
+        e.preventDefault()
+        setUserData(userData)
+        // navigate('/profile')
     };
 
     const inputRef = useRef(null);
@@ -45,7 +59,10 @@ export const ProfilePage = () => {
                 </NavLink>
                 <NavLink to={'*'}
                          className={styles.delete_underline_text}>
-                    <p className={`${styles.menu_text} text text_type_main-medium text_color_inactive`}>Выход</p>
+                    <p className={`${styles.menu_text} text text_type_main-medium text_color_inactive`}
+                       onClick={handleLogout}>
+                        Выход
+                    </p>
                 </NavLink>
                 <p className={`${styles.menu_text} mt-20 text text_type_main-default text_color_inactive`}>В этом
                     разделе вы можете изменить свои персональные данные</p>
@@ -83,12 +100,21 @@ export const ProfilePage = () => {
                     placeholder={'Пароль'}
                     icon={'EditIcon'}
                 />
-                <Button htmlType="submit"
-                        type="primary"
-                        size="medium"
-                        extraClass="ml-2">
-                    Сохранить
-                </Button>
+                <div className={styles.buttons}>
+                    <Button htmlType="submit"
+                            type="primary"
+                            size="medium"
+                            extraClass="ml-2">
+                        Сохранить
+                    </Button>
+                    <Button htmlType="reset"
+                            type="secondary"
+                            size="medium"
+                            extraClass="ml-2"
+                            onClick={handleReset}>
+                        Отмена
+                    </Button>
+                </div>
             </form>
         </div>
     )

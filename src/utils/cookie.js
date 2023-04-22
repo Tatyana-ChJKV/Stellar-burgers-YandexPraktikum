@@ -5,6 +5,7 @@ export function getCookie(name) {
     );
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
+
 export function setCookie(name, value, props = {}) {
     // console.log(props);
     props = {

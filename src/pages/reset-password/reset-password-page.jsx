@@ -3,7 +3,7 @@ import {useState} from "react";
 import styles from "../login/login-page.module.css"
 import {NavLink, useNavigate} from "react-router-dom";
 
-export const ResetPasswordPage = () => {
+export const ResetPasswordPage = ({onResetPassword}) => {
     const navigate = useNavigate()
     const [userData, setUserData] = useState({
         name: '',
@@ -20,7 +20,8 @@ export const ResetPasswordPage = () => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        navigate('/login')
+        onResetPassword(userData)
+        // navigate('/login')
     };
 
     return (

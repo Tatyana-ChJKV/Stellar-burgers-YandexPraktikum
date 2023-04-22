@@ -2,12 +2,16 @@ import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-compon
 import {useState} from "react";
 import styles from "../login/login-page.module.css"
 import {NavLink, useNavigate} from "react-router-dom";
+import {forgotPassword} from "../../services/slices/authorization-slice";
+import {useDispatch} from "react-redux";
 
-export const ForgotPasswordPage = ({onForgotPassword}) => {
-    const navigate = useNavigate()
+export const ForgotPasswordPage = () => {
+    // const navigate = useNavigate()
     const [userData, setUserData] = useState({
         email: ''
     });
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleChange = e => {
         const {name, value} = e.target;
@@ -19,16 +23,12 @@ export const ForgotPasswordPage = ({onForgotPassword}) => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        onForgotPassword(userData)
-        // if (payload?.success) {
-        //     navigate("/reset-password", {
-        //         state: {
-        //             fromResetPassword: true,
-        //         },
-        //         replace: true,
-        //     });
-        // }
-        // navigate('/reset-password')
+        dispatch(forgotPassword(userData))
+            .then(({payload}) => {
+                if (payload?.success) {
+                    navigate("/reset-password")
+                }
+            })
     };
 
     return (

@@ -1,9 +1,10 @@
-import { getCookie, setCookie } from './cookie';
+import {getCookie, setCookie} from './cookie';
+
 export const BASE_URL = 'https://norma.nomoreparties.space/api';
 
 class BurgerApi {
     checkResponse = (res) => {
-        return res.ok ? res.json() : res.json().then((err) => Promise.reject({ ...err, statusCode: res.status }));
+        return res.ok ? res.json() : res.json().then((err) => Promise.reject({...err, statusCode: res.status}));
     };
 
     fetchWithRefresh = async (url, options) => {
@@ -29,13 +30,17 @@ class BurgerApi {
         }
     };
 
-    registerUser = (data) => {
+    registerUser = ({email, password, name}) => {
         return fetch(`${BASE_URL}/auth/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json;charset=utf-8",
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify({
+                email,
+                password,
+                name
+            }),
         }).then(this.checkResponse)
             .then(data => {
                 if (data?.success) return data;
@@ -43,18 +48,33 @@ class BurgerApi {
             });
     };
 
-    loginUser = (data) => {
+    loginUser = ({email, password}) => {
         return fetch(`${BASE_URL}/auth/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json;charset=utf-8",
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify({
+                email,
+                password
+            }),
         }).then(this.checkResponse)
             .then(data => {
                 if (data?.success) return data;
                 return Promise.reject(data)
             });
+    };
+
+    logoutUser() {
+        return fetch(`${BASE_URL}/auth/logout`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                token: getCookie("refreshToken"),
+            }),
+        }).then(this.checkResponse);
     };
 
     refreshToken = () => {
@@ -80,7 +100,22 @@ class BurgerApi {
         });
     };
 
-    resetPassword = (email) => {
+    updateUserInformation({ name, email, password }) {
+        return this.fetchWithRefresh(`${BASE_URL}/auth/user`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                authorization: getCookie("accessToken"),
+            },
+            body: JSON.stringify({
+                name,
+                email,
+                password,
+            }),
+        });
+    };
+
+    forgotPassword = ({email}) => {
         return fetch(`${BASE_URL}/password-reset`, {
             method: "POST",
             headers: {
@@ -90,7 +125,22 @@ class BurgerApi {
                 email
             }),
         }).then(this.checkResponse);
-    }
+    };
+
+    resetPassword = ({password, token}) => {
+        return fetch(`${BASE_URL}/password-reset/reset`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json;charset=utf-8",
+            },
+            body: JSON.stringify({
+                password,
+                token
+            }),
+        }).then(this.checkResponse);
+    };
 }
+
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default new BurgerApi()

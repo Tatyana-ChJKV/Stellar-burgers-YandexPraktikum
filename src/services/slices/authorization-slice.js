@@ -20,7 +20,13 @@ const initialState = {
     getUserRequest: false,
 
     forgotPasswordError: null,
-    forgotPasswordRequest: false
+    forgotPasswordRequest: false,
+
+    resetPasswordError: null,
+    resetPasswordRequest: false,
+
+    updateUserInformationError: null,
+    updateUserInformationRequest: false
 };
 
 export const checkUserAuth = createAsyncThunk(`${sliceName}/checkUserAuth`,
@@ -42,7 +48,7 @@ export const checkUserAuth = createAsyncThunk(`${sliceName}/checkUserAuth`,
 export const registerUser = createAsyncThunk(`${sliceName}/registerUser`,
     async (dataUser, {extra: rejectWithValue}) => {
         const data = await api.registerUser(dataUser);
-        console.log('response', data);
+        console.log('register', data);
         if (!data?.success) {
             return rejectWithValue(data)
         }
@@ -55,7 +61,7 @@ export const registerUser = createAsyncThunk(`${sliceName}/registerUser`,
 export const loginUser = createAsyncThunk(`${sliceName}/loginUser`,
     async (dataUser, {extra: rejectWithValue}) => {
         const data = await api.loginUser(dataUser);
-        console.log('response', data);
+        console.log('login', data);
         if (!data?.success) {
             return rejectWithValue(data)
         }
@@ -64,22 +70,55 @@ export const loginUser = createAsyncThunk(`${sliceName}/loginUser`,
         return data.user;
     }
 );
-
 // console.dir(loginUser);
+export const logoutUser = createAsyncThunk(`${sliceName}/logoutUser`,
+    async (dataUser, {extra: rejectWithValue}) => {
+        const data = await api.logoutUser(dataUser);
+        console.log('logout', data);
+        if (!data?.success) {
+            return rejectWithValue(data)
+        }
+        setCookie('refreshToken', data.refreshToken)
+        return data.user;
+    }
+);
+
+export const updateUserInformation = createAsyncThunk(`${sliceName}/updateUserInformation`,
+    async (dataUser, {extra: rejectWithValue}) => {
+        const data = await api.updateUserInformation(dataUser);
+        console.log('update_user_information', data);
+        if (!data?.success) {
+            return rejectWithValue(data)
+        }
+});
 
 export const forgotPassword = createAsyncThunk(`${sliceName}/forgotPassword`,
     async (email, {extra: rejectWithValue}) => {
-        const data = await api.resetPassword(email);
-        console.log(data);
-        const navigate = useNavigate()
-        if (data?.success) {
-            navigate("/reset-password")
+        const data = await api.forgotPassword(email);
+        console.log('forgot_pass', data);
+        if (!data?.success) {
+         return rejectWithValue(data)
         }
-    // async (email) => {
-    //     return api.resetPassword(email);
     }
 );
-// console.dir(forgotPassword)
+console.dir(forgotPassword)
+
+
+
+
+
+
+
+export const resetPassword = createAsyncThunk(`${sliceName}/resetPassword`,
+    async ({ password, token }, {extra: rejectWithValue}) => {
+        const data = await api.resetPassword({password, token});
+        console.log('reset_pass', data);
+        if (!data?.success) {
+            return rejectWithValue(data)
+        }
+    }
+);
+// console.dir(updateUserInformation)
 
 export function isActionPending(action) {
     return action.type.endsWith('pending')
@@ -118,6 +157,16 @@ const user = createSlice({
             .addCase(forgotPassword.fulfilled, (state, action) => {
                 state.data = action.payload;
                 state.forgotPasswordRequest = false;
+                // const navigate = useNavigate();
+                // navigate('/reset-password');
+            })
+            .addCase(resetPassword.fulfilled, (state, action) => {
+                state.data = action.payload;
+                state.resetPasswordRequest = false;
+            })
+            .addCase(updateUserInformation.fulfilled, (state, action) => {
+                state.data = action.payload;
+                state.updateUserInformationRequest = false;
             })
             .addMatcher(isActionPending, (state, action) => {
                 state[`${getActionName(action.type)}Request`] = true;
