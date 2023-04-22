@@ -103,12 +103,6 @@ export const forgotPassword = createAsyncThunk(`${sliceName}/forgotPassword`,
 );
 console.dir(forgotPassword)
 
-
-
-
-
-
-
 export const resetPassword = createAsyncThunk(`${sliceName}/resetPassword`,
     async ({ password, token }, {extra: rejectWithValue}) => {
         const data = await api.resetPassword({password, token});
