@@ -23,7 +23,7 @@ import {
 export const App = () => {
 
     const dispatch = useDispatch();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(receiveIngredients())
@@ -37,9 +37,14 @@ export const App = () => {
         dispatch(registerUser(userData))
     };
 
-    const onLogin = (userData) => {
-        dispatch(loginUser(userData))
-    };
+    // const onLogin = (userData) => {
+    //     dispatch(loginUser(userData))
+    //         .then(({payload}) => {
+    //             if (payload?.success) {
+    //                 navigate("/")
+    //             }
+    //         })
+    // };
 
     const onLogout = (userData) => {
         dispatch(logoutUser(userData))
@@ -54,9 +59,9 @@ export const App = () => {
     //     })
     // };
 
-    const onResetPassword = (userData) => {
-        dispatch(resetPassword(userData))
-    }
+    // const onResetPassword = (userData) => {
+    //     dispatch(resetPassword(userData))
+    // }
 
     return (
         <>
@@ -74,7 +79,7 @@ export const App = () => {
                         </ProtectedRoute>
                     }/>
                     <Route path="/login" element={
-                        <LoginPage onLogin={onLogin}/>}/>
+                        <LoginPage />}/>
                     <Route path="/forgot-password" element={
                         <ProtectedRoute onlyUnAuth>
                             <ForgotPasswordPage />
@@ -82,7 +87,7 @@ export const App = () => {
                     }/>
                     <Route path="/reset-password" element={
                         <ProtectedRoute onlyUnAuth>
-                            <ResetPasswordPage onResetPassword={onResetPassword}/>
+                            <ResetPasswordPage/>
                         </ProtectedRoute>
                     }/>
                 </Route>

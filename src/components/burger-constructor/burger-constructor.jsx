@@ -8,12 +8,13 @@ import {ConstructorCard} from "./ingredient-card-in-burger-constructor/ingredien
 import {useDrop} from "react-dnd";
 import {addIngredient, clearConstructor} from "../../services/slices/constructor-slice";
 import {makeOrder} from "../../services/slices/order-slice";
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 
 export const BurgerConstructor = () => {
     const bun = useSelector(state => state.constructorStore.bun);
     const card = useSelector(state => state.constructorStore.ingredients);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const order = useSelector(state => state.orderStore.order);
     // *? Оператор опциональной последовательности
     const number = order?.order.number;
@@ -27,8 +28,11 @@ export const BurgerConstructor = () => {
     };
 
     const openModal = () => {
-        setModalOpened(true);
-        orderNumber();
+        if (card.length || bun) {
+            setModalOpened(true);
+            orderNumber();
+            navigate('/login')
+        }
     };
 
     const closeModal = () => {
@@ -87,7 +91,7 @@ export const BurgerConstructor = () => {
                         </p>
                         <CurrencyIcon type="primary"/>
                     </div>
-                    <NavLink to={'/login'}>
+                    {/*<NavLink to={'/login'}>*/}
                         <Button type="primary"
                                 onClick={openModal}
                                 htmlType="button"
@@ -95,7 +99,7 @@ export const BurgerConstructor = () => {
                                 disabled={!card.length || !bun}>
                             Оформить заказ
                         </Button>
-                    </NavLink>
+                    {/*</NavLink>*/}
                     {modalOpened && number && (
                         <Modal onClick={closeModal}
                                modalHeader=" ">

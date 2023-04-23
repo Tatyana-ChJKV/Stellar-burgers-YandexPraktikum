@@ -6,12 +6,11 @@ import {forgotPassword} from "../../services/slices/authorization-slice";
 import {useDispatch} from "react-redux";
 
 export const ForgotPasswordPage = () => {
-    // const navigate = useNavigate()
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [userData, setUserData] = useState({
         email: ''
     });
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const handleChange = e => {
         const {name, value} = e.target;
@@ -25,7 +24,7 @@ export const ForgotPasswordPage = () => {
         e.preventDefault()
         dispatch(forgotPassword(userData))
             .then(({payload}) => {
-                if (payload?.success) {
+                if (payload.success) {
                     navigate("/reset-password")
                 }
             })

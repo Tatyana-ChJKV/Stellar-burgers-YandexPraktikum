@@ -30,24 +30,6 @@ class BurgerApi {
         }
     };
 
-    registerUser = ({email, password, name}) => {
-        return fetch(`${BASE_URL}/auth/register`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json;charset=utf-8",
-            },
-            body: JSON.stringify({
-                email,
-                password,
-                name
-            }),
-        }).then(this.checkResponse)
-            .then(data => {
-                if (data?.success) return data;
-                return Promise.reject(data)
-            });
-    };
-
     loginUser = ({email, password}) => {
         return fetch(`${BASE_URL}/auth/login`, {
             method: "POST",
@@ -59,10 +41,10 @@ class BurgerApi {
                 password
             }),
         }).then(this.checkResponse)
-            .then(data => {
-                if (data?.success) return data;
-                return Promise.reject(data)
-            });
+            // .then(data => {
+            //     if (data?.success) return data;
+            //     return Promise.reject(data)
+            // });
     };
 
     logoutUser() {
@@ -94,10 +76,11 @@ class BurgerApi {
             headers: {
                 authorization: getCookie("accessToken"),
             },
-        }).then(data => {
-            if (data?.success) return data;
-            return Promise.reject(data)
-        });
+        }).then(this.checkResponse);
+        //     .then(data => {
+        //     if (data?.success) return data;
+        //     return Promise.reject(data)
+        // });
     };
 
     updateUserInformation({ name, email, password }) {
@@ -112,9 +95,25 @@ class BurgerApi {
                 email,
                 password,
             }),
-        });
+        }).then(this.checkResponse);
     };
-
+    registerUser = ({email, password, name}) => {
+        return fetch(`${BASE_URL}/auth/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json;charset=utf-8",
+            },
+            body: JSON.stringify({
+                email,
+                password,
+                name
+            }),
+        }).then(this.checkResponse)
+            // .then(data => {
+            //     if (data?.success) return data;
+            //     return Promise.reject(data)
+            // });
+    };
     forgotPassword = ({email}) => {
         return fetch(`${BASE_URL}/password-reset`, {
             method: "POST",
@@ -124,7 +123,11 @@ class BurgerApi {
             body: JSON.stringify({
                 email
             }),
-        }).then(this.checkResponse);
+        }).then(this.checkResponse)
+    // .then(data => {
+    //         if (data?.success) return data;
+    //         return Promise.reject(data)
+    //     });
     };
 
     resetPassword = ({password, token}) => {

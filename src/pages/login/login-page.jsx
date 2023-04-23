@@ -2,9 +2,12 @@ import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-b
 import {useState} from "react";
 import styles from "./login-page.module.css"
 import {NavLink, useNavigate} from "react-router-dom";
+import {loginUser} from "../../services/slices/authorization-slice";
+import {useDispatch} from "react-redux";
 
-export const LoginPage = ({onLogin}) => {
-    const navigate = useNavigate()
+export const LoginPage = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [userData, setUserData] = useState({
         email: '',
         password: ''
@@ -20,8 +23,12 @@ export const LoginPage = ({onLogin}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        // navigate('/')
-        onLogin(userData)
+        dispatch(loginUser(userData))
+            .then(({payload}) => {
+                if (payload.success) {
+                    navigate("/")
+                }
+            })
     };
 
     return (

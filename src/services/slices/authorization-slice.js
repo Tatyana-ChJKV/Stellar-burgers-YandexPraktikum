@@ -1,7 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {setCookie} from "../../utils/cookie";
 import api from "../../utils/api"
-import {useNavigate} from "react-router-dom";
 
 export const sliceName = 'user';
 
@@ -54,7 +53,7 @@ export const registerUser = createAsyncThunk(`${sliceName}/registerUser`,
         }
         setCookie('accessToken', data.accessToken, {'max-age': 1000});
         setCookie('refreshToken', data.refreshToken)
-        return data.user;
+        return data;
     }
 );
 
@@ -67,7 +66,7 @@ export const loginUser = createAsyncThunk(`${sliceName}/loginUser`,
         }
         setCookie('accessToken', data.accessToken);
         setCookie('refreshToken', data.refreshToken)
-        return data.user;
+        return data;
     }
 );
 // console.dir(loginUser);
@@ -90,18 +89,19 @@ export const updateUserInformation = createAsyncThunk(`${sliceName}/updateUserIn
         if (!data?.success) {
             return rejectWithValue(data)
         }
+        return data;
 });
 
 export const forgotPassword = createAsyncThunk(`${sliceName}/forgotPassword`,
-    async (email, {extra: rejectWithValue}) => {
+    async (email,{extra: rejectWithValue}) => {
         const data = await api.forgotPassword(email);
-        console.log('forgot_pass', data);
         if (!data?.success) {
          return rejectWithValue(data)
         }
+        return data;
     }
 );
-console.dir(forgotPassword)
+// console.dir(forgotPassword)
 
 export const resetPassword = createAsyncThunk(`${sliceName}/resetPassword`,
     async ({ password, token }, {extra: rejectWithValue}) => {
@@ -110,6 +110,7 @@ export const resetPassword = createAsyncThunk(`${sliceName}/resetPassword`,
         if (!data?.success) {
             return rejectWithValue(data)
         }
+        return data;
     }
 );
 // console.dir(updateUserInformation)
@@ -151,8 +152,6 @@ const user = createSlice({
             .addCase(forgotPassword.fulfilled, (state, action) => {
                 state.data = action.payload;
                 state.forgotPasswordRequest = false;
-                // const navigate = useNavigate();
-                // navigate('/reset-password');
             })
             .addCase(resetPassword.fulfilled, (state, action) => {
                 state.data = action.payload;

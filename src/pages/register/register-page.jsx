@@ -2,9 +2,12 @@ import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-deve
 import {useRef, useState} from "react";
 import styles from "./register-page.module.css"
 import {NavLink, useNavigate} from "react-router-dom";
+import {loginUser, registerUser} from "../../services/slices/authorization-slice";
+import {useDispatch} from "react-redux";
 
 export const RegisterPage = ({onRegister}) => {
-    const navigate = useNavigate()
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [userData, setUserData] = useState({
         name: '',
         email: '',
@@ -21,8 +24,12 @@ export const RegisterPage = ({onRegister}) => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        onRegister(userData)
-        // navigate('/')
+        dispatch(registerUser(userData))
+            .then(({payload}) => {
+                if (payload.success) {
+                    navigate("/")
+                }
+            })
     };
 
     return (

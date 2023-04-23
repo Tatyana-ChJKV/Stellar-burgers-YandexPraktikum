@@ -33,17 +33,18 @@ export const ProfilePage = ({onLogout}) => {
         onLogout(userData)
         // navigate('/profile')
     };
+
     const handleReset = e => {
         e.preventDefault()
         setUserData(userData)
-        // navigate('/profile')
     };
 
     const inputRef = useRef(null);
+
     const onIconClick = () => {
         setTimeout(() => inputRef.current.focus(), 0)
         alert('Icon Click Callback')
-    }
+    };
 
     return (
         <div className={styles.profile_main}>

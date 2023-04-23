@@ -2,12 +2,15 @@ import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger
 import {useState} from "react";
 import styles from "../login/login-page.module.css"
 import {NavLink, useNavigate} from "react-router-dom";
+import {resetPassword} from "../../services/slices/authorization-slice";
+import {useDispatch} from "react-redux";
 
-export const ResetPasswordPage = ({onResetPassword}) => {
-    const navigate = useNavigate()
+export const ResetPasswordPage = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [userData, setUserData] = useState({
-        name: '',
-        password: ''
+        password: '',
+        token: ''
     });
 
     const handleChange = e => {
@@ -20,8 +23,13 @@ export const ResetPasswordPage = ({onResetPassword}) => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        onResetPassword(userData)
-        // navigate('/login')
+        dispatch(resetPassword(userData))
+            .then(({payload}) => {
+                if (payload?.success) {
+                    navigate("/login", { replace: true })
+
+                }
+            })
     };
 
     return (
@@ -41,8 +49,8 @@ export const ResetPasswordPage = ({onResetPassword}) => {
                     type={'text'}
                     placeholder={'Введите код из письма'}
                     onChange={handleChange}
-                    value={userData.name}
-                    name={'name'}
+                    value={userData.token}
+                    name={'token'}
                     error={false}
                     errorText={'Ошибка'}
                     size={'default'}
