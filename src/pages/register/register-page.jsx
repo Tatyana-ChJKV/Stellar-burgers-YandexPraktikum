@@ -5,7 +5,7 @@ import {NavLink, useNavigate} from "react-router-dom";
 import {loginUser, registerUser} from "../../services/slices/authorization-slice";
 import {useDispatch} from "react-redux";
 
-export const RegisterPage = ({onRegister}) => {
+export const RegisterPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [userData, setUserData] = useState({

@@ -35,6 +35,7 @@ export const checkUserAuth = createAsyncThunk(`${sliceName}/checkUserAuth`,
             if (!data?.success) {
                 return rejectWithValue(data)
             }
+            console.log(data.user)
             return data.user;
         } catch (error) {
             return rejectWithValue(error);
@@ -53,7 +54,7 @@ export const registerUser = createAsyncThunk(`${sliceName}/registerUser`,
         }
         setCookie('accessToken', data.accessToken, {'max-age': 1000});
         setCookie('refreshToken', data.refreshToken)
-        return data;
+        return data.user;
     }
 );
 
@@ -78,7 +79,7 @@ export const logoutUser = createAsyncThunk(`${sliceName}/logoutUser`,
             return rejectWithValue(data)
         }
         setCookie('refreshToken', data.refreshToken)
-        return data.user;
+        return data;
     }
 );
 

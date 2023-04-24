@@ -1,19 +1,31 @@
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import styles from "./profile-page.module.css"
 import {NavLink, useNavigate} from "react-router-dom";
-import {forgotPassword, updateUserInformation} from "../../services/slices/authorization-slice";
-import {useDispatch} from "react-redux";
+import {logoutUser, updateUserInformation} from "../../services/slices/authorization-slice";
+import {useDispatch, useSelector} from "react-redux";
 
-export const ProfilePage = ({onLogout}) => {
-    const navigate = useNavigate()
+export const ProfilePage = () => {
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
+    const userInfo = useSelector(state => state.authorizationStore.data.user);
+    console.log("userInfo", userInfo)
     const [userData, setUserData] = useState({
         name: '',
         email: '',
         password: ''
     });
+
+    useEffect(()=>{
+        if(userInfo){
+            setUserData({
+                ...userData,
+                name: userInfo.name,
+                email: userInfo.email,
+                password: ''
+            })
+        }
+    }, [userInfo, setUserData])
 
     const handleChange = e => {
         const {name, value} = e.target;
@@ -26,17 +38,24 @@ export const ProfilePage = ({onLogout}) => {
     const handleSubmit = e => {
         e.preventDefault()
         dispatch(updateUserInformation(userData))
+        console.log('handleSubmit')
     };
 
     const handleLogout = e => {
         e.preventDefault()
-        onLogout(userData)
-        // navigate('/profile')
+        dispatch(logoutUser(userData))
+            .then(({payload}) => {
+                if (payload.success) {
+                    navigate("/login")
+                }
+            })
     };
 
-    const handleReset = e => {
+    const handleCancellation = e => {
         e.preventDefault()
-        setUserData(userData)
+        if (userInfo) {
+            setUserData(userInfo)
+        }
     };
 
     const inputRef = useRef(null);
@@ -71,7 +90,6 @@ export const ProfilePage = ({onLogout}) => {
             <form onSubmit={handleSubmit}
                   className={styles.registration_modal}>
                 <Input
-                    autoFocus
                     type={'text'}
                     placeholder={'Имя'}
                     onChange={handleChange}
@@ -100,6 +118,8 @@ export const ProfilePage = ({onLogout}) => {
                     extraClass="mb-2"
                     placeholder={'Пароль'}
                     icon={'EditIcon'}
+                    error={false}
+                    errorText={'Введите пароль'}
                 />
                 <div className={styles.buttons}>
                     <Button htmlType="submit"
@@ -112,7 +132,7 @@ export const ProfilePage = ({onLogout}) => {
                             type="secondary"
                             size="medium"
                             extraClass="ml-2"
-                            onClick={handleReset}>
+                            onClick={handleCancellation}>
                         Отмена
                     </Button>
                 </div>

@@ -1,9 +1,9 @@
 import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import styles from "./login-page.module.css"
 import {NavLink, useNavigate} from "react-router-dom";
 import {loginUser} from "../../services/slices/authorization-slice";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 export const LoginPage = () => {
     const dispatch = useDispatch();
@@ -12,6 +12,18 @@ export const LoginPage = () => {
         email: '',
         password: ''
     });
+    // const userInfo = useSelector(state => state.authorizationStore.data);
+    // console.log('loginPage', userInfo)
+    //
+    // useEffect(()=>{
+    //     if(userInfo){
+    //         setUserData({
+    //             ...userData,
+    //             email: userInfo.user.email,
+    //             password: ''
+    //         })
+    //     }
+    // }, [userInfo, setUserData])
 
     const handleChange = e => {
         const {name, value} = e.target;

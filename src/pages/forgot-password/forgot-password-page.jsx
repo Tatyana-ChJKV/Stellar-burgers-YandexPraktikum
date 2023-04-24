@@ -1,9 +1,9 @@
 import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import styles from "../login/login-page.module.css"
 import {NavLink, useNavigate} from "react-router-dom";
 import {forgotPassword} from "../../services/slices/authorization-slice";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 export const ForgotPasswordPage = () => {
     const dispatch = useDispatch();
@@ -11,6 +11,16 @@ export const ForgotPasswordPage = () => {
     const [userData, setUserData] = useState({
         email: ''
     });
+    // const userInfo = useSelector(state => state.authorizationStore.data);
+    //
+    // useEffect(()=>{
+    //     if(userInfo){
+    //         setUserData({
+    //             ...userData,
+    //             email: userInfo.user.email,
+    //         })
+    //     }
+    // }, [userInfo, setUserData])
 
     const handleChange = e => {
         const {name, value} = e.target;
