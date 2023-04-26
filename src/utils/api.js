@@ -12,7 +12,7 @@ class BurgerApi {
             const res = await fetch(url, options);
             return await this.checkResponse(res);
         } catch (error) {
-            console.log('fetchWithRefresh', error);
+            // console.log('fetchWithRefresh', error);
             if (error.statusCode === 401 || error.statusCode === 403) {
                 const refreshData = await this.refreshToken();
                 if (!refreshData.success) {

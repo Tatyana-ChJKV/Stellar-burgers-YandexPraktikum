@@ -20,8 +20,8 @@ export const App = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.authorizationStore.data);
     const navigate = useNavigate();
-    // const card = useSelector(state => state.ingredientsStore.data);
-    // console.log(card)
+    const location = useLocation();
+    const background = location.state?.background;
 
     useEffect(() => {
         dispatch(receiveIngredients())
@@ -33,14 +33,11 @@ export const App = () => {
 
     const handleCloseModal = () => {
         navigate(-1)
-    }
-
-    const location = useLocation();
-    const background = location.state?.background;
+    };
 
     return (
         <>
-            <Routes>
+            <Routes location={background || location}>
                 <Route path="/"
                        element={<AppHeaderFrame/>}>
                     <Route path="/"
@@ -57,21 +54,24 @@ export const App = () => {
                     <Route path="/register"
                            element={
                                <ProtectedRoute onlyUnAuth>
-                                   <RegisterPage onlyUnAuth/>
+                                   <RegisterPage/>
                                </ProtectedRoute>
                            }/>
                     <Route path="/login"
                            element={
-                               <LoginPage/>}/>
+                               <ProtectedRoute onlyUnAuth>
+                                   <LoginPage/>
+                               </ProtectedRoute>
+                           }/>
                     <Route path="/forgot-password"
                            element={
-                               <ProtectedRoute user={user}>
+                               <ProtectedRoute onlyUnAuth>
                                    <ForgotPasswordPage/>
                                </ProtectedRoute>
                            }/>
                     <Route path="/reset-password"
                            element={
-                               <ProtectedRoute user={user}>
+                               <ProtectedRoute onlyUnAuth>
                                    <ResetPasswordPage/>
                                </ProtectedRoute>
                            }/>

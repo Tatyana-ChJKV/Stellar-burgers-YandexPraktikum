@@ -9,13 +9,13 @@ export const ProfilePage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const userInfo = useSelector(state => state.authorizationStore.data.user);
-    console.log("userInfo", userInfo)
+    // console.log("userInfo", userInfo)
     const [userData, setUserData] = useState({
         name: '',
         email: '',
         password: ''
     });
-    const buttonsAppearance = userInfo.name !== userData.name || userInfo.email !== userData.email || userData.password;
+    const buttonsAppearance = userInfo?.name !== userData.name || userInfo?.email !== userData.email || userData.password;
 
     useEffect(() => {
         if (userInfo) {

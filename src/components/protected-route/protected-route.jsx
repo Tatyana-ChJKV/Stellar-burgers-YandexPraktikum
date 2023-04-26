@@ -4,6 +4,7 @@ export const ProtectedRoute = ({onlyUnAuth, user, children}) => {
     const location = useLocation();
 
     if (onlyUnAuth && user) {
+        console.log('navigate main');
         const {from} = location.state || {from: {pathname: '/'}};
         const {background} = location.state?.from?.state || null;
         return (
@@ -11,7 +12,7 @@ export const ProtectedRoute = ({onlyUnAuth, user, children}) => {
         )
     }
     if (!onlyUnAuth && !user) {
-        console.log('navigate login');
+        // console.log('navigate login');
         return (
             <Navigate replace to={{pathname: '/login'}} state={{from: location}}/>
         )
