@@ -15,6 +15,7 @@ export const ProfilePage = () => {
         email: '',
         password: ''
     });
+    const buttonsAppearance = userInfo.name !== userData.name || userInfo.email !== userData.email || userData.password;
 
     useEffect(() => {
         if (userInfo) {
@@ -121,6 +122,7 @@ export const ProfilePage = () => {
                     error={false}
                     errorText={'Введите пароль'}
                 />
+                {buttonsAppearance &&
                 <div className={styles.buttons}>
                     <Button htmlType="submit"
                             type="primary"
@@ -136,6 +138,7 @@ export const ProfilePage = () => {
                         Отмена
                     </Button>
                 </div>
+                }
             </form>
         </div>
     )
