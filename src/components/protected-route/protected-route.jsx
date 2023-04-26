@@ -1,4 +1,5 @@
 import {Navigate, useLocation} from "react-router";
+import PropTypes from "prop-types";
 
 export const ProtectedRoute = ({onlyUnAuth, user, children}) => {
     const location = useLocation();
@@ -19,3 +20,9 @@ export const ProtectedRoute = ({onlyUnAuth, user, children}) => {
     }
     return children
 };
+
+ProtectedRoute.propTypes = {
+    onlyUnAuth: PropTypes.bool,
+    user: PropTypes.object,
+    children: PropTypes.object
+}

@@ -48,6 +48,6 @@ export const IngredientsCard = ({card}) => {
     )
 };
 
-// IngredientsCard.propTypes = {
-//     card: PropTypes.object.isRequired
-// }
+IngredientsCard.propTypes = {
+    card: PropTypes.object.isRequired
+}

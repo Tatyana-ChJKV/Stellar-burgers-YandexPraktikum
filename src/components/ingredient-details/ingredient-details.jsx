@@ -2,6 +2,7 @@ import styles from "./ingredient-details.module.css"
 import {useParams} from "react-router";
 import {useSelector} from "react-redux";
 import React from "react";
+import PropTypes from "prop-types";
 
 export const IngredientDetails = ({headerForIngredientDetails}) => {
     const {idIngredient} = useParams();
@@ -40,4 +41,8 @@ export const IngredientDetails = ({headerForIngredientDetails}) => {
             }
         </>
     )
+};
+
+IngredientDetails.propTypes = {
+    headerForIngredientDetails: PropTypes.bool,
 };
