@@ -31,7 +31,7 @@ export const Modal = ({onClick, children, modalHeader}) => {
         <>
             <div className={styles.modal}>
                 <div className={`${styles.ingredient_details_header} mt-10 ml-10 mr-10`}>
-                    <h2 className="text text_type_main-large">{modalHeader}</h2>
+                    <h2 className="text text_type_main-large">{modalHeader || ''}</h2>
                     <CloseIcon type="primary"
                                onClick={onClick}/>
                 </div>
@@ -39,7 +39,7 @@ export const Modal = ({onClick, children, modalHeader}) => {
             </div>
             <ModalOverlay/>
         </>, document.getElementById('modal-windows'))
-}
+};
 
 Modal.propTypes = {
     onClick: PropTypes.func.isRequired,

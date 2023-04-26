@@ -1,6 +1,6 @@
 import styles from './page-404.module.css';
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
-import {NavLink, useNavigate} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 export const Page404 = () => {
     return (

@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {receiveIngredients} from "../../services/slices/ingredients-slice";
-import {useEffect, useState} from "react";
-import {Route, Routes} from "react-router-dom";
+import {useEffect} from "react";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import {RegisterPage} from "../../pages/register/register-page";
 import {LoginPage} from "../../pages/login/login-page";
 import {ResetPasswordPage} from "../../pages/reset-password/reset-password-page";
@@ -13,11 +13,15 @@ import {ProtectedRoute} from "../protected-route/protected-route";
 import {Page404} from "../../pages/page-404/page-404";
 import {checkUserAuth} from "../../services/slices/authorization-slice";
 import {IngredientDetails} from "../ingredient-details/ingredient-details";
+import {Modal} from "../modal/modal";
+import {useLocation} from "react-router";
 
 export const App = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.authorizationStore.data);
-
+    const navigate = useNavigate();
+    // const card = useSelector(state => state.ingredientsStore.data);
+    // console.log(card)
 
     useEffect(() => {
         dispatch(receiveIngredients())
@@ -27,39 +31,66 @@ export const App = () => {
         dispatch(checkUserAuth())
     }, [dispatch])
 
+    const handleCloseModal = () => {
+        navigate(-1)
+    }
+
+    const location = useLocation();
+    const background = location.state?.background;
+
     return (
         <>
             <Routes>
-                <Route path="/" element={<AppHeaderFrame/>}>
-                    <Route path="/" element={<MainPage/>}/>
-                    <Route path="/profile" element={
-                        <ProtectedRoute user={user}>
-                            <ProfilePage/>
-                        </ProtectedRoute>
-                    }/>
-                    <Route path="/register" element={
-                        <ProtectedRoute onlyUnAuth>
-                            <RegisterPage onlyUnAuth/>
-                        </ProtectedRoute>
-                    }/>
-                    <Route path="/login" element={
-                        <LoginPage/>}/>
-                    <Route path="/forgot-password" element={
-                        <ProtectedRoute user={user}>
-                            <ForgotPasswordPage/>
-                        </ProtectedRoute>
-                    }/>
-                    <Route path="/reset-password" element={
-                        <ProtectedRoute user={user}>
-                            <ResetPasswordPage/>
-                        </ProtectedRoute>
-                    }/>
+                <Route path="/"
+                       element={<AppHeaderFrame/>}>
+                    <Route path="/"
+                           element={<MainPage/>}/>
+                    <Route path='*'
+                           element={<Page404/>}
+                    />
+                    <Route path="/profile"
+                           element={
+                               <ProtectedRoute user={user}>
+                                   <ProfilePage/>
+                               </ProtectedRoute>
+                           }/>
+                    <Route path="/register"
+                           element={
+                               <ProtectedRoute onlyUnAuth>
+                                   <RegisterPage onlyUnAuth/>
+                               </ProtectedRoute>
+                           }/>
+                    <Route path="/login"
+                           element={
+                               <LoginPage/>}/>
+                    <Route path="/forgot-password"
+                           element={
+                               <ProtectedRoute user={user}>
+                                   <ForgotPasswordPage/>
+                               </ProtectedRoute>
+                           }/>
+                    <Route path="/reset-password"
+                           element={
+                               <ProtectedRoute user={user}>
+                                   <ResetPasswordPage/>
+                               </ProtectedRoute>
+                           }/>
+                    <Route path="/ingredients/:id"
+                           element={
+                               <Modal onClick={handleCloseModal} modalHeader={"Детали ингредиента"}>
+                                   <IngredientDetails/>
+                               </Modal>
+                           }/>
                 </Route>
-                <Route path='*' element={<Page404/>}/>
-                {/*<Route path="/ingredients/:id" element={*/}
-                {/*    <IngredientDetails card={"card"}/>*/}
-                {/*}/>*/}
             </Routes>
+            {background &&
+                <Routes>
+                    <Route path="/ingredients/:idIngredient" element={
+                        <Modal onClick={handleCloseModal} modalHeader={"Детали ингредиента"}>
+                            <IngredientDetails/>
+                        </Modal>}/>
+                </Routes>
+            }
         </>
     )
 };

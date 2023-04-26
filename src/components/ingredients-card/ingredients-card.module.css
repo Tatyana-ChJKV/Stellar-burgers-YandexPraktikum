@@ -13,3 +13,8 @@
     align-items: center;
     justify-content: center;
 }
+
+.delete_underline_text {
+    text-decoration: none;
+    color: white;
+}

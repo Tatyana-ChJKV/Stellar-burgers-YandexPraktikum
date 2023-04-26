@@ -5,7 +5,6 @@ import api from "../../utils/api"
 export const sliceName = 'user';
 
 const initialState = {
-    // preloader
     isAuthChecked: false,
     data: null,
 
@@ -35,7 +34,7 @@ export const checkUserAuth = createAsyncThunk(`${sliceName}/checkUserAuth`,
             if (!data?.success) {
                 return rejectWithValue(data)
             }
-            console.log(data.user)
+            // console.log(data.user)
             return data.user;
         } catch (error) {
             return rejectWithValue(error);
@@ -70,7 +69,7 @@ export const loginUser = createAsyncThunk(`${sliceName}/loginUser`,
         return data;
     }
 );
-// console.dir(loginUser);
+
 export const logoutUser = createAsyncThunk(`${sliceName}/logoutUser`,
     async (dataUser, {extra: rejectWithValue}) => {
         const data = await api.logoutUser(dataUser);
@@ -91,21 +90,20 @@ export const updateUserInformation = createAsyncThunk(`${sliceName}/updateUserIn
             return rejectWithValue(data)
         }
         return data;
-});
+    });
 
 export const forgotPassword = createAsyncThunk(`${sliceName}/forgotPassword`,
-    async (email,{extra: rejectWithValue}) => {
+    async (email, {extra: rejectWithValue}) => {
         const data = await api.forgotPassword(email);
         if (!data?.success) {
-         return rejectWithValue(data)
+            return rejectWithValue(data)
         }
         return data;
     }
 );
-// console.dir(forgotPassword)
 
 export const resetPassword = createAsyncThunk(`${sliceName}/resetPassword`,
-    async ({ password, token }, {extra: rejectWithValue}) => {
+    async ({password, token}, {extra: rejectWithValue}) => {
         const data = await api.resetPassword({password, token});
         console.log('reset_pass', data);
         if (!data?.success) {
@@ -114,7 +112,6 @@ export const resetPassword = createAsyncThunk(`${sliceName}/resetPassword`,
         return data;
     }
 );
-// console.dir(updateUserInformation)
 
 export function isActionPending(action) {
     return action.type.endsWith('pending')
@@ -174,5 +171,4 @@ const user = createSlice({
 });
 
 export const {authCheck} = user.actions;
-
 export default user.reducer;

@@ -15,4 +15,4 @@ export const MainPage = () => {
             </main>
         </div>
     )
-}
+};

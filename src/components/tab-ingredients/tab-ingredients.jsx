@@ -23,7 +23,7 @@ export const TabIngredients = ({current, scrollToTab}) => {
             </Tab>
         </div>
     )
-}
+};
 
 TabIngredients.propTypes = {
     current: PropTypes.string.isRequired,

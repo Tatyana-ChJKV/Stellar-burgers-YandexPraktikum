@@ -1,8 +1,8 @@
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useRef, useState} from "react";
+import {useState} from "react";
 import styles from "./register-page.module.css"
 import {NavLink, useNavigate} from "react-router-dom";
-import {loginUser, registerUser} from "../../services/slices/authorization-slice";
+import {registerUser} from "../../services/slices/authorization-slice";
 import {useDispatch} from "react-redux";
 
 export const RegisterPage = () => {
@@ -80,4 +80,4 @@ export const RegisterPage = () => {
             </p>
         </div>
     )
-}
+};

@@ -76,14 +76,13 @@ class BurgerApi {
             headers: {
                 authorization: getCookie("accessToken"),
             },
-        })
-            .then(data => {
+        }).then(data => {
             if (data?.success) return data;
             return Promise.reject(data)
         });
     };
 
-    updateUserInformation({ name, email, password }) {
+    updateUserInformation({name, email, password}) {
         return this.fetchWithRefresh(`${BASE_URL}/auth/user`, {
             method: "PATCH",
             headers: {
@@ -95,11 +94,10 @@ class BurgerApi {
                 email,
                 password,
             }),
-        }) .then(data => {
+        }).then(data => {
             if (data?.success) return data;
             return Promise.reject(data)
         });
-            // .then(this.checkResponse);
     };
 
     registerUser = ({email, password, name}) => {
@@ -129,10 +127,10 @@ class BurgerApi {
                 email
             }),
         }).then(this.checkResponse)
-    .then(data => {
-            if (data?.success) return data;
-            return Promise.reject(data)
-        });
+            .then(data => {
+                if (data?.success) return data;
+                return Promise.reject(data)
+            });
     };
 
     resetPassword = ({password, token}) => {
@@ -148,7 +146,6 @@ class BurgerApi {
         }).then(this.checkResponse);
     };
 }
-
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default new BurgerApi()

@@ -16,8 +16,8 @@ export const ProfilePage = () => {
         password: ''
     });
 
-    useEffect(()=>{
-        if(userInfo){
+    useEffect(() => {
+        if (userInfo) {
             setUserData({
                 ...userData,
                 name: userInfo.name,
@@ -139,4 +139,4 @@ export const ProfilePage = () => {
             </form>
         </div>
     )
-}
+};

@@ -1,14 +1,13 @@
 import {Navigate, useLocation} from "react-router";
-import {useSelector} from "react-redux";
 
 export const ProtectedRoute = ({onlyUnAuth, user, children}) => {
-    const location = useLocation()
+    const location = useLocation();
 
     if (onlyUnAuth && user) {
         const {from} = location.state || {from: {pathname: '/'}};
         const {background} = location.state?.from?.state || null;
         return (
-            <Navigate replace to={from} state={{background}} />
+            <Navigate replace to={from} state={{background}}/>
         )
     }
     if (!onlyUnAuth && !user) {
@@ -18,4 +17,4 @@ export const ProtectedRoute = ({onlyUnAuth, user, children}) => {
         )
     }
     return children
-}
+};
