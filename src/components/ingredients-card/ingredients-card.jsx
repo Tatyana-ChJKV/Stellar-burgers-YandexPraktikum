@@ -22,7 +22,7 @@ export const IngredientsCard = ({card}) => {
         })
     });
     return (
-        <Link to={`ingredient/${card._id}`}
+        <Link to={`ingredients/${card._id}`}
               state={{background: location}}
               className={`${styles.delete_underline_text} mb-8`}
               key={card.uuid}

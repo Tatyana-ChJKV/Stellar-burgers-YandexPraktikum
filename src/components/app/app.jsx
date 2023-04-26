@@ -75,21 +75,19 @@ export const App = () => {
                                    <ResetPasswordPage/>
                                </ProtectedRoute>
                            }/>
-                    <Route path="/ingredients/:id"
+                    <Route path="/ingredients/:idIngredient"
                            element={
-                               <Modal onClick={handleCloseModal} modalHeader={"Детали ингредиента"}>
-                                   <IngredientDetails/>
-                               </Modal>
+                               <IngredientDetails headerForIngredientDetails/>
                            }/>
                 </Route>
             </Routes>
-            {background &&
+            {background && (
                 <Routes>
                     <Route path="/ingredients/:idIngredient" element={
                         <Modal onClick={handleCloseModal} modalHeader={"Детали ингредиента"}>
                             <IngredientDetails/>
                         </Modal>}/>
-                </Routes>
+                </Routes>)
             }
         </>
     )
