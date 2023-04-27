@@ -4,7 +4,8 @@ export const BASE_URL = 'https://norma.nomoreparties.space/api';
 
 class BurgerApi {
     checkResponse = (res) => {
-        return res.ok ? res.json() : res.json().then((err) => Promise.reject({...err, statusCode: res.status}));
+        return res.ok ? res.json() : res.json().then((err) =>
+            Promise.reject({...err, statusCode: res.status}));
     };
 
     fetchWithRefresh = async (url, options) => {
@@ -28,6 +29,47 @@ class BurgerApi {
                 await Promise.reject(error)
             }
         }
+    };
+
+    refreshToken = () => {
+        return fetch(`${BASE_URL}/auth/token`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json;charset=utf-8",
+            },
+            body: JSON.stringify({
+                token: getCookie("refreshToken"),
+            }),
+        }).then(this.checkResponse);
+    };
+
+    getUser = () => {
+        return this.fetchWithRefresh(`${BASE_URL}/auth/user`, {
+            headers: {
+                authorization: getCookie("accessToken"),
+            },
+        }).then(data => {
+            if (data?.success) return data;
+            return Promise.reject(data)
+        });
+    };
+
+    registerUser = ({email, password, name}) => {
+        return fetch(`${BASE_URL}/auth/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json;charset=utf-8",
+            },
+            body: JSON.stringify({
+                email,
+                password,
+                name
+            }),
+        }).then(this.checkResponse)
+            .then(data => {
+                if (data?.success) return data;
+                return Promise.reject(data)
+            });
     };
 
     loginUser = ({email, password}) => {
@@ -56,30 +98,11 @@ class BurgerApi {
             body: JSON.stringify({
                 token: getCookie("refreshToken"),
             }),
-        }).then(this.checkResponse);
-    };
-
-    refreshToken = () => {
-        return fetch(`${BASE_URL}/auth/token`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json;charset=utf-8",
-            },
-            body: JSON.stringify({
-                token: getCookie("refreshToken"),
-            }),
-        }).then(this.checkResponse);
-    };
-
-    getUser = () => {
-        return this.fetchWithRefresh(`${BASE_URL}/auth/user`, {
-            headers: {
-                authorization: getCookie("accessToken"),
-            },
-        }).then(data => {
-            if (data?.success) return data;
-            return Promise.reject(data)
-        });
+        }).then(this.checkResponse)
+            .then(data => {
+                if (data?.success) return data;
+                return Promise.reject(data)
+            });
     };
 
     updateUserInformation({name, email, password}) {
@@ -100,23 +123,6 @@ class BurgerApi {
         });
     };
 
-    registerUser = ({email, password, name}) => {
-        return fetch(`${BASE_URL}/auth/register`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json;charset=utf-8",
-            },
-            body: JSON.stringify({
-                email,
-                password,
-                name
-            }),
-        }).then(this.checkResponse)
-            .then(data => {
-                if (data?.success) return data;
-                return Promise.reject(data)
-            });
-    };
     forgotPassword = ({email}) => {
         return fetch(`${BASE_URL}/password-reset`, {
             method: "POST",
@@ -143,7 +149,11 @@ class BurgerApi {
                 password,
                 token
             }),
-        }).then(this.checkResponse);
+        }).then(this.checkResponse)
+            .then(data => {
+                if (data?.success) return data;
+                return Promise.reject(data)
+            });
     };
 }
 

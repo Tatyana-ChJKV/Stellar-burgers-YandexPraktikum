@@ -31,10 +31,10 @@ export const checkUserAuth = createAsyncThunk(`${sliceName}/checkUserAuth`,
     async (_, {extra: rejectWithValue, dispatch}) => {
         try {
             const data = await api.getUser();
-            if (!data?.success) {
-                return rejectWithValue(data)
-            }
-            // console.log(data.user)
+            // if (!data?.success) {
+            //     return rejectWithValue(data)
+            // }
+            console.log(data.user)
             return data.user;
         } catch (error) {
             return rejectWithValue(error);
@@ -45,12 +45,12 @@ export const checkUserAuth = createAsyncThunk(`${sliceName}/checkUserAuth`,
 );
 
 export const registerUser = createAsyncThunk(`${sliceName}/registerUser`,
-    async (dataUser, {extra: rejectWithValue}) => {
+    async (dataUser) => {
         const data = await api.registerUser(dataUser);
         console.log('register', data);
-        if (!data?.success) {
-            return rejectWithValue(data)
-        }
+        // if (!data?.success) {
+        //     return rejectWithValue(data)
+        // }
         setCookie('accessToken', data.accessToken, {'max-age': 1000});
         setCookie('refreshToken', data.refreshToken)
         return data.user;
@@ -58,12 +58,12 @@ export const registerUser = createAsyncThunk(`${sliceName}/registerUser`,
 );
 
 export const loginUser = createAsyncThunk(`${sliceName}/loginUser`,
-    async (dataUser, {extra: rejectWithValue}) => {
+    async (dataUser) => {
         const data = await api.loginUser(dataUser);
         console.log('login', data);
-        if (!data?.success) {
-            return rejectWithValue(data)
-        }
+        // if (!data?.success) {
+        //     return rejectWithValue(data)
+        // }
         setCookie('accessToken', data.accessToken);
         setCookie('refreshToken', data.refreshToken)
         return data;
@@ -71,44 +71,45 @@ export const loginUser = createAsyncThunk(`${sliceName}/loginUser`,
 );
 
 export const logoutUser = createAsyncThunk(`${sliceName}/logoutUser`,
-    async (dataUser, {extra: rejectWithValue}) => {
+    async (dataUser) => {
         const data = await api.logoutUser(dataUser);
         console.log('logout', data);
-        if (!data?.success) {
-            return rejectWithValue(data)
-        }
+        // if (!data?.success) {
+        //     return rejectWithValue(data)
+        // }
         setCookie('refreshToken', data.refreshToken)
         return data;
     }
 );
 
 export const updateUserInformation = createAsyncThunk(`${sliceName}/updateUserInformation`,
-    async (dataUser, {extra: rejectWithValue}) => {
+    async (dataUser) => {
         const data = await api.updateUserInformation(dataUser);
         console.log('update_user_information', data);
-        if (!data?.success) {
-            return rejectWithValue(data)
-        }
+        // if (!data?.success) {
+        //     return rejectWithValue(data)
+        // }
         return data;
     });
 
 export const forgotPassword = createAsyncThunk(`${sliceName}/forgotPassword`,
-    async (email, {extra: rejectWithValue}) => {
+    async (email) => {
         const data = await api.forgotPassword(email);
-        if (!data?.success) {
-            return rejectWithValue(data)
-        }
+        console.log('forgot_pass', data);
+        // if (!data?.success) {
+        //     return rejectWithValue(data)
+        // }
         return data;
     }
 );
 
 export const resetPassword = createAsyncThunk(`${sliceName}/resetPassword`,
-    async ({password, token}, {extra: rejectWithValue}) => {
+    async ({password, token}) => {
         const data = await api.resetPassword({password, token});
         console.log('reset_pass', data);
-        if (!data?.success) {
-            return rejectWithValue(data)
-        }
+        // if (!data?.success) {
+        //     return rejectWithValue(data)
+        // }
         return data;
     }
 );
