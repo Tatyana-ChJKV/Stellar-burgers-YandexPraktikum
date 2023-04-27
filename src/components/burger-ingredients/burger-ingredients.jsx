@@ -18,7 +18,6 @@ export const BurgerIngredients = () => {
         return <IngredientsCard card={ingredient} key={ingredient._id}/>
     });
 
-
     const [current, setCurrent] = useState('bun');
 
     const scrollToTab = (tab) => {
@@ -39,32 +38,31 @@ export const BurgerIngredients = () => {
         threshold: 1, onChange: (inView) => inView && setCurrent('main')
     });
 
-
     return (
-                <section className={`${styles.main} mr-10`}>
-                    <p className="text text-position text_type_main-large mt-10 mb-5">
-                        Соберите бургер
-                    </p>
-                    <TabIngredients current={current} scrollToTab={scrollToTab}/>
-                    <div className={styles.ingredients_scroll}>
-                        <div
-                             className={`${styles.ingredients_menu} mt-10 mb-10`}>
-                            <h3 ref={bunsInView} className={`${styles.text_position} text text_type_main-medium`}>
-                                Булки
-                            </h3>
-                            <div
-                                 className={`${styles.buns} mt-6 ml-4 mr-4`}>{buns}</div>
-                            <h3 ref={sauceInView} className={`${styles.text_position} text text_type_main-medium mt-10`}>
-                                Соусы
-                            </h3>
-                            <div
-                                 className={`${styles.buns} mt-6 ml-4 mr-4`}>{sauces}</div>
-                            <h3 ref={mainsInView} className={`${styles.text_position} text text_type_main-medium mt-10`}>
-                                Начинки
-                            </h3>
-                            <div className={`${styles.buns} mt-6 ml-4 mr-4`}>{mains}</div>
-                        </div>
-                    </div>
-                </section>
+        <section className={`${styles.main} mr-10`}>
+            <p className="text text-position text_type_main-large mt-10 mb-5">
+                Соберите бургер
+            </p>
+            <TabIngredients current={current} scrollToTab={scrollToTab}/>
+            <div className={styles.ingredients_scroll}>
+                <div
+                    className={`${styles.ingredients_menu} mt-10 mb-10`}>
+                    <h3 ref={bunsInView} className={`${styles.text_position} text text_type_main-medium`}>
+                        Булки
+                    </h3>
+                    <div
+                        className={`${styles.buns} mt-6 ml-4 mr-4`}>{buns}</div>
+                    <h3 ref={sauceInView} className={`${styles.text_position} text text_type_main-medium mt-10`}>
+                        Соусы
+                    </h3>
+                    <div
+                        className={`${styles.buns} mt-6 ml-4 mr-4`}>{sauces}</div>
+                    <h3 ref={mainsInView} className={`${styles.text_position} text text_type_main-medium mt-10`}>
+                        Начинки
+                    </h3>
+                    <div className={`${styles.buns} mt-6 ml-4 mr-4`}>{mains}</div>
+                </div>
+            </div>
+        </section>
     )
 };

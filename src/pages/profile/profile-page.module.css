@@ -1,0 +1,29 @@
+.profile_main {
+    display: flex;
+    justify-content: center;
+    margin: 180px auto;
+}
+
+.registration_modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.menu_text {
+    width: 320px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+}
+
+.delete_underline_text {
+    text-decoration: none;
+}
+
+.buttons {
+    display: flex;
+    gap: 50px;
+}
+
