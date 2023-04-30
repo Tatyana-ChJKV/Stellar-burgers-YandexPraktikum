@@ -13,7 +13,7 @@ export const sliceName = 'user';
 
 export interface TAuthorisationSliceState {
     isAuthChecked: boolean,
-    data: User | null,
+    data: User | UserRegisterInfo |null,
     // либо собственный тип ошибки, который в action.payload
     registerUserError: SerializedError | null,
     registerUserRequest: boolean,
@@ -100,7 +100,7 @@ export const loginUser = createAsyncThunk<User, UserLoginInfo, ThunkApi>(`${slic
     }
 );
 
-export const logoutUser = createAsyncThunk<any, UserRegisterInfo, ThunkApi>(`${sliceName}/logoutUser`,
+export const logoutUser = createAsyncThunk<User, UserRegisterInfo, ThunkApi>(`${sliceName}/logoutUser`,
     async () => {
         const data = await api.logoutUser();
         console.log('logout', data);
@@ -108,39 +108,39 @@ export const logoutUser = createAsyncThunk<any, UserRegisterInfo, ThunkApi>(`${s
         //     return rejectWithValue(data)
         // }
         setCookie('refreshToken', data.refreshToken)
-        return data;
+        return data.user;
     }
 );
 
-export const updateUserInformation = createAsyncThunk<any, UserRegisterInfo, ThunkApi>(`${sliceName}/updateUserInformation`,
+export const updateUserInformation = createAsyncThunk<User, UserRegisterInfo, ThunkApi>(`${sliceName}/updateUserInformation`,
     async (dataUser) => {
         const data = await api.updateUserInformation(dataUser);
         console.log('update_user_information', data);
         // if (!data?.success) {
         //     return rejectWithValue(data)
         // }
-        return data;
+        return data.user;
     });
 
-export const forgotPassword = createAsyncThunk<any, UserForgotPassword, ThunkApi>(`${sliceName}/forgotPassword`,
+export const forgotPassword = createAsyncThunk<User, UserForgotPassword, ThunkApi>(`${sliceName}/forgotPassword`,
     async (dataUser) => {
         const data = await api.forgotPassword(dataUser);
         console.log('forgot_pass', data);
         // if (!data?.success) {
         //     return rejectWithValue(data)
         // }
-        return data;
+        return data.user;
     }
 );
 
-export const resetPassword = createAsyncThunk<any, UserResetPassword, ThunkApi>(`${sliceName}/resetPassword`,
+export const resetPassword = createAsyncThunk<User, UserResetPassword, ThunkApi>(`${sliceName}/resetPassword`,
     async (dataUser) => {
         const data = await api.resetPassword(dataUser);
         console.log('reset_pass', data);
         // if (!data?.success) {
         //     return rejectWithValue(data)
         // }
-        return data;
+        return data.user;
     }
 );
 

@@ -2,12 +2,16 @@ import styles from "./ingredient-details.module.css"
 import {useParams} from "react-router";
 import {useSelector} from "react-redux";
 import React from "react";
-import PropTypes from "prop-types";
+import {TCard} from "../../utils/types";
 
-export const IngredientDetails = ({headerForIngredientDetails}) => {
+type IngredientDetailsProps = {
+    headerForIngredientDetails: boolean;
+};
+
+export const IngredientDetails: React.FC<IngredientDetailsProps> = ({headerForIngredientDetails}) => {
     const {idIngredient} = useParams();
-    const cards = useSelector(state => state.ingredientsStore.data);
-    const card = cards.find(ingredient => ingredient._id === idIngredient);
+    const cards = useSelector((state: any) => state.ingredientsStore.data);
+    const card: TCard = cards.find((ingredient:  TCard) => ingredient._id === idIngredient);
 
     return (
         <>
@@ -41,8 +45,4 @@ export const IngredientDetails = ({headerForIngredientDetails}) => {
             }
         </>
     )
-};
-
-IngredientDetails.propTypes = {
-    headerForIngredientDetails: PropTypes.bool,
 };

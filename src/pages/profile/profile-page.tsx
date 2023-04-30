@@ -1,15 +1,19 @@
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import styles from "./profile-page.module.css"
 import {NavLink, useNavigate} from "react-router-dom";
 import {logoutUser, updateUserInformation} from "../../services/slices/authorization-slice";
-import {useDispatch, useSelector} from "react-redux";
+import {
+    useDispatch,
+    useSelector
+} from "../../services/hooks";
+// import {useSelector} from "react-redux";
 
 export const ProfilePage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const userInfo = useSelector(state => state.authorizationStore.data.user);
-    // console.log("userInfo", userInfo)
+    const userInfo = useSelector(state => state.authorizationStore.data);
+    console.log("userInfo", userInfo)
     const [userData, setUserData] = useState({
         name: '',
         email: '',
@@ -28,7 +32,7 @@ export const ProfilePage = () => {
         }
     }, [userInfo, setUserData])
 
-    const handleChange = e => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
         setUserData({
             ...userData,
@@ -36,35 +40,28 @@ export const ProfilePage = () => {
         });
     };
 
-    const handleSubmit = e => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         dispatch(updateUserInformation(userData))
-        console.log('handleSubmit')
+        console.log('handleSubmitUpdate')
     };
 
-    const handleLogout = e => {
+    const handleLogout = (e: React.FormEvent) => {
         e.preventDefault()
         dispatch(logoutUser(userData))
             .then(({payload}) => {
-                if (payload.success) {
+                if (payload) {
                     navigate("/login")
+                    console.log('logout_to_/login')
                 }
             })
     };
 
-    const handleCancellation = e => {
-        e.preventDefault()
-        if (userInfo) {
-            setUserData(userInfo)
-        }
-    };
-
-    const inputRef = useRef(null);
-
-    const onIconClick = () => {
-        setTimeout(() => inputRef.current.focus(), 0)
-        alert('Icon Click Callback')
-    };
+    // const handleCancellation = () => {
+    //     // e.preventDefault()
+    //         setUserData(userInfo)
+    //     console.log('handleCancellation')
+    // };
 
     return (
         <div className={styles.profile_main}>
@@ -98,8 +95,6 @@ export const ProfilePage = () => {
                     value={userData.name}
                     name={'name'}
                     error={false}
-                    ref={inputRef}
-                    onIconClick={onIconClick}
                     errorText={'Ошибка'}
                     size={'default'}
                     extraClass="ml-1"
@@ -108,8 +103,7 @@ export const ProfilePage = () => {
                     onChange={handleChange}
                     value={userData.email}
                     name={'email'}
-                    isIcon={false}
-                    icon={'EditIcon'}
+                    isIcon={true}
                     placeholder={'Логин'}
                 />
                 <PasswordInput
@@ -119,8 +113,6 @@ export const ProfilePage = () => {
                     extraClass="mb-2"
                     placeholder={'Пароль'}
                     icon={'EditIcon'}
-                    error={false}
-                    errorText={'Введите пароль'}
                 />
                 {buttonsAppearance &&
                 <div className={styles.buttons}>
@@ -134,7 +126,8 @@ export const ProfilePage = () => {
                             type="secondary"
                             size="medium"
                             extraClass="ml-2"
-                            onClick={handleCancellation}>
+                            // onClick={handleCancellation}
+                    >
                         Отмена
                     </Button>
                 </div>

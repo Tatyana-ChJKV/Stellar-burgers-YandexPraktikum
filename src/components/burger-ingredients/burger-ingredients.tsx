@@ -2,11 +2,12 @@ import React, {useState} from "react";
 import {TabIngredients} from "../tab-ingredients/tab-ingredients";
 import {IngredientsCard} from "../ingredients-card/ingredients-card";
 import styles from "./burger-ingredients.module.css";
-import {useSelector} from "react-redux";
+import {useSelector} from "../../services/hooks";
 import {useInView} from 'react-intersection-observer';
+import {TCard} from "../../utils/types";
 
 export const BurgerIngredients = () => {
-    const cards = useSelector(state => state.ingredientsStore.data);
+    const cards: TCard[] = useSelector((state) => state.ingredientsStore.data);
 
     const buns = cards.filter(ingredient => ingredient.type === 'bun').map(ingredient => {
         return <IngredientsCard card={ingredient} key={ingredient._id}/>
@@ -20,7 +21,7 @@ export const BurgerIngredients = () => {
 
     const [current, setCurrent] = useState('bun');
 
-    const scrollToTab = (tab) => {
+    const scrollToTab = (tab: string) => {
         setCurrent(tab);
         const element = document.getElementById(tab);
         if (element) {

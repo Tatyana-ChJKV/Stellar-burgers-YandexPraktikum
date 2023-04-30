@@ -85,7 +85,7 @@ export const App = () => {
                 <Routes>
                     <Route path="/ingredients/:idIngredient" element={
                         <Modal onClick={handleCloseModal} modalHeader={"Детали ингредиента"}>
-                            <IngredientDetails/>
+                            <IngredientDetails headerForIngredientDetails={false}/>
                         </Modal>}/>
                 </Routes>)
             }

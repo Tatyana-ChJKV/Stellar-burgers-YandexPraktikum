@@ -1,15 +1,19 @@
 import React, {useState} from "react";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredients-card.module.css";
-import PropTypes from "prop-types";
 import {useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
 import {Link} from "react-router-dom";
 import {useLocation} from "react-router";
+import {TCard} from "../../utils/types";
 
-export const IngredientsCard = ({card}) => {
+type TIngredientsCardProps = {
+    card: TCard;
+}
+
+export const IngredientsCard: React.FC<TIngredientsCardProps> = ({card}) => {
     // console.log(card)
-    const count = useSelector(state => state.constructorStore.counters[card._id]);
+    const count = useSelector((state: any) => state.constructorStore.counters[card._id]);
     const location = useLocation();
     const [modalOpened, setModalOpened] = useState(false);
     const openModal = () => setModalOpened(true);
@@ -47,7 +51,3 @@ export const IngredientsCard = ({card}) => {
         </Link>
     )
 };
-
-IngredientsCard.propTypes = {
-    card: PropTypes.object.isRequired
-}

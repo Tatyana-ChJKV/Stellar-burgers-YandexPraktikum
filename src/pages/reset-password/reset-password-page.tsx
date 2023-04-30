@@ -1,18 +1,19 @@
-import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useState} from "react";
+import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
+import React, {useState} from "react";
 import styles from "../login/login-page.module.css"
 import {NavLink, useNavigate} from "react-router-dom";
-import {forgotPassword} from "../../services/slices/authorization-slice";
-import {useDispatch} from "react-redux";
+import {resetPassword} from "../../services/slices/authorization-slice";
+import {useDispatch} from "../../services/hooks";
 
-export const ForgotPasswordPage = () => {
-    const dispatch = useDispatch();
+export const ResetPasswordPage = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [userData, setUserData] = useState({
-        email: ''
+        password: '',
+        token: ''
     });
 
-    const handleChange = e => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
         setUserData({
             ...userData,
@@ -20,12 +21,13 @@ export const ForgotPasswordPage = () => {
         });
     };
 
-    const handleSubmit = e => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        dispatch(forgotPassword(userData))
+        dispatch(resetPassword(userData))
             .then(({payload}) => {
-                if (payload.success) {
-                    navigate("/reset-password")
+                if (payload) {
+                    navigate("/login", { replace: true })
+
                 }
             })
     };
@@ -35,20 +37,30 @@ export const ForgotPasswordPage = () => {
             <p className="text text_type_main-medium mb-6">Восстановление пароля</p>
             <form onSubmit={handleSubmit}
                   className={styles.form}>
-                <EmailInput
+                <PasswordInput
                     autoFocus
                     onChange={handleChange}
-                    value={userData.email}
-                    name={'email'}
-                    isIcon={false}
+                    value={userData.password}
+                    name={'password'}
                     extraClass="mb-6"
-                    placeholder="Укажите e-mail"
+                    placeholder="Введите новый пароль"
+                />
+                <Input
+                    type={'text'}
+                    placeholder={'Введите код из письма'}
+                    onChange={handleChange}
+                    value={userData.token}
+                    name={'token'}
+                    error={false}
+                    errorText={'Ошибка'}
+                    size={'default'}
+                    extraClass="ml-1 mb-6"
                 />
                 <Button htmlType="submit"
                         type="primary"
                         size="medium"
                         extraClass="ml-2">
-                    Восстановить
+                    Сохранить
                 </Button>
             </form>
             <p className="mt-20 pb-1 text text_type_main-default text_color_inactive">Вспомнили пароль?
@@ -63,4 +75,4 @@ export const ForgotPasswordPage = () => {
             </p>
         </div>
     )
-};
+}
