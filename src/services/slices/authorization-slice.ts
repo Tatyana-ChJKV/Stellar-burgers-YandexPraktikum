@@ -1,10 +1,40 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, SerializedError} from '@reduxjs/toolkit';
 import {setCookie} from "../../utils/cookie";
-import api from "../../utils/api"
+import api, {
+    User,
+    UserForgotPassword,
+    UserLoginInfo,
+    UserRegisterInfo,
+    UserResetPassword
+} from "../../utils/api"
+import {ThunkApi} from "../store";
 
 export const sliceName = 'user';
 
-const initialState = {
+export interface TAuthorisationSliceState {
+    isAuthChecked: boolean,
+    data: User | null,
+    // либо собственный тип ошибки, который в action.payload
+    registerUserError: SerializedError | null,
+    registerUserRequest: boolean,
+
+    loginUserError: SerializedError | null,
+    loginUserRequest: boolean,
+
+    getUserError: SerializedError | null,
+    getUserRequest: boolean,
+
+    forgotPasswordError: SerializedError | null,
+    forgotPasswordRequest: boolean,
+
+    resetPasswordError: SerializedError | null,
+    resetPasswordRequest: boolean,
+
+    updateUserInformationError: SerializedError | null,
+    updateUserInformationRequest: boolean
+}
+
+const initialState: TAuthorisationSliceState = {
     isAuthChecked: false,
     data: null,
 
@@ -27,8 +57,8 @@ const initialState = {
     updateUserInformationRequest: false
 };
 
-export const checkUserAuth = createAsyncThunk(`${sliceName}/checkUserAuth`,
-    async (_, {extra: rejectWithValue, dispatch}) => {
+export const checkUserAuth = createAsyncThunk<User, void, ThunkApi>(`${sliceName}/checkUserAuth`,
+    async (_, {extra: api, rejectWithValue, dispatch}) => {
         try {
             const data = await api.getUser();
             // if (!data?.success) {
@@ -44,7 +74,7 @@ export const checkUserAuth = createAsyncThunk(`${sliceName}/checkUserAuth`,
     }
 );
 
-export const registerUser = createAsyncThunk(`${sliceName}/registerUser`,
+export const registerUser = createAsyncThunk<User, UserRegisterInfo, ThunkApi>(`${sliceName}/registerUser`,
     async (dataUser) => {
         const data = await api.registerUser(dataUser);
         console.log('register', data);
@@ -57,7 +87,7 @@ export const registerUser = createAsyncThunk(`${sliceName}/registerUser`,
     }
 );
 
-export const loginUser = createAsyncThunk(`${sliceName}/loginUser`,
+export const loginUser = createAsyncThunk<User, UserLoginInfo, ThunkApi>(`${sliceName}/loginUser`,
     async (dataUser) => {
         const data = await api.loginUser(dataUser);
         console.log('login', data);
@@ -66,13 +96,13 @@ export const loginUser = createAsyncThunk(`${sliceName}/loginUser`,
         // }
         setCookie('accessToken', data.accessToken);
         setCookie('refreshToken', data.refreshToken)
-        return data;
+        return data.user;
     }
 );
 
-export const logoutUser = createAsyncThunk(`${sliceName}/logoutUser`,
-    async (dataUser) => {
-        const data = await api.logoutUser(dataUser);
+export const logoutUser = createAsyncThunk<any, UserRegisterInfo, ThunkApi>(`${sliceName}/logoutUser`,
+    async () => {
+        const data = await api.logoutUser();
         console.log('logout', data);
         // if (!data?.success) {
         //     return rejectWithValue(data)
@@ -82,7 +112,7 @@ export const logoutUser = createAsyncThunk(`${sliceName}/logoutUser`,
     }
 );
 
-export const updateUserInformation = createAsyncThunk(`${sliceName}/updateUserInformation`,
+export const updateUserInformation = createAsyncThunk<any, UserRegisterInfo, ThunkApi>(`${sliceName}/updateUserInformation`,
     async (dataUser) => {
         const data = await api.updateUserInformation(dataUser);
         console.log('update_user_information', data);
@@ -92,9 +122,9 @@ export const updateUserInformation = createAsyncThunk(`${sliceName}/updateUserIn
         return data;
     });
 
-export const forgotPassword = createAsyncThunk(`${sliceName}/forgotPassword`,
-    async (email) => {
-        const data = await api.forgotPassword(email);
+export const forgotPassword = createAsyncThunk<any, UserForgotPassword, ThunkApi>(`${sliceName}/forgotPassword`,
+    async (dataUser) => {
+        const data = await api.forgotPassword(dataUser);
         console.log('forgot_pass', data);
         // if (!data?.success) {
         //     return rejectWithValue(data)
@@ -103,9 +133,9 @@ export const forgotPassword = createAsyncThunk(`${sliceName}/forgotPassword`,
     }
 );
 
-export const resetPassword = createAsyncThunk(`${sliceName}/resetPassword`,
-    async ({password, token}) => {
-        const data = await api.resetPassword({password, token});
+export const resetPassword = createAsyncThunk<any, UserResetPassword, ThunkApi>(`${sliceName}/resetPassword`,
+    async (dataUser) => {
+        const data = await api.resetPassword(dataUser);
         console.log('reset_pass', data);
         // if (!data?.success) {
         //     return rejectWithValue(data)
@@ -114,15 +144,20 @@ export const resetPassword = createAsyncThunk(`${sliceName}/resetPassword`,
     }
 );
 
-export function isActionPending(action) {
+interface actionType {
+    type: string;
+    payload: any;
+}
+
+export function isActionPending(action: actionType) {
     return action.type.endsWith('pending')
 }
 
-export function isActionRejected(action) {
+export function isActionRejected(action: actionType) {
     return action.type.endsWith('rejected')
 }
 
-export function getActionName(actionType) {
+export function getActionName(actionType: string) {
     return actionType.split('/')[1];
 }
 
@@ -161,12 +196,12 @@ const user = createSlice({
                 state.updateUserInformationRequest = false;
             })
             .addMatcher(isActionPending, (state, action) => {
-                state[`${getActionName(action.type)}Request`] = true;
-                state[`${getActionName(action.type)}Error`] = null;
+                state = {...state, [`${getActionName(action.type)}Request`]: true};
+                state = {...state, [`${getActionName(action.type)}Error`]: null};
             })
             .addMatcher(isActionRejected, (state, action) => {
-                state[`${getActionName(action.type)}Error`] = action.payload;
-                state[`${getActionName(action.type)}Request`] = false;
+                state = {...state, [`${getActionName(action.type)}Request`]: false};
+                state = {...state, [`${getActionName(action.type)}Error`]: action.payload};
             })
     }
 });
