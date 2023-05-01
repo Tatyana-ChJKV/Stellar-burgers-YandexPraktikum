@@ -15,9 +15,11 @@ export const IngredientsCard: React.FC<TIngredientsCardProps> = ({card}) => {
     // console.log(card)
     const count = useSelector((state: any) => state.constructorStore.counters[card._id]);
     const location = useLocation();
+
     const [modalOpened, setModalOpened] = useState(false);
+
     const openModal = () => setModalOpened(true);
-    // const closeModal = () => setModalOpened(false);
+
     const [{opacity}, dragTarget] = useDrag({
         type: "card",
         item: card,
@@ -25,6 +27,7 @@ export const IngredientsCard: React.FC<TIngredientsCardProps> = ({card}) => {
             opacity: monitor.isDragging() ? 0.5 : 1
         })
     });
+
     return (
         <Link to={`ingredients/${card._id}`}
               state={{background: location}}

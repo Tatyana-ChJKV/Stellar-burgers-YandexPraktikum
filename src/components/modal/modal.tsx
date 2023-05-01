@@ -5,7 +5,7 @@ import {createPortal} from "react-dom";
 import styles from "./modal.module.css";
 
 type TModalProps = {
-    onClick: () => void,
+    onClick: () => void;
     children: ReactElement;
     modalHeader: string;
 };

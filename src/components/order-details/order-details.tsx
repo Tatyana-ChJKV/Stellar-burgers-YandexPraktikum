@@ -3,8 +3,8 @@ import styles from "./order-details.module.css"
 import React from "react";
 
 type TOrderDetailsProps = {
-    orderNumber: number
-}
+    orderNumber: number;
+};
 
 export const OrderDetails:React.FC<TOrderDetailsProps> = ({orderNumber}) => {
     return (

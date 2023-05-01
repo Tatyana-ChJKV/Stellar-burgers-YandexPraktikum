@@ -1,7 +1,6 @@
 export type TCard = {
     _id: string;
     name: string;
-    // type: "top" | "bottom" | undefined;
     type: string;
     calories: number;
     proteins: number;

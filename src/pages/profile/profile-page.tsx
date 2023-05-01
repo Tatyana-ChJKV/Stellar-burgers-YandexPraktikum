@@ -7,12 +7,11 @@ import {
     useDispatch,
     useSelector
 } from "../../services/hooks";
-// import {useSelector} from "react-redux";
 
 export const ProfilePage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const userInfo = useSelector(state => state.authorizationStore.data);
+    const userInfo = useSelector((state: any) => state.authorizationStore.data);
     console.log("userInfo", userInfo)
     const [userData, setUserData] = useState({
         name: '',
@@ -49,19 +48,19 @@ export const ProfilePage = () => {
     const handleLogout = (e: React.FormEvent) => {
         e.preventDefault()
         dispatch(logoutUser(userData))
-            .then(({payload}) => {
-                if (payload) {
+            .then(({payload}: {payload:any}) => {
+                if (payload?.success) {
                     navigate("/login")
                     console.log('logout_to_/login')
                 }
             })
     };
 
-    // const handleCancellation = () => {
-    //     // e.preventDefault()
-    //         setUserData(userInfo)
-    //     console.log('handleCancellation')
-    // };
+    const handleCancellation = (e: React.FormEvent) => {
+        e.preventDefault()
+        setUserData(userInfo)
+        console.log('handleCancellation')
+    };
 
     return (
         <div className={styles.profile_main}>
@@ -115,22 +114,22 @@ export const ProfilePage = () => {
                     icon={'EditIcon'}
                 />
                 {buttonsAppearance &&
-                <div className={styles.buttons}>
-                    <Button htmlType="submit"
-                            type="primary"
-                            size="medium"
-                            extraClass="ml-2">
-                        Сохранить
-                    </Button>
-                    <Button htmlType="reset"
-                            type="secondary"
-                            size="medium"
-                            extraClass="ml-2"
-                            // onClick={handleCancellation}
-                    >
-                        Отмена
-                    </Button>
-                </div>
+                    <div className={styles.buttons}>
+                        <Button htmlType="submit"
+                                type="primary"
+                                size="medium"
+                                extraClass="ml-2">
+                            Сохранить
+                        </Button>
+                        <Button htmlType="reset"
+                                type="secondary"
+                                size="medium"
+                                extraClass="ml-2"
+                                onClick={handleCancellation}
+                        >
+                            Отмена
+                        </Button>
+                    </div>
                 }
             </form>
         </div>

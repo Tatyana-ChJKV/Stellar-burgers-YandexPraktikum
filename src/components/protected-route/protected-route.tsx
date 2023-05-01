@@ -5,7 +5,7 @@ import {useSelector} from "../../services/hooks";
 type TProtectedRouteProps = {
     onlyUnAuth?: boolean;
     children: ReactElement;
-} & RouteProps
+} & RouteProps;
 
 export const ProtectedRoute: React.FC<TProtectedRouteProps> = ({onlyUnAuth, children, ...props}) => {
     const location = useLocation();

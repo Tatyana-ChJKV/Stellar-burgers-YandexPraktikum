@@ -3,12 +3,11 @@ import React, {useState} from "react";
 import {OrderDetails} from "../order-details/order-details";
 import {Modal} from "../modal/modal";
 import styles from "./burger-constructor.module.css";
-import {useDispatch, useSelector} from "react-redux";
-// import {useDispatch, useSelector} from "../../services/hooks";
+import {useDispatch, useSelector} from "../../services/hooks";
 import {ConstructorCard} from "./ingredient-card-in-burger-constructor/ingredient-card-in-burger-constructor";
 import {useDrop} from "react-dnd";
 import {addIngredient, clearConstructor} from "../../services/slices/constructor-slice";
-import {makeOrder} from "../../services/slices/order-slice";
+// import {makeOrder} from "../../services/slices/order-slice";
 import {useNavigate} from "react-router-dom";
 import {TCard, TCardBunType} from "../../utils/types";
 
@@ -23,7 +22,7 @@ export const BurgerConstructor = () => {
 
     // const orderNumber = () => {
     //     const ingredientsId = {
-    //         ingredients: card.map((ingredient: TCard) => ingredient._id)
+    //         ingredients: card.map((ingredient) => ingredient._id)
     //     };
     //     dispatch(makeOrder(ingredientsId))
     // };
@@ -90,7 +89,7 @@ export const BurgerConstructor = () => {
                 <div className={`${styles.price_button_constructor} mt-10 mr-4`}>
                     <div className={`${styles.price_button_elements} mr-10`}>
                         <p className="text text_type_digits-medium mr-2">
-                            {/*{getPrice(card)}*/}
+                            {getPrice()}
                         </p>
                         <CurrencyIcon type="primary"/>
                     </div>

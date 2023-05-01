@@ -1,9 +1,13 @@
 import React from "react";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./tab-ingredients.module.css";
-import PropTypes from "prop-types";
 
-export const TabIngredients = ({current, scrollToTab}) => {
+type TTabIngredientsProps = {
+    current: string;
+    scrollToTab: (e: string) => void;
+}
+
+export const TabIngredients: React.FC<TTabIngredientsProps> = ({current, scrollToTab}) => {
     return (
         <div className={styles.flex}>
             <Tab value="bun"
@@ -24,8 +28,3 @@ export const TabIngredients = ({current, scrollToTab}) => {
         </div>
     )
 };
-
-TabIngredients.propTypes = {
-    current: PropTypes.string.isRequired,
-    scrollToTab: PropTypes.func.isRequired
-}

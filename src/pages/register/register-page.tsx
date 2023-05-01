@@ -1,9 +1,9 @@
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useState} from "react";
+import React, {useState} from "react";
 import styles from "./register-page.module.css"
 import {NavLink, useNavigate} from "react-router-dom";
 import {registerUser} from "../../services/slices/authorization-slice";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "../../services/hooks";
 
 export const RegisterPage = () => {
     const dispatch = useDispatch();
@@ -14,7 +14,7 @@ export const RegisterPage = () => {
         password: ''
     });
 
-    const handleChange = e => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
         setUserData({
             ...userData,
@@ -22,11 +22,11 @@ export const RegisterPage = () => {
         });
     };
 
-    const handleSubmit = e => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         dispatch(registerUser(userData))
             .then(({payload}) => {
-                if (payload.success) {
+                if (payload) {
                     navigate("/")
                 }
             })
