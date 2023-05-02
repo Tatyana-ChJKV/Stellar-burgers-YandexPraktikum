@@ -1,4 +1,4 @@
-export function getCookie(name) {
+export function getCookie(name: string) {
     const matches = document.cookie.match(
         // eslint-disable-next-line no-useless-escape
         new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
@@ -6,7 +6,9 @@ export function getCookie(name) {
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-export function setCookie(name, value, props = {}) {
+export function setCookie(name: string, value: string, props: {
+    [key: string]: string | number | Date | boolean
+} = {}) {
     props = {
         path: '/',
         ...props
@@ -19,7 +21,7 @@ export function setCookie(name, value, props = {}) {
         d.setTime(d.getTime() + exp * 1000);
         exp = props.expires = d;
     }
-    if (exp && exp.toUTCString) {
+    if (exp && exp instanceof Date) {
         props.expires = exp.toUTCString();
     }
     value = encodeURIComponent(value);

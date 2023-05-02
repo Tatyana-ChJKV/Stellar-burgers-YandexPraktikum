@@ -1,31 +1,28 @@
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ModalOverlay} from "../modal-overlay/modal-overlay";
-import {useEffect} from "react";
+import React, {ReactElement, useEffect} from "react";
 import {createPortal} from "react-dom";
-import PropTypes from "prop-types";
 import styles from "./modal.module.css";
 
-export const Modal = ({onClick, children, modalHeader}) => {
-    const closeByEscape = (e) => {
-        if (e.key === "Escape") {
-            onClick();
-        }
-    };
+type TModalProps = {
+    onClick: () => void;
+    children: ReactElement;
+    modalHeader: string;
+};
 
-    const closeByOverlay = (e) => {
-        if (e.target.classList.contains("modal-overlay")) {
+export const Modal:React.FC<TModalProps> = ({onClick, children, modalHeader}) => {
+    const closeByEscape = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
             onClick();
         }
     };
 
     useEffect(() => {
         document.addEventListener('keydown', closeByEscape)
-        document.addEventListener('click', closeByOverlay)
         return () => {
             document.removeEventListener('keydown', closeByEscape)
-            document.removeEventListener('click', closeByOverlay)
         }
-    }, []);
+    }, [onClick]);
 
     return createPortal(
         <>
@@ -37,12 +34,6 @@ export const Modal = ({onClick, children, modalHeader}) => {
                 </div>
                 {children}
             </div>
-            <ModalOverlay/>
-        </>, document.getElementById('modal-windows'))
+            <ModalOverlay onClose={onClick}/>
+        </>, document.getElementById('modal-windows') as HTMLDivElement)
 };
-
-Modal.propTypes = {
-    onClick: PropTypes.func.isRequired,
-    children: PropTypes.element.isRequired,
-    modalHeader: PropTypes.string.isRequired
-}

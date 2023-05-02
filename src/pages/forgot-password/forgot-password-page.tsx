@@ -1,9 +1,9 @@
 import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useState} from "react";
+import React, {useState} from "react";
 import styles from "../login/login-page.module.css"
 import {NavLink, useNavigate} from "react-router-dom";
 import {forgotPassword} from "../../services/slices/authorization-slice";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "../../services/hooks";
 
 export const ForgotPasswordPage = () => {
     const dispatch = useDispatch();
@@ -12,7 +12,7 @@ export const ForgotPasswordPage = () => {
         email: ''
     });
 
-    const handleChange = e => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
         setUserData({
             ...userData,
@@ -20,12 +20,12 @@ export const ForgotPasswordPage = () => {
         });
     };
 
-    const handleSubmit = e => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         dispatch(forgotPassword(userData))
-            .then(({payload}) => {
-                if (payload.success) {
-                    navigate("/reset-password")
+            .then(({payload}: {payload: any}) => {
+                if (payload?.success) {
+                    navigate("/reset-password", {replace: true})
                 }
             })
     };

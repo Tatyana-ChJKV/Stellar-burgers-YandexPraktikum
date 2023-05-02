@@ -1,18 +1,28 @@
 import {getCookie, setCookie} from './cookie';
+import {
+    TRefreshResponseWithToken,
+    TUserForgotPassword,
+    TUserLoginInfo,
+    TUserRegisterInfo, TUserResetPassword,
+    TUserResponse,
+    TUserResponseWithToken
+} from "./types";
 
 export const BASE_URL = 'https://norma.nomoreparties.space/api';
 
-class BurgerApi {
-    checkResponse = (res) => {
-        return res.ok ? res.json() : res.json().then((err) =>
-            Promise.reject({...err, statusCode: res.status}));
+export class BurgerApi {
+    checkResponse = <T>(res: Response): Promise<T> => {
+        return res.ok
+            ? res.json()
+            : res.json()
+                .then((err) => Promise.reject({...err, statusCode: res.status}));
     };
 
-    fetchWithRefresh = async (url, options) => {
+    fetchWithRefresh = async <T>(url: RequestInfo, options: RequestInit) => {
         try {
             const res = await fetch(url, options);
-            return await this.checkResponse(res);
-        } catch (error) {
+            return await this.checkResponse<T>(res);
+        } catch (error: any) {
             // console.log('fetchWithRefresh', error);
             if (error.statusCode === 401 || error.statusCode === 403) {
                 const refreshData = await this.refreshToken();
@@ -21,10 +31,11 @@ class BurgerApi {
                 }
                 setCookie('accessToken', refreshData.accessToken);
                 setCookie('refreshToken', refreshData.refreshToken);
-                options.headers.authorization = refreshData.accessToken;
+                if (options.headers) {
+                    (options.headers as { [key: string]: string }).authorization = refreshData.accessToken;
+                }
                 const res = await fetch(url, options);
-                return await this.checkResponse(res);
-
+                return await this.checkResponse<T>(res);
             } else {
                 await Promise.reject(error)
             }
@@ -40,21 +51,22 @@ class BurgerApi {
             body: JSON.stringify({
                 token: getCookie("refreshToken"),
             }),
-        }).then(this.checkResponse);
+        }).then((res) => this.checkResponse<TRefreshResponseWithToken>(res));
     };
 
     getUser = () => {
-        return this.fetchWithRefresh(`${BASE_URL}/auth/user`, {
+        return this.fetchWithRefresh<TUserResponse>(`${BASE_URL}/auth/user`, {
             headers: {
                 authorization: getCookie("accessToken"),
-            },
-        }).then(data => {
-            if (data?.success) return data;
-            return Promise.reject(data)
-        });
+            } as HeadersInit,
+        })
+            .then((data) => {
+                if (data?.success) return data;
+                return Promise.reject(data);
+            });
     };
 
-    registerUser = ({email, password, name}) => {
+    registerUser = ({email, password, name}: TUserRegisterInfo): Promise<TUserResponseWithToken> => {
         return fetch(`${BASE_URL}/auth/register`, {
             method: "POST",
             headers: {
@@ -65,14 +77,15 @@ class BurgerApi {
                 password,
                 name
             }),
-        }).then(this.checkResponse)
-            .then(data => {
+        })
+            .then((res) => this.checkResponse<TUserResponseWithToken>(res))
+            .then((data) => {
                 if (data?.success) return data;
                 return Promise.reject(data)
             });
     };
 
-    loginUser = ({email, password}) => {
+    loginUser = ({email, password}: TUserLoginInfo) => {
         return fetch(`${BASE_URL}/auth/login`, {
             method: "POST",
             headers: {
@@ -82,8 +95,9 @@ class BurgerApi {
                 email,
                 password
             }),
-        }).then(this.checkResponse)
-            .then(data => {
+        })
+            .then((res) => this.checkResponse<TUserResponseWithToken>(res))
+            .then((data) => {
                 if (data?.success) return data;
                 return Promise.reject(data)
             });
@@ -98,32 +112,34 @@ class BurgerApi {
             body: JSON.stringify({
                 token: getCookie("refreshToken"),
             }),
-        }).then(this.checkResponse)
-            .then(data => {
+        })
+            .then((res) => this.checkResponse<TUserResponseWithToken>(res))
+            .then((data) => {
                 if (data?.success) return data;
                 return Promise.reject(data)
             });
     };
 
-    updateUserInformation({name, email, password}) {
-        return this.fetchWithRefresh(`${BASE_URL}/auth/user`, {
+    updateUserInformation({name, email, password}: TUserRegisterInfo) {
+        return this.fetchWithRefresh<TUserResponse>(`${BASE_URL}/auth/user`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
                 authorization: getCookie("accessToken"),
-            },
+            } as HeadersInit,
             body: JSON.stringify({
                 name,
                 email,
                 password,
             }),
-        }).then(data => {
-            if (data?.success) return data;
-            return Promise.reject(data)
-        });
+        })
+            .then((data) => {
+                if (data?.success) return data;
+                return Promise.reject(data)
+            });
     };
 
-    forgotPassword = ({email}) => {
+    forgotPassword = ({email}: TUserForgotPassword) => {
         return fetch(`${BASE_URL}/password-reset`, {
             method: "POST",
             headers: {
@@ -132,14 +148,15 @@ class BurgerApi {
             body: JSON.stringify({
                 email
             }),
-        }).then(this.checkResponse)
-            .then(data => {
+        })
+            .then((res) => this.checkResponse<TUserResponseWithToken>(res))
+            .then((data) => {
                 if (data?.success) return data;
                 return Promise.reject(data)
             });
     };
 
-    resetPassword = ({password, token}) => {
+    resetPassword = ({password, token}: TUserResetPassword) => {
         return fetch(`${BASE_URL}/password-reset/reset`, {
             method: "POST",
             headers: {
@@ -149,8 +166,9 @@ class BurgerApi {
                 password,
                 token
             }),
-        }).then(this.checkResponse)
-            .then(data => {
+        })
+            .then((res) => this.checkResponse<TUserResponseWithToken>(res))
+            .then((data) => {
                 if (data?.success) return data;
                 return Promise.reject(data)
             });

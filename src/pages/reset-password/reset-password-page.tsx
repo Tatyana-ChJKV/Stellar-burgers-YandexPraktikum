@@ -1,9 +1,9 @@
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useState} from "react";
+import React, {useState} from "react";
 import styles from "../login/login-page.module.css"
 import {NavLink, useNavigate} from "react-router-dom";
 import {resetPassword} from "../../services/slices/authorization-slice";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "../../services/hooks";
 
 export const ResetPasswordPage = () => {
     const navigate = useNavigate();
@@ -13,7 +13,7 @@ export const ResetPasswordPage = () => {
         token: ''
     });
 
-    const handleChange = e => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
         setUserData({
             ...userData,
@@ -21,11 +21,11 @@ export const ResetPasswordPage = () => {
         });
     };
 
-    const handleSubmit = e => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         dispatch(resetPassword(userData))
             .then(({payload}) => {
-                if (payload?.success) {
+                if (payload) {
                     navigate("/login", { replace: true })
 
                 }

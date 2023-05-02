@@ -3,7 +3,7 @@ import ingredients from "./slices/ingredients-slice";
 import constructor from "./slices/constructor-slice";
 import order from "./slices/order-slice";
 import authorization from "./slices/authorization-slice";
-import burgerApi from "../utils/api"
+import burgerApi, {BurgerApi} from "../utils/api"
 
 export const store = configureStore({
     reducer: {
@@ -21,3 +21,13 @@ export const store = configureStore({
 });
 
 export default store;
+
+export type RootState = ReturnType<typeof store.getState>;
+
+export type AppDispatch = typeof store.dispatch;
+
+// extra
+export type ThunkApi = {
+    extra: BurgerApi;
+    dispatch: AppDispatch;
+};

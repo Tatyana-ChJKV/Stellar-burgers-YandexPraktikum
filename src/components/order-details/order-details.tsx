@@ -1,8 +1,12 @@
 import DonePicture from "../../images/done.svg"
 import styles from "./order-details.module.css"
-import PropTypes from "prop-types";
+import React from "react";
 
-export const OrderDetails = ({orderNumber}) => {
+type TOrderDetailsProps = {
+    orderNumber: number;
+};
+
+export const OrderDetails:React.FC<TOrderDetailsProps> = ({orderNumber}) => {
     return (
         <div className={`${styles.elements_display_flex} mt-4 mb-30`}>
             <h2 className="text text_type_digits-large">{orderNumber}</h2>
@@ -16,7 +20,3 @@ export const OrderDetails = ({orderNumber}) => {
         </div>
     )
 };
-
-OrderDetails.propTypes = {
-    orderNumber: PropTypes.number.isRequired
-}

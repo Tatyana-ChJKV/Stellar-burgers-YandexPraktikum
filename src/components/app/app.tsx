@@ -1,4 +1,3 @@
-import {useDispatch, useSelector} from "react-redux";
 import {receiveIngredients} from "../../services/slices/ingredients-slice";
 import {useEffect} from "react";
 import {Route, Routes, useNavigate} from "react-router-dom";
@@ -15,13 +14,14 @@ import {checkUserAuth} from "../../services/slices/authorization-slice";
 import {IngredientDetails} from "../ingredient-details/ingredient-details";
 import {Modal} from "../modal/modal";
 import {useLocation} from "react-router";
+import {useDispatch} from "../../services/hooks";
 
 export const App = () => {
     const dispatch = useDispatch();
-    const user = useSelector(state => state.authorizationStore.data);
+    // const user = useSelector(state => state.authorizationStore.data);
     const navigate = useNavigate();
     const location = useLocation();
-    const background = location.state?.background;
+    const background = location.state?.background as Location;
 
     useEffect(() => {
         dispatch(receiveIngredients())
@@ -47,7 +47,7 @@ export const App = () => {
                     />
                     <Route path="/profile"
                            element={
-                               <ProtectedRoute user={user}>
+                               <ProtectedRoute>
                                    <ProfilePage/>
                                </ProtectedRoute>
                            }/>
@@ -85,7 +85,7 @@ export const App = () => {
                 <Routes>
                     <Route path="/ingredients/:idIngredient" element={
                         <Modal onClick={handleCloseModal} modalHeader={"Детали ингредиента"}>
-                            <IngredientDetails/>
+                            <IngredientDetails headerForIngredientDetails={false}/>
                         </Modal>}/>
                 </Routes>)
             }
