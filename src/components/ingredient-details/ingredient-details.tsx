@@ -1,6 +1,6 @@
 import styles from "./ingredient-details.module.css"
 import {useParams} from "react-router";
-import {useSelector} from "react-redux";
+import {useSelector} from "../../services/hooks";
 import React from "react";
 import {TCard} from "../../utils/types";
 

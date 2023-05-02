@@ -4,16 +4,16 @@ import React, {useRef} from "react";
 import {useDispatch} from "../../../services/hooks";
 import {deleteIngredient, orderIngredients} from "../../../services/slices/constructor-slice";
 import {useDrag, useDrop, XYCoord} from "react-dnd";
-import {TCardBunType} from "../../../utils/types";
+import {TCard} from "../../../utils/types";
 
 type TConstructorCardProps = {
-    card: TCardBunType;
+    card: TCard;
     index: number;
 }
 
 export const ConstructorCard: React.FC<TConstructorCardProps> = ({card, index}) => {
     const dispatch = useDispatch()
-    const deleteCard = (card: TCardBunType) => dispatch(deleteIngredient(card));
+    const deleteCard = () => dispatch(deleteIngredient(card));
 
     const ref = useRef<HTMLInputElement>(null)
 
@@ -66,11 +66,10 @@ export const ConstructorCard: React.FC<TConstructorCardProps> = ({card, index}) 
             <DragIcon type="primary"/>
             <ConstructorElement
                 key={card.uuid}
-                type={card.type}
                 text={card.name}
                 price={card.price}
                 thumbnail={card.image_mobile}
-                handleClose={() => deleteCard(card)}
+                handleClose={() => deleteCard()}
             />
         </div>
     )

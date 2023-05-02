@@ -1,19 +1,20 @@
 import {createAsyncThunk, createSlice, SerializedError} from '@reduxjs/toolkit';
 import {setCookie} from "../../utils/cookie";
-import api, {
-    User,
-    UserForgotPassword,
-    UserLoginInfo,
-    UserRegisterInfo,
-    UserResetPassword
-} from "../../utils/api"
+import api from "../../utils/api"
 import {ThunkApi} from "../store";
+import {
+    TUser,
+    TUserForgotPassword,
+    TUserLoginInfo,
+    TUserRegisterInfo,
+    TUserResetPassword
+} from "../../utils/types";
 
 export const sliceName = 'user';
 
-export interface TAuthorisationSliceState {
+interface TAuthorisationSliceState {
     isAuthChecked: boolean,
-    data: User | UserRegisterInfo |null,
+    data: TUser | TUserRegisterInfo | null,
     // либо собственный тип ошибки, который в action.payload
     registerUserError: SerializedError | null,
     registerUserRequest: boolean,
@@ -57,7 +58,7 @@ const initialState: TAuthorisationSliceState = {
     updateUserInformationRequest: false
 };
 
-export const checkUserAuth = createAsyncThunk<User, void, ThunkApi>(`${sliceName}/checkUserAuth`,
+export const checkUserAuth = createAsyncThunk<TUser, void, ThunkApi>(`${sliceName}/checkUserAuth`,
     async (_, {extra: api, rejectWithValue, dispatch}) => {
         try {
             const data = await api.getUser();
@@ -74,7 +75,7 @@ export const checkUserAuth = createAsyncThunk<User, void, ThunkApi>(`${sliceName
     }
 );
 
-export const registerUser = createAsyncThunk<User, UserRegisterInfo, ThunkApi>(`${sliceName}/registerUser`,
+export const registerUser = createAsyncThunk<TUser, TUserRegisterInfo, ThunkApi>(`${sliceName}/registerUser`,
     async (dataUser) => {
         const data = await api.registerUser(dataUser);
         console.log('register', data);
@@ -87,7 +88,7 @@ export const registerUser = createAsyncThunk<User, UserRegisterInfo, ThunkApi>(`
     }
 );
 
-export const loginUser = createAsyncThunk<User, UserLoginInfo, ThunkApi>(`${sliceName}/loginUser`,
+export const loginUser = createAsyncThunk<TUser, TUserLoginInfo, ThunkApi>(`${sliceName}/loginUser`,
     async (dataUser) => {
         const data = await api.loginUser(dataUser);
         console.log('login', data);
@@ -100,7 +101,7 @@ export const loginUser = createAsyncThunk<User, UserLoginInfo, ThunkApi>(`${slic
     }
 );
 
-export const logoutUser = createAsyncThunk<User, UserRegisterInfo, ThunkApi>(`${sliceName}/logoutUser`,
+export const logoutUser = createAsyncThunk<TUser, TUserRegisterInfo, ThunkApi>(`${sliceName}/logoutUser`,
     async () => {
         const data = await api.logoutUser();
         console.log('logout', data);
@@ -112,7 +113,7 @@ export const logoutUser = createAsyncThunk<User, UserRegisterInfo, ThunkApi>(`${
     }
 );
 
-export const updateUserInformation = createAsyncThunk<User, UserRegisterInfo, ThunkApi>(`${sliceName}/updateUserInformation`,
+export const updateUserInformation = createAsyncThunk<TUser, TUserRegisterInfo, ThunkApi>(`${sliceName}/updateUserInformation`,
     async (dataUser) => {
         const data = await api.updateUserInformation(dataUser);
         console.log('update_user_information', data);
@@ -122,7 +123,7 @@ export const updateUserInformation = createAsyncThunk<User, UserRegisterInfo, Th
         return data.user;
     });
 
-export const forgotPassword = createAsyncThunk<User, UserForgotPassword, ThunkApi>(`${sliceName}/forgotPassword`,
+export const forgotPassword = createAsyncThunk<TUser, TUserForgotPassword, ThunkApi>(`${sliceName}/forgotPassword`,
     async (dataUser) => {
         const data = await api.forgotPassword(dataUser);
         console.log('forgot_pass', data);
@@ -133,7 +134,7 @@ export const forgotPassword = createAsyncThunk<User, UserForgotPassword, ThunkAp
     }
 );
 
-export const resetPassword = createAsyncThunk<User, UserResetPassword, ThunkApi>(`${sliceName}/resetPassword`,
+export const resetPassword = createAsyncThunk<TUser, TUserResetPassword, ThunkApi>(`${sliceName}/resetPassword`,
     async (dataUser) => {
         const data = await api.resetPassword(dataUser);
         console.log('reset_pass', data);

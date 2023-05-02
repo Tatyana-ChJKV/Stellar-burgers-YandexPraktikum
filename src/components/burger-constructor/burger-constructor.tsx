@@ -7,31 +7,30 @@ import {useDispatch, useSelector} from "../../services/hooks";
 import {ConstructorCard} from "./ingredient-card-in-burger-constructor/ingredient-card-in-burger-constructor";
 import {useDrop} from "react-dnd";
 import {addIngredient, clearConstructor} from "../../services/slices/constructor-slice";
-// import {makeOrder} from "../../services/slices/order-slice";
-import {useNavigate} from "react-router-dom";
-import {TCard, TCardBunType} from "../../utils/types";
+// import {useNavigate} from "react-router-dom";
+import {makeOrder} from "../../services/slices/order-slice";
 
 export const BurgerConstructor = () => {
-    const bun = useSelector((state: any) => state.constructorStore.bun);
-    const card = useSelector((state: any) => state.constructorStore.ingredients);
+    const bun = useSelector((state) => state.constructorStore.bun);
+    const card = useSelector((state) => state.constructorStore.ingredients);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const order = useSelector((state: any) => state.orderStore.order);
     const number = order?.order.number;
     const [modalOpened, setModalOpened] = useState(false);
 
-    // const orderNumber = () => {
-    //     const ingredientsId = {
-    //         ingredients: card.map((ingredient) => ingredient._id)
-    //     };
-    //     dispatch(makeOrder(ingredientsId))
-    // };
+    const orderNumber = () => {
+        const ingredientsId = {
+            ingredients: card.map((ingredient) => ingredient._id)
+        };
+        dispatch(makeOrder(ingredientsId))
+    };
 
     const openModal = () => {
         if (card.length || bun) {
             setModalOpened(true);
-            // orderNumber();
-            navigate('/login')
+            orderNumber();
+            // navigate('/login')
         }
     };
 
@@ -50,8 +49,8 @@ export const BurgerConstructor = () => {
     const getPrice = () => {
         let initialPrice = 0;
         if (card.length > 0) {
-            card.filter((card: TCard) => card.type !== "bun")
-                .forEach((ingredient:TCard) => {
+            card.filter((card) => card.type !== "bun")
+                .forEach((ingredient) => {
                 initialPrice += ingredient.price;
             })
         }
@@ -74,8 +73,8 @@ export const BurgerConstructor = () => {
                     thumbnail={bun.image_mobile}
                 />}
                 <div className={`${styles.ingredients_scroll} ${styles.constructor_scroll}`}>
-                    {card.filter((card: TCard) => card.type !== 'bun')
-                        .map((card: TCardBunType, index: number) => (
+                    {card.filter((card) => card.type !== 'bun')
+                        .map((card, index) => (
                         <ConstructorCard key={card.uuid} card={card} index={index}/>
                     ))}
                 </div>

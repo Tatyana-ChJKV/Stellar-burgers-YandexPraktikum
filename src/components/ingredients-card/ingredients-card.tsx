@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredients-card.module.css";
-import {useSelector} from "react-redux";
+import {useSelector} from "../../services/hooks";
 import {useDrag} from "react-dnd";
 import {Link} from "react-router-dom";
 import {useLocation} from "react-router";

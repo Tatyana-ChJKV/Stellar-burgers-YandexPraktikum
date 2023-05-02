@@ -17,20 +17,12 @@ export const Modal:React.FC<TModalProps> = ({onClick, children, modalHeader}) =>
         }
     };
 
-    const closeByOverlay = (e: any) => {
-        if (e.target.classList.contains("modal-overlay")) {
-            onClick();
-        }
-    };
-
     useEffect(() => {
         document.addEventListener('keydown', closeByEscape)
-        document.addEventListener('click', closeByOverlay)
         return () => {
             document.removeEventListener('keydown', closeByEscape)
-            document.removeEventListener('click', closeByOverlay)
         }
-    }, []);
+    }, [onClick]);
 
     return createPortal(
         <>
@@ -42,6 +34,6 @@ export const Modal:React.FC<TModalProps> = ({onClick, children, modalHeader}) =>
                 </div>
                 {children}
             </div>
-            <ModalOverlay/>
+            <ModalOverlay onClose={onClick}/>
         </>, document.getElementById('modal-windows') as HTMLDivElement)
 };
