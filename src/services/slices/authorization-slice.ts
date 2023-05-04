@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice, SerializedError} from '@reduxjs/toolkit';
 import {setCookie} from "../../utils/cookie";
-import api from "../../utils/api"
+import api from "../../utils/burger-api"
 import {ThunkApi} from "../store";
 import {
     TUser,
