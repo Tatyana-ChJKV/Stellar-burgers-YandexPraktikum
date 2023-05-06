@@ -1,0 +1,67 @@
+.feed_page {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 60px;
+    width: 1260px;
+    margin: auto auto 40px auto;
+}
+
+.feed_grid {
+    grid-column: 1 / span 2;
+}
+
+.feed_cards {
+    height: 800px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.feed_cards::-webkit-scrollbar {
+    width: 8px;
+}
+
+.feed_cards::-webkit-scrollbar-thumb {
+    background: #8585AD;
+}
+
+.feed_cards::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
+
+.stats {
+    display: flex;
+    flex-direction: column;
+    row-gap: 60px;
+}
+
+.statuses {
+    display: flex;
+    column-gap: 36px;
+}
+
+.status {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.numbers {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-height: 315px;
+    padding: 0;
+    margin: 0;
+    gap: 8px;
+    overflow: hidden;
+}
+
+.status_header {
+    margin: 0 0 24px 0;
+}
+
+.text_number {
+    margin: 0;
+}

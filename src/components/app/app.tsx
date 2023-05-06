@@ -15,6 +15,8 @@ import {IngredientDetails} from "../ingredient-details/ingredient-details";
 import {Modal} from "../modal/modal";
 import {useLocation} from "react-router";
 import {useDispatch} from "../../services/hooks";
+import {FeedPage} from "../../pages/feed/feed-page";
+import {FeedIdPage} from "../../pages/feed-id/feed-id-page";
 
 export const App = () => {
     const dispatch = useDispatch();
@@ -41,10 +43,11 @@ export const App = () => {
                 <Route path="/"
                        element={<AppHeaderFrame/>}>
                     <Route path="/"
-                           element={<MainPage/>}/>
+                           element={<MainPage/>
+                           }/>
                     <Route path='*'
-                           element={<Page404/>}
-                    />
+                           element={<Page404/>
+                           }/>
                     <Route path="/profile"
                            element={
                                <ProtectedRoute>
@@ -78,6 +81,12 @@ export const App = () => {
                     <Route path="/ingredients/:idIngredient"
                            element={
                                <IngredientDetails headerForIngredientDetails/>
+                           }/>
+                    <Route path="/feed"
+                           element={<FeedPage/>
+                           }/>
+                    <Route path="/feed/:id"
+                           element={<FeedIdPage/>
                            }/>
                 </Route>
             </Routes>

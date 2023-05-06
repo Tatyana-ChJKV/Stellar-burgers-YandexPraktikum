@@ -42,7 +42,6 @@ export const socketMiddleware = (wsActions: TWsActions): Middleware => {
             if (wsConnect.match(action)) {
                 wsUrl = action.payload.wsUrl;
                 withTokenRefresh = action.payload.withTokenRefresh;
-
                 socket = new WebSocket(`${wsUrl}`);
                 isConnected = true;
                 dispatch(wsConnecting())
@@ -76,8 +75,6 @@ export const socketMiddleware = (wsActions: TWsActions): Middleware => {
                                 setCookie('accessToken', refreshData.accessToken);
                                 const newWsUrl = new URL(wsUrl);
                                 newWsUrl.searchParams.set("token", refreshData.accessToken.replace("Bearer ", ""))
-
-
                                 dispatch(wsConnect({wsUrl: newWsUrl.href.toString(), withTokenRefresh}))
                             })
                             .catch((err) => {
@@ -92,7 +89,6 @@ export const socketMiddleware = (wsActions: TWsActions): Middleware => {
                 isConnected = false;
                 reconnectTimer = 0;
                 socket.close(1000, "Работа закончена")
-
                 dispatch(wsClose());
             }
             next(action);

@@ -1,0 +1,48 @@
+.orderIngredients {
+    display: flex;
+    align-items: flex-start;
+}
+
+.orderIngredientImg {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #131316;
+    border: 2px solid #4c4cff;
+    object-fit: contain;
+    border-radius: 100%;
+    width: 64px;
+    height: 64px;
+}
+
+.orderIngredientImg img {
+    width: 64px;
+    object-fit: contain;
+}
+
+.orderIngredientImg:not(:first-child) {
+    margin-left: -20px;
+}
+
+.orderIngredientImg:nth-child(n + 5) {
+    background: #1c1c21;
+}
+
+.orderIngredientImg:nth-child(n + 5) img {
+    opacity: 0.6;
+}
+
+.orderIngredientImg:nth-child(n + 5) .ingredientsCount {
+    display: block;
+}
+
+.orderIngredientImg:nth-child(n + 6) {
+    display: none;
+}
+
+.ingredientsCount {
+    display: none;
+    position: absolute;
+    left: 20px;
+    right: 0;
+}

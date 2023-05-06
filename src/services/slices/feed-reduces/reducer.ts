@@ -23,7 +23,7 @@ export const feedReducer = createReducer(initialState, (builder) => {
         .addCase(wsErrorFeed, (state, action) => {
         })
         .addCase(wsMessageFeed, (state, action) => {
-            console.log(action.payload);
-            state.data = action.payload
+            console.log('wsMessageFeed_feed', action.payload);
+            state.data = action.payload;
         })
 });
