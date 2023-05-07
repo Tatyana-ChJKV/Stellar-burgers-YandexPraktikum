@@ -51,7 +51,7 @@ export const OrderCardInFeed: React.FC<TOrderCardInFeed> = ({order, urlToCardId}
                 </h2>
                 <div className={styles.ingredients_and_price_details}>
                     <div className={styles.ingredients}>
-                        <IngredientsInFeed ingredients={card} orderIngredients={order.ingredients}/>
+                        <IngredientsInFeed cards={card} card={order.ingredients}/>
                     </div>
                     <div className={styles.price}>
                         <div className="text text_type_digits-default">

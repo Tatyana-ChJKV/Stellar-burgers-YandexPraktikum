@@ -1,9 +1,9 @@
-.orderIngredients {
+.order_ingredients {
     display: flex;
     align-items: flex-start;
 }
 
-.orderIngredientImg {
+.ingredient_image {
     position: relative;
     display: flex;
     align-items: center;
@@ -15,32 +15,32 @@
     height: 64px;
 }
 
-.orderIngredientImg img {
+.ingredient_image img {
     width: 64px;
     object-fit: contain;
 }
 
-.orderIngredientImg:not(:first-child) {
+.ingredient_image:not(:first-child) {
     margin-left: -20px;
 }
 
-.orderIngredientImg:nth-child(n + 5) {
+.ingredient_image:nth-child(n + 5) {
     background: #1c1c21;
 }
 
-.orderIngredientImg:nth-child(n + 5) img {
+.ingredient_image:nth-child(n + 5) img {
     opacity: 0.6;
 }
 
-.orderIngredientImg:nth-child(n + 5) .ingredientsCount {
+.ingredient_image:nth-child(n + 5) .ingredients_count {
     display: block;
 }
 
-.orderIngredientImg:nth-child(n + 6) {
+.ingredient_image:nth-child(n + 6) {
     display: none;
 }
 
-.ingredientsCount {
+.ingredients_count {
     display: none;
     position: absolute;
     left: 20px;

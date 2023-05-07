@@ -16,7 +16,7 @@ import {Modal} from "../modal/modal";
 import {useLocation} from "react-router";
 import {useDispatch} from "../../services/hooks";
 import {FeedPage} from "../../pages/feed/feed-page";
-import {FeedIdPage} from "../../pages/feed-id/feed-id-page";
+import {FeedIdPageMain} from "../../pages/feed-id/feed-id-page-main/feed-id-page-main";
 
 export const App = () => {
     const dispatch = useDispatch();
@@ -86,8 +86,8 @@ export const App = () => {
                            element={<FeedPage/>
                            }/>
                     <Route path="/feed/:id"
-                           element={<FeedIdPage/>
-                           }/>
+                           element={<FeedIdPageMain/>}
+                    />
                 </Route>
             </Routes>
             {background && (

@@ -52,16 +52,15 @@
     flex-direction: column;
     flex-wrap: wrap;
     max-height: 315px;
-    padding: 0;
-    margin: 0;
     gap: 8px;
     overflow: hidden;
+    overflow-x: scroll;
 }
 
-.status_header {
-    margin: 0 0 24px 0;
+.numbers::-webkit-scrollbar {
+    height: 8px;
 }
 
-.text_number {
-    margin: 0;
+.numbers::-webkit-scrollbar-thumb {
+    background: #8585AD;
 }

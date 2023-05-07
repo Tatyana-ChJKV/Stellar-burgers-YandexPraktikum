@@ -16,9 +16,9 @@ export const FeedPage = () => {
     const totalOrders = ordersData?.total;
     const ordersArray = ordersData?.orders;
     // console.log('array', ordersArray)
-    const readyOrders = ordersArray?.filter((stat) => stat.status === 'done');
+    const readyOrders = ordersArray?.filter((order) => order.status === 'done');
     // console.log('ready', readyOrders)
-    const unreadyOrders = ordersArray?.filter((stat) => stat.status !== 'done');
+    const unreadyOrders = ordersArray?.filter((order) => order.status !== 'done');
 
 
     useEffect(() => {
@@ -51,13 +51,13 @@ export const FeedPage = () => {
             <div className={styles.stats}>
                 <div className={styles.statuses}>
                     <div className={styles.status}>
-                        <h2 className={clsx(styles.status_header, "text_type_main-medium")}>
+                        <h2 className="text text_type_main-medium mb-6">
                             Готовы:
                         </h2>
                         <div className={styles.numbers}>
                             {readyOrders?.map((order) => (
                                 <div
-                                    className={clsx(styles.text_number, "text_type_digits-default text_color_success")}
+                                    className="text text_type_digits-default text_color_success"
                                     key={order._id}>
                                     {order.number}
                                 </div>
@@ -65,12 +65,12 @@ export const FeedPage = () => {
                         </div>
                     </div>
                     <div className={styles.status}>
-                        <h2 className={clsx(styles.status_header, "text text_type_main-medium")}>
+                        <h2 className="text text_type_main-medium mb-6 mt-1">
                             В работе:
                         </h2>
                         <div className={styles.numbers}>
                             {unreadyOrders?.map((order) => (
-                                <div className={clsx(styles.text_number, "text text_type_digits-default")}
+                                <div className="text text_type_digits-default"
                                      key={order._id}>
                                     {order.number}
                                 </div>
@@ -78,15 +78,15 @@ export const FeedPage = () => {
                         </div>
                     </div>
                 </div>
-                <div className={styles.infoSection}>
-                    <h4 className={clsx(styles.sectionHeader, "text text_type_main-medium")}>
+                <div>
+                    <h4 className="text text_type_main-medium">
                         Выполнено за все время:
                     </h4>
                     <p className="text text_type_digits-large">
                         {totalOrders}
                     </p>
                 </div>
-                <div className={styles.infoSection}>
+                <div>
                     <h4 className="text text_type_main-medium">
                         Выполнено за сегодня:
                     </h4>

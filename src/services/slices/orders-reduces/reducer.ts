@@ -1,5 +1,5 @@
-import { createReducer } from '@reduxjs/toolkit'
-import { wsCloseOrder, wsConnectingOrder, wsErrorOrder, wsMessageOrder, wsOpenOrder } from './actions';
+import {createReducer} from '@reduxjs/toolkit'
+import {wsCloseOrder, wsConnectingOrder, wsErrorOrder, wsMessageOrder, wsOpenOrder} from './actions';
 import {TOrderList} from "../../../utils/types";
 
 interface TOrderState {
@@ -24,6 +24,6 @@ export const ordersReducer = createReducer(initialState, (builder) => {
         })
         .addCase(wsMessageOrder, (state, action) => {
             console.log('wsMessageOrder', action.payload);
-            state.data = action.payload
+            state.data = action.payload;
         })
 });
