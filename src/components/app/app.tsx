@@ -19,7 +19,7 @@ import {FeedPage} from "../../pages/feed/feed-page";
 import {FeedIdPageMain} from "../../pages/feed-id/feed-id-page-main";
 import {ProfileOrdersPage} from "../../pages/profile-orders/profile-orders-page";
 import {ProfileNavigationFrame} from "../../pages/profile/profile-navigation/profile-navigation-frame";
-import {ProfileOrdersIdPage} from "../../pages/profile/profile-orders-id/profile-orders-id-page";
+// import {ProfileOrdersIdPage} from "../../pages/profile/profile-orders-id/profile-orders-id-page";
 
 export const App = () => {
     const dispatch = useDispatch();
@@ -64,12 +64,18 @@ export const App = () => {
                                    </ProtectedRoute>
                                }/>
                         <Route path="/profile/orders"
-                               element={<ProfileOrdersPage/>
-                               }/>
-                        <Route path="/profile/orders/id"
-                               element={<ProfileOrdersIdPage/>
+                               element={
+                                   <ProtectedRoute>
+                                       <ProfileOrdersPage/>
+                                   </ProtectedRoute>
                                }/>
                     </Route>
+                    <Route path="/profile/orders/:id"
+                           element={
+                               <ProtectedRoute>
+                                   <FeedIdPageMain/>
+                               </ProtectedRoute>
+                           }/>
                     <Route path="/register"
                            element={
                                <ProtectedRoute onlyUnAuth>
@@ -108,10 +114,27 @@ export const App = () => {
             </Routes>
             {background && (
                 <Routes>
-                    <Route path="/ingredients/:idIngredient" element={
-                        <Modal onClick={handleCloseModal} modalHeader={"Детали ингредиента"}>
-                            <IngredientDetails headerForIngredientDetails={false}/>
-                        </Modal>}/>
+                    <Route path="/ingredients/:idIngredient"
+                           element={
+                               <Modal onClick={handleCloseModal}
+                                      modalHeader={"Детали ингредиента"}>
+                                   <IngredientDetails headerForIngredientDetails={false}/>
+                               </Modal>
+                           }/>
+                    <Route path="/feed/:id"
+                           element={
+                               <Modal onClick={handleCloseModal}
+                                      modalHeader={"Информация о заказе"}>
+                                   <FeedIdPageMain/>
+                               </Modal>
+                           }/>
+                    <Route path="/profile/orders/:id"
+                           element={
+                               <Modal onClick={handleCloseModal}
+                                      modalHeader={"Информация о заказе"}>
+                                   <FeedIdPageMain/>
+                               </Modal>
+                           }/>
                 </Routes>)
             }
         </>

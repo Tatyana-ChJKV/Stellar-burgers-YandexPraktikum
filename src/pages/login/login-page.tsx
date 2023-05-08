@@ -24,11 +24,11 @@ export const LoginPage = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         dispatch(loginUser(userData))
-            .then(({payload}) => {
-                if (payload) {
-                    navigate("/")
-                }
-            })
+            // .then(({payload}) => {
+            //     if (payload) {
+            //         navigate("/profile", {replace: true})
+            //     }
+            // })
     };
 
     return (

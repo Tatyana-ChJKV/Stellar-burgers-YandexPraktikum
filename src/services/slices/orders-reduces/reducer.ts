@@ -23,7 +23,7 @@ export const ordersReducer = createReducer(initialState, (builder) => {
         .addCase(wsErrorOrder, (state, action) => {
         })
         .addCase(wsMessageOrder, (state, action) => {
-            console.log('wsMessageOrder', action.payload);
+            // console.log('wsMessageOrder', action.payload);
             state.data = action.payload;
         })
 });

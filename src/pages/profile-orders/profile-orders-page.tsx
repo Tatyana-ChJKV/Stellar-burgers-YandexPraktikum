@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "../../services/hooks";
 import styles from "../feed/feed-page.module.css";
 import {OrderCardInFeed} from "../feed/order-card-in-feed/order-card-in-feed";
 import clsx from "clsx";
+import {getCookie} from "../../utils/cookie";
 
 export const ProfileOrdersPage = () => {
     const dispatch = useDispatch();
@@ -13,10 +14,10 @@ export const ProfileOrdersPage = () => {
 
 
     useEffect(() => {
-        // const accessToken = getCookie("accessToken");
+        const accessToken = getCookie("accessToken");
         dispatch(wsConnectOrder({
-            // wsUrl: `${BURGER_API_WSS_FEED}?token=${accessToken?.replace("Bearer ", "")}`,
-            wsUrl: BURGER_API_WSS_FEED,
+            wsUrl: `${BURGER_API_WSS_FEED}?token=${accessToken?.replace("Bearer ", "")}`,
+            // wsUrl: BURGER_API_WSS_FEED,
             withTokenRefresh: true
         }))
         return () => {
@@ -30,7 +31,7 @@ return (
             {ordersArray?.map((order) => (
                 <OrderCardInFeed
                     order={order}
-                    urlToCardId={"/feed"}
+                    urlToCardId={"/profile/orders"}
                     key={order._id}
                 />
             ))}

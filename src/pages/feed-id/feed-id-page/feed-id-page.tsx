@@ -27,7 +27,7 @@ export function totalPrice(cards: TCard[], card: string[]) {
 export const FeedIdPage: React.FC<TFeedPageProps> = ({order}) => {
     const dispatch = useDispatch();
     const orderIngredient = order.ingredients;
-    console.log('orderIngredient', orderIngredient)
+    // console.log('orderIngredient', orderIngredient)
     const card = useSelector(state => state.ingredientsStore.data)
 
     useEffect(() => {

@@ -16,7 +16,8 @@ export const OrderDetails:React.FC<TOrderDetailsProps> = ({orderNumber}) => {
     useEffect(() => {
         const accessToken = getCookie("accessToken");
 
-        dispatch(wsConnectOrder({wsUrl:`${BURGER_API_WSS_FEED}?token=${accessToken?.replace("Bearer ", "")}` , withTokenRefresh: true}))
+        dispatch(wsConnectOrder({wsUrl:`${BURGER_API_WSS_FEED}?token=${accessToken?.replace("Bearer ", "")}` ,
+            withTokenRefresh: true}))
         return () => {
             dispatch(wsDisconnectOrder())
         }

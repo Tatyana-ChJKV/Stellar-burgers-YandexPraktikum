@@ -15,15 +15,16 @@ export const ProfileNavigationFrame = () => {
         password: ''
     });
 
-    const handleLogout = (e: React.FormEvent) => {
-        e.preventDefault()
+    const handleLogout = () => {
+        // e.preventDefault()
+        console.log('hLogout', userData)
         dispatch(logoutUser(userData))
-            .then(({payload}: {payload:any}) => {
-                if (payload?.success) {
-                    navigate("/login")
-                    console.log('logout_to_/login')
-                }
-            })
+            // .then(({payload}: {payload:any}) => {
+            //     if (payload?.success) {
+            //         navigate("/login")
+            //         console.log('logout_to_/login')
+            //     }
+            // })
     };
 
     return (

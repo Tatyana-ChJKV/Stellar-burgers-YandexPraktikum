@@ -7,17 +7,19 @@ import {useDispatch, useSelector} from "../../services/hooks";
 import {ConstructorCard} from "./ingredient-card-in-burger-constructor/ingredient-card-in-burger-constructor";
 import {useDrop} from "react-dnd";
 import {addIngredient, clearConstructor} from "../../services/slices/constructor-slice";
-// import {useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {makeOrder} from "../../services/slices/order-slice";
 
 export const BurgerConstructor = () => {
     const bun = useSelector((state) => state.constructorStore.bun);
     const card = useSelector((state) => state.constructorStore.ingredients);
     const dispatch = useDispatch();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const order = useSelector((state: any) => state.orderStore.order);
     const number = order?.order.number;
     const [modalOpened, setModalOpened] = useState(false);
+const user = useSelector(state => state.authorizationStore.data)
+    console.log('info', user)
 
     const orderNumber = () => {
         const ingredientsId = {
@@ -28,9 +30,11 @@ export const BurgerConstructor = () => {
 
     const openModal = () => {
         if (card.length || bun) {
+            if (!user) {
+                navigate('/login', { replace: true })
+            }
             setModalOpened(true);
             orderNumber();
-            // navigate('/login')
         }
     };
 
