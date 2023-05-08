@@ -5,7 +5,7 @@ import styles from "./tab-ingredients.module.css";
 type TTabIngredientsProps = {
     current: string;
     scrollToTab: (e: string) => void;
-}
+};
 
 export const TabIngredients: React.FC<TTabIngredientsProps> = ({current, scrollToTab}) => {
     return (

@@ -11,7 +11,9 @@ import {
     wsCloseOrder,
     wsConnectingOrder,
     wsConnectOrder,
-    wsDisconnectOrder, wsErrorOrder, wsMessageOrder,
+    wsDisconnectOrder,
+    wsErrorOrder,
+    wsMessageOrder,
     wsOpenOrder
 } from "./slices/orders-reduces/actions";
 import {

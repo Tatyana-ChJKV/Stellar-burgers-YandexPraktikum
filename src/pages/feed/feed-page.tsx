@@ -2,7 +2,6 @@ import styles from "./feed-page.module.css"
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "../../services/hooks";
 import {BURGER_API_WSS_FEED} from "../../utils/url";
-// import {getCookie} from "../../utils/cookie";
 import {wsConnectOrder, wsDisconnectOrder} from "../../services/slices/orders-reduces/actions";
 import {OrderCardInFeed} from "./order-card-in-feed/order-card-in-feed";
 import clsx from "clsx";
@@ -10,22 +9,11 @@ import clsx from "clsx";
 export const FeedPage = () => {
     const dispatch = useDispatch();
     const ordersData = useSelector((state) => state.ordersStore.data);
-    // console.log('ordersFeed', ordersData)
-    const totalOrdersToday = ordersData?.totalToday;
-    // console.log(totalOrdersToday)
-    const totalOrders = ordersData?.total;
-    const ordersArray = ordersData?.orders;
-    // console.log('array', ordersArray)
-    const readyOrders = ordersArray?.filter((order) => order.status === 'done');
-    // console.log('ready', readyOrders)
-    const unreadyOrders = ordersArray?.filter((order) => order.status !== 'done');
-
+    const readyOrders = ordersData?.orders.filter((order) => order.status === 'done');
+    const unreadyOrders = ordersData?.orders.filter((order) => order.status !== 'done');
 
     useEffect(() => {
-        // const accessToken = getCookie("accessToken");
-
         dispatch(wsConnectOrder({
-            // wsUrl: `${BURGER_API_WSS_FEED}?token=${accessToken?.replace("Bearer ", "")}`,
             wsUrl: BURGER_API_WSS_FEED,
             withTokenRefresh: true
         }))
@@ -40,7 +28,7 @@ export const FeedPage = () => {
                 Лента заказов
             </h1>
             <div className={styles.feed_cards}>
-                {ordersArray?.map((order) => (
+                {ordersData?.orders.map((order) => (
                     <OrderCardInFeed
                         order={order}
                         urlToCardId={"/feed"}
@@ -83,7 +71,7 @@ export const FeedPage = () => {
                         Выполнено за все время:
                     </h4>
                     <p className="text text_type_digits-large">
-                        {totalOrders}
+                        {ordersData?.total}
                     </p>
                 </div>
                 <div>
@@ -91,7 +79,7 @@ export const FeedPage = () => {
                         Выполнено за сегодня:
                     </h4>
                     <p className="text text_type_digits-large">
-                        {totalOrdersToday}
+                        {ordersData?.totalToday}
                     </p>
                 </div>
             </div>

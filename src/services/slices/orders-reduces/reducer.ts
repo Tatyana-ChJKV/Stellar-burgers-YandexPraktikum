@@ -15,10 +15,10 @@ export const ordersReducer = createReducer(initialState, (builder) => {
         .addCase(wsConnectingOrder, (state) => {
         })
         .addCase(wsOpenOrder, (state) => {
-            console.log('OPEN WEBSOCKET');
+            // console.log('OPEN WEBSOCKET');
         })
         .addCase(wsCloseOrder, (state) => {
-            console.log('CLOSE WEBSOCKET');
+            // console.log('CLOSE WEBSOCKET');
         })
         .addCase(wsErrorOrder, (state, action) => {
         })

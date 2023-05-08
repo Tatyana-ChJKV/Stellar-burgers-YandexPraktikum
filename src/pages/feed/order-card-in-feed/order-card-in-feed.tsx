@@ -7,7 +7,7 @@ import {TOrder} from "../../../utils/types";
 import {IngredientsInFeed} from "../ingredients-in-feed/ingredients-in-feed";
 import {NavLink} from "react-router-dom";
 import {useLocation} from "react-router";
-import {totalPrice} from "../../feed-id/feed-id-page/feed-id-page";
+import {totalPrice} from "../../../utils/constants";
 
 type TOrderCardInFeed = {
     order: TOrder;
@@ -15,7 +15,6 @@ type TOrderCardInFeed = {
 };
 
 export const OrderCardInFeed: React.FC<TOrderCardInFeed> = ({order, urlToCardId}) => {
-    // const ordersData = useSelector((state) => state.ordersStore.data?.orders)
     const card = useSelector(state => state.ingredientsStore.data)
     const location = useLocation();
 

@@ -11,9 +11,8 @@ export const ProtectedRoute: React.FC<TProtectedRouteProps> = ({onlyUnAuth, chil
     const location = useLocation();
     const user = useSelector(state => state.authorizationStore.data);
 
-
     if (onlyUnAuth && user) {
-        console.log('navigate main');
+        // console.log('navigate main');
         const {from} = location.state || {from: {pathname: '/'}};
         const {background} = location.state?.from?.state || {background: null};
         return (
@@ -21,7 +20,7 @@ export const ProtectedRoute: React.FC<TProtectedRouteProps> = ({onlyUnAuth, chil
         )
     }
     if (!onlyUnAuth && !user) {
-        console.log('navigate login');
+        // console.log('navigate login');
         return (
             <Navigate replace to={{pathname: '/login'}} state={{from: location}}/>
         )

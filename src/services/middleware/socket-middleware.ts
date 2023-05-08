@@ -48,14 +48,15 @@ export const socketMiddleware = (wsActions: TWsActions): Middleware => {
             }
             if (socket) {
                 socket.onopen = event => {
+                    // console.log('socket.onopen', event)
                     dispatch(wsOpen());
                 };
                 socket.onerror = event => {
-                    console.log('socket.onerror', event);
+                    // console.log('socket.onerror', event);
                 };
                 socket.onclose = event => {
                     if (event.code !== 1000) {
-                        console.log('socket.onclose error', event);
+                        // console.log('socket.onclose error', event);
                         dispatch(wsError(event.code.toString()))
                     }
                     if (isConnected && event.code !== 1000) {

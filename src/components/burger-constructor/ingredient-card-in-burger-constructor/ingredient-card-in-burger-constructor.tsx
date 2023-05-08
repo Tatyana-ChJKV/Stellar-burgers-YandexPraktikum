@@ -12,10 +12,10 @@ type TConstructorCardProps = {
 }
 
 export const ConstructorCard: React.FC<TConstructorCardProps> = ({card, index}) => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const deleteCard = () => dispatch(deleteIngredient(card));
 
-    const ref = useRef<HTMLInputElement>(null)
+    const ref = useRef<HTMLInputElement>(null);
 
     const [, dropTarget] = useDrop({
         accept: "ingredient",

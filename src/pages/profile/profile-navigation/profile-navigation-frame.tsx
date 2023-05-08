@@ -1,14 +1,13 @@
 import {Outlet} from "react-router";
-import {NavLink, useNavigate} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import styles from "../profile-page.module.css";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {logoutUser} from "../../../services/slices/authorization-slice";
 import {useDispatch} from "../../../services/hooks";
 import clsx from "clsx";
 
 export const ProfileNavigationFrame = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const [userData, setUserData] = useState({
         name: '',
         email: '',
@@ -19,12 +18,6 @@ export const ProfileNavigationFrame = () => {
         // e.preventDefault()
         console.log('hLogout', userData)
         dispatch(logoutUser(userData))
-            // .then(({payload}: {payload:any}) => {
-            //     if (payload?.success) {
-            //         navigate("/login")
-            //         console.log('logout_to_/login')
-            //     }
-            // })
     };
 
     return (
@@ -35,8 +28,8 @@ export const ProfileNavigationFrame = () => {
                     {({isActive}) => (
                         <p className={
                             isActive
-                            ? `${styles.menu_text} text text_type_main-medium text text_color_primary`
-                            : `${styles.menu_text} text text_type_main-medium text text_color_inactive`
+                                ? `${styles.menu_text} text text_type_main-medium text text_color_primary`
+                                : `${styles.menu_text} text text_type_main-medium text text_color_inactive`
                         }>
                             Профиль
                         </p>

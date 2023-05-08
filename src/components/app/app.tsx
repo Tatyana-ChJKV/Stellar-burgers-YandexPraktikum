@@ -16,14 +16,12 @@ import {Modal} from "../modal/modal";
 import {useLocation} from "react-router";
 import {useDispatch} from "../../services/hooks";
 import {FeedPage} from "../../pages/feed/feed-page";
-import {FeedIdPageMain} from "../../pages/feed-id/feed-id-page-main";
+import {FeedIdPage} from "../../pages/feed-id/feed-id-page";
 import {ProfileOrdersPage} from "../../pages/profile-orders/profile-orders-page";
 import {ProfileNavigationFrame} from "../../pages/profile/profile-navigation/profile-navigation-frame";
-// import {ProfileOrdersIdPage} from "../../pages/profile/profile-orders-id/profile-orders-id-page";
 
 export const App = () => {
     const dispatch = useDispatch();
-    // const user = useSelector(state => state.authorizationStore.data);
     const navigate = useNavigate();
     const location = useLocation();
     const background = location.state?.background as Location;
@@ -73,7 +71,7 @@ export const App = () => {
                     <Route path="/profile/orders/:id"
                            element={
                                <ProtectedRoute>
-                                   <FeedIdPageMain/>
+                                   <FeedIdPage/>
                                </ProtectedRoute>
                            }/>
                     <Route path="/register"
@@ -108,10 +106,11 @@ export const App = () => {
                            element={<FeedPage/>
                            }/>
                     <Route path="/feed/:id"
-                           element={<FeedIdPageMain/>
+                           element={<FeedIdPage/>
                            }/>
                 </Route>
             </Routes>
+
             {background && (
                 <Routes>
                     <Route path="/ingredients/:idIngredient"
@@ -125,15 +124,17 @@ export const App = () => {
                            element={
                                <Modal onClick={handleCloseModal}
                                       modalHeader={"Информация о заказе"}>
-                                   <FeedIdPageMain/>
+                                   <FeedIdPage/>
                                </Modal>
                            }/>
                     <Route path="/profile/orders/:id"
                            element={
-                               <Modal onClick={handleCloseModal}
-                                      modalHeader={"Информация о заказе"}>
-                                   <FeedIdPageMain/>
-                               </Modal>
+                               <ProtectedRoute>
+                                   <Modal onClick={handleCloseModal}
+                                          modalHeader={"Информация о заказе"}>
+                                       <FeedIdPage/>
+                                   </Modal>
+                               </ProtectedRoute>
                            }/>
                 </Routes>)
             }

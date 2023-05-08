@@ -12,12 +12,10 @@ export const ProfileOrdersPage = () => {
     const ordersData = useSelector((state) => state.ordersStore.data);
     const ordersArray = ordersData?.orders;
 
-
     useEffect(() => {
         const accessToken = getCookie("accessToken");
         dispatch(wsConnectOrder({
             wsUrl: `${BURGER_API_WSS_FEED}?token=${accessToken?.replace("Bearer ", "")}`,
-            // wsUrl: BURGER_API_WSS_FEED,
             withTokenRefresh: true
         }))
         return () => {

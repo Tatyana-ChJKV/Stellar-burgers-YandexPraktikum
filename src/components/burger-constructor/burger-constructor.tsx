@@ -18,8 +18,8 @@ export const BurgerConstructor = () => {
     const order = useSelector((state: any) => state.orderStore.order);
     const number = order?.order.number;
     const [modalOpened, setModalOpened] = useState(false);
-const user = useSelector(state => state.authorizationStore.data)
-    console.log('info', user)
+    const user = useSelector(state => state.authorizationStore.data);
+    // console.log('info', user)
 
     const orderNumber = () => {
         const ingredientsId = {
@@ -31,7 +31,7 @@ const user = useSelector(state => state.authorizationStore.data)
     const openModal = () => {
         if (card.length || bun) {
             if (!user) {
-                navigate('/login', { replace: true })
+                navigate('/login', {replace: true})
             }
             setModalOpened(true);
             orderNumber();
@@ -55,8 +55,8 @@ const user = useSelector(state => state.authorizationStore.data)
         if (card.length > 0) {
             card.filter((card) => card.type !== "bun")
                 .forEach((ingredient) => {
-                initialPrice += ingredient.price;
-            })
+                    initialPrice += ingredient.price;
+                })
         }
         if (bun) {
             initialPrice += bun.price * 2;
@@ -79,8 +79,8 @@ const user = useSelector(state => state.authorizationStore.data)
                 <div className={`${styles.ingredients_scroll} ${styles.constructor_scroll}`}>
                     {card.filter((card) => card.type !== 'bun')
                         .map((card, index) => (
-                        <ConstructorCard key={card.uuid} card={card} index={index}/>
-                    ))}
+                            <ConstructorCard key={card.uuid} card={card} index={index}/>
+                        ))}
                 </div>
                 {bun && <ConstructorElement
                     type="bottom"

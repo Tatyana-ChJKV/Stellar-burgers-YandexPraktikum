@@ -37,7 +37,8 @@ export const IngredientsCard: React.FC<TIngredientsCardProps> = ({card}) => {
               onClick={openModal}
               ref={dragTarget}
               style={{opacity}}>
-            <img src={card.image} className={styles.ingredient_image}
+            <img src={card.image}
+                 className={styles.ingredient_image}
                  alt={card.name}/>
             <div className={`${styles.price_flex} mt-1 mb-1`}>
                 <p className="text text_type_digits-medium mr-2">{card.price}</p>

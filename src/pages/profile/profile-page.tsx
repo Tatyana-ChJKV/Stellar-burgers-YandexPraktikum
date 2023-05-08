@@ -10,7 +10,7 @@ import {
 export const ProfilePage = () => {
     const dispatch = useDispatch();
     const userInfo = useSelector((state: any) => state.authorizationStore.data);
-    console.log("userInfo", userInfo)
+    // console.log("userInfo", userInfo)
     const [userData, setUserData] = useState({
         name: '',
         email: '',

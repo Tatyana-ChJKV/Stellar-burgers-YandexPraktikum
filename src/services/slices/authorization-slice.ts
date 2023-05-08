@@ -65,7 +65,7 @@ export const checkUserAuth = createAsyncThunk<TUser, void, ThunkApi>(`${sliceNam
             // if (!data?.success) {
             //     return rejectWithValue(data)
             // }
-            console.log(data.user)
+            // console.log(data.user)
             return data.user;
         } catch (error) {
             return rejectWithValue(error);
