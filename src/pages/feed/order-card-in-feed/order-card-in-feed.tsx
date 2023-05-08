@@ -7,6 +7,7 @@ import {TOrder} from "../../../utils/types";
 import {IngredientsInFeed} from "../ingredients-in-feed/ingredients-in-feed";
 import {NavLink} from "react-router-dom";
 import {useLocation} from "react-router";
+import {totalPrice} from "../../feed-id/feed-id-page/feed-id-page";
 
 type TOrderCardInFeed = {
     order: TOrder;
@@ -16,22 +17,7 @@ type TOrderCardInFeed = {
 export const OrderCardInFeed: React.FC<TOrderCardInFeed> = ({order, urlToCardId}) => {
     // const ordersData = useSelector((state) => state.ordersStore.data?.orders)
     const card = useSelector(state => state.ingredientsStore.data)
-    const bun = useSelector((state) => state.constructorStore.bun);
     const location = useLocation();
-
-    const getPrice = () => {
-        let initialPrice = 0;
-        if (card.length > 0) {
-            card.filter((card) => card.type !== "bun")
-                .forEach((ingredient) => {
-                    initialPrice += ingredient.price;
-                })
-        }
-        if (bun) {
-            initialPrice += bun.price * 2;
-        }
-        return initialPrice;
-    };
 
     return (
         <div className={styles.card}>
@@ -55,7 +41,7 @@ export const OrderCardInFeed: React.FC<TOrderCardInFeed> = ({order, urlToCardId}
                     </div>
                     <div className={styles.price}>
                         <div className="text text_type_digits-default">
-                            {getPrice()}
+                            {totalPrice(card, order.ingredients)}
                         </div>
                         <CurrencyIcon type="primary"/>
                     </div>

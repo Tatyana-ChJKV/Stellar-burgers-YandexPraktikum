@@ -1,10 +1,10 @@
 
-import {FeedIdPage} from "../feed-id-page";
-import {useDispatch, useSelector} from "../../../services/hooks";
+import {FeedIdPage} from "./feed-id-page/feed-id-page";
+import {useDispatch, useSelector} from "../../services/hooks";
 import {useLocation, useParams} from "react-router";
-import {wsConnectOrder, wsDisconnectOrder} from "../../../services/slices/orders-reduces/actions";
+import {wsConnectOrder, wsDisconnectOrder} from "../../services/slices/orders-reduces/actions";
 import {useEffect, useMemo} from "react";
-import {BURGER_API_WSS_FEED} from "../../../utils/url";
+import {BURGER_API_WSS_FEED} from "../../utils/url";
 
 export const FeedIdPageMain = () => {
     const dispatch = useDispatch();

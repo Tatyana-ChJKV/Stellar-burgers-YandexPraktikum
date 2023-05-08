@@ -1,12 +1,12 @@
 import {CurrencyIcon, FormattedDate} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from "./feed-id-page.module.css"
 import clsx from "clsx";
-import {TCard, TOrder} from "../../utils/types";
+import {TCard, TOrder} from "../../../utils/types";
 import React, {useEffect} from "react";
-import {wsConnectOrder, wsDisconnectOrder} from "../../services/slices/orders-reduces/actions";
-import {BURGER_API_WSS_FEED} from "../../utils/url";
-import {useDispatch, useSelector} from "../../services/hooks";
-import {IngredientsInFeedIdPage} from "./ingredients-in-feed-id-page/ingredients-in-feed-id-page";
+import {wsConnectOrder, wsDisconnectOrder} from "../../../services/slices/orders-reduces/actions";
+import {BURGER_API_WSS_FEED} from "../../../utils/url";
+import {useDispatch, useSelector} from "../../../services/hooks";
+import {IngredientsInFeedIdPage} from "../ingredients-in-feed-id-page/ingredients-in-feed-id-page";
 
 type TFeedPageProps = {
     order: TOrder;

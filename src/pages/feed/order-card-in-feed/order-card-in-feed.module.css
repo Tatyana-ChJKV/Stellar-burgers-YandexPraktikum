@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     width: calc(100% - 8px);
+    max-width: 844px;
     border-radius: 40px;
     background: #1C1C21;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 2px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);

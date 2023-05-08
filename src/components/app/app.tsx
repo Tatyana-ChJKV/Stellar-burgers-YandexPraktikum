@@ -16,7 +16,10 @@ import {Modal} from "../modal/modal";
 import {useLocation} from "react-router";
 import {useDispatch} from "../../services/hooks";
 import {FeedPage} from "../../pages/feed/feed-page";
-import {FeedIdPageMain} from "../../pages/feed-id/feed-id-page-main/feed-id-page-main";
+import {FeedIdPageMain} from "../../pages/feed-id/feed-id-page-main";
+import {ProfileOrdersPage} from "../../pages/profile-orders/profile-orders-page";
+import {ProfileNavigationFrame} from "../../pages/profile/profile-navigation/profile-navigation-frame";
+import {ProfileOrdersIdPage} from "../../pages/profile/profile-orders-id/profile-orders-id-page";
 
 export const App = () => {
     const dispatch = useDispatch();
@@ -51,9 +54,22 @@ export const App = () => {
                     <Route path="/profile"
                            element={
                                <ProtectedRoute>
-                                   <ProfilePage/>
+                                   <ProfileNavigationFrame/>
                                </ProtectedRoute>
-                           }/>
+                           }>
+                        <Route path="/profile"
+                               element={
+                                   <ProtectedRoute>
+                                       <ProfilePage/>
+                                   </ProtectedRoute>
+                               }/>
+                        <Route path="/profile/orders"
+                               element={<ProfileOrdersPage/>
+                               }/>
+                        <Route path="/profile/orders/id"
+                               element={<ProfileOrdersIdPage/>
+                               }/>
+                    </Route>
                     <Route path="/register"
                            element={
                                <ProtectedRoute onlyUnAuth>
@@ -86,8 +102,8 @@ export const App = () => {
                            element={<FeedPage/>
                            }/>
                     <Route path="/feed/:id"
-                           element={<FeedIdPageMain/>}
-                    />
+                           element={<FeedIdPageMain/>
+                           }/>
                 </Route>
             </Routes>
             {background && (
