@@ -3,13 +3,11 @@ import {useLocation, useParams} from "react-router";
 import {wsConnectOrder, wsDisconnectOrder} from "../../services/slices/orders-reduces/actions";
 import React, {useEffect} from "react";
 import {BURGER_API_WSS_FEED} from "../../utils/url";
-import {TOrder} from "../../utils/types";
 import styles from "./feed-id-page.module.css";
 import clsx from "clsx";
 import {IngredientsInFeedIdPage} from "./ingredients-in-feed-id-page/ingredients-in-feed-id-page";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import {totalPrice} from "../../utils/constants";
-
 
 export const FeedIdPage = () => {
     const dispatch = useDispatch();
@@ -18,8 +16,7 @@ export const FeedIdPage = () => {
     const background = location.state?.background;
     const orders = useSelector((state) => state.ordersStore.data?.orders);
     const card = useSelector(state => state.ingredientsStore.data)
-    const order = orders?.find((order: TOrder) => order._id === id);
-    // console.log('order', order)
+    const order = orders?.find((order) => order._id === id);
 
     useEffect(() => {
         if (location.pathname.startsWith('/profile') && !background) {
@@ -36,14 +33,12 @@ export const FeedIdPage = () => {
             return () => {
                 dispatch(wsDisconnectOrder())
             }
-            // dispatch(wsDisconnectOrder())
         }
     }, [location.pathname]);
 
     return (
         <>
             {order &&
-                // <FeedIdPage order={order}/>
                 <div className={styles.order_detail}>
                     <p className={clsx(styles.order_number, "text text_type_digits-default")}>
                         {`#${order.number}`}
