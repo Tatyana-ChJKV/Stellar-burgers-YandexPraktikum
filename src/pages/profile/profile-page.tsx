@@ -9,8 +9,9 @@ import {
 
 export const ProfilePage = () => {
     const dispatch = useDispatch();
-    const userInfo = useSelector((state: any) => state.authorizationStore.data);
+    const userInfo= useSelector((state) => state.authorizationStore.data!);
     // console.log("userInfo", userInfo)
+
     const [userData, setUserData] = useState({
         name: '',
         email: '',
@@ -45,7 +46,11 @@ export const ProfilePage = () => {
 
     const handleCancellation = (e: React.FormEvent) => {
         e.preventDefault()
-        setUserData(userInfo)
+        setUserData({
+                name: userInfo.name,
+                email: userInfo.email,
+                password: ''
+        })
         console.log('handleCancellation')
     };
 
