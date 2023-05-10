@@ -2,6 +2,7 @@ import {createAsyncThunk, createSlice, SerializedError} from '@reduxjs/toolkit';
 import {checkResponse} from "../../utils/request";
 import {TCard} from "../../utils/types";
 import {BASE_URL} from "../../utils/url";
+import {getCookie} from "../../utils/cookie";
 
 interface IOrderSliceState {
     order: TCard | null;
@@ -28,7 +29,8 @@ export const makeOrder = createAsyncThunk<TCard, TIngredientsId>(
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-            },
+                authorization: getCookie("accessToken"),
+            } as HeadersInit,
             body: JSON.stringify(ingredients),
         })
         return checkResponse(response);
