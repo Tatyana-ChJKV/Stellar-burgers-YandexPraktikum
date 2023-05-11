@@ -2,16 +2,15 @@ import styles from "./ingredient-details.module.css"
 import {useParams} from "react-router";
 import {useSelector} from "../../services/hooks";
 import React from "react";
-import {TCard} from "../../utils/types";
 
-type IngredientDetailsProps = {
+export type TIngredientDetailsProps = {
     headerForIngredientDetails: boolean;
 };
 
-export const IngredientDetails: React.FC<IngredientDetailsProps> = ({headerForIngredientDetails}) => {
+export const IngredientDetails: React.FC<TIngredientDetailsProps> = ({headerForIngredientDetails}) => {
     const {idIngredient} = useParams();
-    const cards = useSelector((state: any) => state.ingredientsStore.data);
-    const card: TCard = cards.find((ingredient:  TCard) => ingredient._id === idIngredient);
+    const cards = useSelector((state) => state.ingredientsStore.data);
+    const card = cards.find((ingredient) => ingredient._id === idIngredient);
 
     return (
         <>

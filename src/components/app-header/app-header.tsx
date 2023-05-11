@@ -7,7 +7,8 @@ export const AppHeader = () => {
         <header className={styles.header_bar}>
             <div className={styles.header}>
                 <nav className={styles.header_elements}>
-                    <NavLink to={'/'} className={styles.delete_underline_text}>
+                    <NavLink to={'/'}
+                             className={styles.delete_underline_text}>
                         {({isActive}) => (
                             <button type="button"
                                     className={`${styles.header_element} ${styles.header_element_constructor}  pl-5 mt-4 mb-4`}>
@@ -22,7 +23,8 @@ export const AppHeader = () => {
                             </button>
                         )}
                     </NavLink>
-                    <NavLink to={'*'} className={styles.delete_underline_text}>
+                    <NavLink to={'/feed'}
+                             className={styles.delete_underline_text}>
                         {({isActive}) => (
                             <button type="button"
                                     className={`${styles.header_element} ${styles.header_element_orders} pl-5 ml-2 mt-4 mb-4`}>

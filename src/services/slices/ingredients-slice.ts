@@ -1,8 +1,8 @@
 import {createAsyncThunk, createSlice, SerializedError} from "@reduxjs/toolkit";
-import {BASE_URL} from "../../utils/api";
 import {checkResponse,} from "../../utils/request";
 import {TCard} from "../../utils/types";
 import {ThunkApi} from "../store";
+import {BASE_URL} from "../../utils/url";
 
 interface IIngredientSliceState {
     data: TCard[];

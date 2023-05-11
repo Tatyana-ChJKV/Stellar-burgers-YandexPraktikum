@@ -1,8 +1,7 @@
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import React, {useEffect, useState} from "react";
 import styles from "./profile-page.module.css"
-import {NavLink, useNavigate} from "react-router-dom";
-import {logoutUser, updateUserInformation} from "../../services/slices/authorization-slice";
+import {updateUserInformation} from "../../services/slices/authorization-slice";
 import {
     useDispatch,
     useSelector
@@ -10,9 +9,9 @@ import {
 
 export const ProfilePage = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const userInfo = useSelector((state: any) => state.authorizationStore.data);
-    console.log("userInfo", userInfo)
+    const userInfo= useSelector((state) => state.authorizationStore.data!);
+    // console.log("userInfo", userInfo)
+
     const [userData, setUserData] = useState({
         name: '',
         email: '',
@@ -45,45 +44,18 @@ export const ProfilePage = () => {
         console.log('handleSubmitUpdate')
     };
 
-    const handleLogout = (e: React.FormEvent) => {
-        e.preventDefault()
-        dispatch(logoutUser(userData))
-            .then(({payload}: {payload:any}) => {
-                if (payload?.success) {
-                    navigate("/login")
-                    console.log('logout_to_/login')
-                }
-            })
-    };
-
     const handleCancellation = (e: React.FormEvent) => {
         e.preventDefault()
-        setUserData(userInfo)
+        setUserData({
+                name: userInfo.name,
+                email: userInfo.email,
+                password: ''
+        })
         console.log('handleCancellation')
     };
 
     return (
         <div className={styles.profile_main}>
-            <div className="mr-15">
-                <NavLink to={'/profile'}
-                         className={styles.delete_underline_text}>
-                    <p className={`${styles.menu_text} text text_color_primary text_type_main-medium`}>Профиль</p>
-                </NavLink>
-                <NavLink to={'/orders'}
-                         className={styles.delete_underline_text}>
-                    <p className={`${styles.menu_text} text text_type_main-medium text_color_inactive`}>История
-                        заказов</p>
-                </NavLink>
-                <NavLink to={'*'}
-                         className={styles.delete_underline_text}>
-                    <p className={`${styles.menu_text} text text_type_main-medium text_color_inactive`}
-                       onClick={handleLogout}>
-                        Выход
-                    </p>
-                </NavLink>
-                <p className={`${styles.menu_text} mt-20 text text_type_main-default text_color_inactive`}>В этом
-                    разделе вы можете изменить свои персональные данные</p>
-            </div>
             <form onSubmit={handleSubmit}
                   className={styles.registration_modal}>
                 <Input

@@ -7,7 +7,6 @@ import {useDispatch} from "../../services/hooks";
 
 export const LoginPage = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const [userData, setUserData] = useState({
         email: '',
         password: ''
@@ -24,11 +23,6 @@ export const LoginPage = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         dispatch(loginUser(userData))
-            .then(({payload}) => {
-                if (payload) {
-                    navigate("/")
-                }
-            })
     };
 
     return (

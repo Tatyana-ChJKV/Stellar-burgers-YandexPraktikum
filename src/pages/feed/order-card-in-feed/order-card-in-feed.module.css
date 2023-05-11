@@ -1,0 +1,46 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 8px);
+    max-width: 800px;
+    border-radius: 40px;
+    background: #1C1C21;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 2px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);
+    padding: 24px;
+    row-gap: 24px;
+    box-sizing: border-box;
+    color: inherit;
+}
+
+.card:hover {
+    background: #2F2F37;
+}
+
+.order_number_and_date {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ingredients_and_price_details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price {
+    display: flex;
+    align-items: center;
+    column-gap: 9px;
+}
+
+.ingredients {
+    position: relative;
+    height: 64px;
+    z-index: 1;
+}
+
+.delete_underline_text {
+    text-decoration: none;
+    color: #F2F2F3;
+}

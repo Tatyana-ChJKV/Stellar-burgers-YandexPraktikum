@@ -7,8 +7,7 @@ import {
     TUserResponse,
     TUserResponseWithToken
 } from "./types";
-
-export const BASE_URL = 'https://norma.nomoreparties.space/api';
+import {BASE_URL} from "./url";
 
 export class BurgerApi {
     checkResponse = <T>(res: Response): Promise<T> => {

@@ -1,0 +1,48 @@
+.order_ingredients {
+    display: flex;
+    align-items: flex-start;
+}
+
+.ingredient_image {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #131316;
+    border: 2px solid #4c4cff;
+    object-fit: contain;
+    border-radius: 100%;
+    width: 64px;
+    height: 64px;
+}
+
+.ingredient_image img {
+    width: 64px;
+    object-fit: contain;
+}
+
+.ingredient_image:not(:first-child) {
+    margin-left: -20px;
+}
+
+.ingredient_image:nth-child(n + 5) {
+    background: #1c1c21;
+}
+
+.ingredient_image:nth-child(n + 5) img {
+    opacity: 0.6;
+}
+
+.ingredient_image:nth-child(n + 5) .ingredients_count {
+    display: block;
+}
+
+.ingredient_image:nth-child(n + 6) {
+    display: none;
+}
+
+.ingredients_count {
+    display: none;
+    position: absolute;
+    left: 20px;
+    right: 0;
+}

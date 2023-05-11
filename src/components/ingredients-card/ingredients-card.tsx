@@ -13,12 +13,11 @@ type TIngredientsCardProps = {
 
 export const IngredientsCard: React.FC<TIngredientsCardProps> = ({card}) => {
     // console.log(card)
-    const count = useSelector((state: any) => state.constructorStore.counters[card._id]);
+    const count = useSelector((state) => state.constructorStore.counters[card._id]);
     const location = useLocation();
 
-    const [modalOpened, setModalOpened] = useState(false);
-
-    const openModal = () => setModalOpened(true);
+    // const [modalOpened, setModalOpened] = useState(false);
+    // const openModal = () => setModalOpened(true);
 
     const [{opacity}, dragTarget] = useDrag({
         type: "card",
@@ -34,10 +33,11 @@ export const IngredientsCard: React.FC<TIngredientsCardProps> = ({card}) => {
               className={`${styles.delete_underline_text} mb-8`}
               key={card.uuid}
               id="open-modal"
-              onClick={openModal}
+              // onClick={openModal}
               ref={dragTarget}
               style={{opacity}}>
-            <img src={card.image} className={styles.ingredient_image}
+            <img src={card.image}
+                 className={styles.ingredient_image}
                  alt={card.name}/>
             <div className={`${styles.price_flex} mt-1 mb-1`}>
                 <p className="text text_type_digits-medium mr-2">{card.price}</p>
