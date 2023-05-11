@@ -6,9 +6,9 @@ import styles from "./burger-constructor.module.css";
 import {useDispatch, useSelector} from "../../services/hooks";
 import {ConstructorCard} from "./ingredient-card-in-burger-constructor/ingredient-card-in-burger-constructor";
 import {useDrop} from "react-dnd";
-import {addIngredient, clearConstructor} from "../../services/slices/constructor-slice";
+import {addIngredient, clearConstructor} from "../../services/slices/constructor/constructor-slice";
 import {useNavigate} from "react-router-dom";
-import {makeOrder} from "../../services/slices/order-slice";
+import {makeOrder} from "../../services/slices/order/order-slice";
 
 export const BurgerConstructor = () => {
     const bun = useSelector((state) => state.constructorStore.bun);

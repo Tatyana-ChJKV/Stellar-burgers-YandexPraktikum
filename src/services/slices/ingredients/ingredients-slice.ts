@@ -1,8 +1,8 @@
 import {createAsyncThunk, createSlice, SerializedError} from "@reduxjs/toolkit";
-import {checkResponse,} from "../../utils/request";
-import {TCard} from "../../utils/types";
-import {ThunkApi} from "../store";
-import {BASE_URL} from "../../utils/url";
+import {checkResponse,} from "../../../utils/request";
+import {TCard} from "../../../utils/types";
+import {ThunkApi} from "../../store";
+import {BASE_URL} from "../../../utils/url";
 
 interface IIngredientSliceState {
     data: TCard[];
@@ -10,7 +10,7 @@ interface IIngredientSliceState {
     error: SerializedError | null | unknown;
 }
 
-const initialState: IIngredientSliceState = {
+export const initialState: IIngredientSliceState = {
     data: [],
     isLoading: false,
     error: null,

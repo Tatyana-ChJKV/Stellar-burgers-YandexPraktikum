@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "../../services/hooks";
 import {useLocation, useParams} from "react-router";
-import {wsConnectOrder, wsDisconnectOrder} from "../../services/slices/orders-reduces/actions";
+import {wsConnectOrder, wsDisconnectOrder} from "../../services/slices/orders/actions";
 import React, {useEffect} from "react";
 import {BURGER_API_WSS_FEED} from "../../utils/url";
 import styles from "./feed-id-page.module.css";

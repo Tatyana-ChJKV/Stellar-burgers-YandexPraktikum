@@ -2,7 +2,7 @@ import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-b
 import React, {useState} from "react";
 import styles from "./login-page.module.css"
 import {NavLink, useNavigate} from "react-router-dom";
-import {loginUser} from "../../services/slices/authorization-slice";
+import {loginUser} from "../../services/slices/authorization/authorization-slice";
 import {useDispatch} from "../../services/hooks";
 
 export const LoginPage = () => {

@@ -2,7 +2,7 @@ import {Outlet} from "react-router";
 import {NavLink} from "react-router-dom";
 import styles from "../profile-page.module.css";
 import React, {useState} from "react";
-import {logoutUser} from "../../../services/slices/authorization-slice";
+import {logoutUser} from "../../../services/slices/authorization/authorization-slice";
 import {useDispatch} from "../../../services/hooks";
 import clsx from "clsx";
 

@@ -2,7 +2,7 @@ import DonePicture from "../../images/done.svg"
 import styles from "./order-details.module.css"
 import React, {useEffect} from "react";
 import {getCookie} from "../../utils/cookie";
-import {wsConnectOrder, wsDisconnectOrder} from "../../services/slices/orders-reduces/actions";
+import {wsConnectOrder, wsDisconnectOrder} from "../../services/slices/orders/actions";
 import {useDispatch} from "../../services/hooks";
 const BURGER_API_WSS_FEED = "wss://norma.nomoreparties.space/orders/all";
 

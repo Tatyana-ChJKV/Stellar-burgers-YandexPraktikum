@@ -1,8 +1,8 @@
 import {createAsyncThunk, createSlice, SerializedError} from '@reduxjs/toolkit';
-import {checkResponse} from "../../utils/request";
-import {TCard} from "../../utils/types";
-import {BASE_URL} from "../../utils/url";
-import {getCookie} from "../../utils/cookie";
+import {checkResponse} from "../../../utils/request";
+import {TCard} from "../../../utils/types";
+import {BASE_URL} from "../../../utils/url";
+import {getCookie} from "../../../utils/cookie";
 
 interface IOrderSliceState {
     order: TCard | null;
@@ -11,7 +11,7 @@ interface IOrderSliceState {
     number: number | null;
 }
 
-const initialState: IOrderSliceState = {
+export const initialState: IOrderSliceState = {
     order: null,
     isLoading: false,
     error: null,
@@ -52,7 +52,6 @@ const orderSlice = createSlice({
                 state.order = action.payload;
                 state.isLoading = false;
                 state.error = null;
-                // state.number =
             })
             .addCase(makeOrder.rejected, (state, action) => {
                 state.isLoading = false;

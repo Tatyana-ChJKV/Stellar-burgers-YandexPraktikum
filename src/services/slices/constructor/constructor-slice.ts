@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {v4 as uuidv4} from "uuid";
-import {TCard} from "../../utils/types";
+import {TCard} from "../../../utils/types";
 
 interface IConstructorSliceState {
     bun: TCard | null;
@@ -8,7 +8,7 @@ interface IConstructorSliceState {
     counters: any;
 }
 
-const initialState: IConstructorSliceState = {
+export const initialState: IConstructorSliceState = {
     bun: null,
     ingredients: [],
     counters: {}

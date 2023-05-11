@@ -1,10 +1,10 @@
 import {configureStore} from "@reduxjs/toolkit";
-import ingredients from "./slices/ingredients-slice";
-import constructor from "./slices/constructor-slice";
-import order from "./slices/order-slice";
-import authorization from "./slices/authorization-slice";
-import {ordersReducer} from "./slices/orders-reduces/reducer";
-import {feedReducer} from "./slices/feed-reduces/reducer"
+import ingredients from "./slices/ingredients/ingredients-slice";
+import constructor from "./slices/constructor/constructor-slice";
+import order from "./slices/order/order-slice";
+import authorization from "./slices/authorization/authorization-slice";
+import {ordersReducer} from "./slices/orders/reducer";
+import {feedReducer} from "./slices/feed/reducer"
 import burgerApi, {BurgerApi} from "../utils/burger-api";
 import {socketMiddleware} from "./middleware/socket-middleware";
 import {
@@ -15,7 +15,7 @@ import {
     wsErrorOrder,
     wsMessageOrder,
     wsOpenOrder
-} from "./slices/orders-reduces/actions";
+} from "./slices/orders/actions";
 import {
     wsCloseFeed,
     wsConnectFeed,
@@ -23,7 +23,7 @@ import {
     wsDisconnectFeed, wsErrorFeed,
     wsMessageFeed,
     wsOpenFeed
-} from "./slices/feed-reduces/actions";
+} from "./slices/feed/actions";
 
 const wsActionsFeed = {
     wsConnect: wsConnectFeed,

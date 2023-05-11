@@ -1,14 +1,14 @@
 import {createAsyncThunk, createSlice, SerializedError} from '@reduxjs/toolkit';
-import {setCookie} from "../../utils/cookie";
-import api from "../../utils/burger-api"
-import {ThunkApi} from "../store";
+import {setCookie} from "../../../utils/cookie";
+import api from "../../../utils/burger-api"
+import {ThunkApi} from "../../store";
 import {
     TUser,
     TUserForgotPassword,
     TUserLoginInfo,
     TUserRegisterInfo,
     TUserResetPassword
-} from "../../utils/types";
+} from "../../../utils/types";
 
 export const sliceName = 'user';
 
@@ -21,6 +21,9 @@ interface TAuthorisationSliceState {
 
     loginUserError: SerializedError | null,
     loginUserRequest: boolean,
+
+    logoutUserError: SerializedError | null,
+    logoutUserRequest: boolean,
 
     getUserError: SerializedError | null,
     getUserRequest: boolean,
@@ -35,7 +38,7 @@ interface TAuthorisationSliceState {
     updateUserInformationRequest: boolean
 }
 
-const initialState: TAuthorisationSliceState = {
+export const initialState: TAuthorisationSliceState = {
     isAuthChecked: false,
     data: null,
 
@@ -44,6 +47,9 @@ const initialState: TAuthorisationSliceState = {
 
     loginUserError: null,
     loginUserRequest: false,
+
+    logoutUserError: null,
+    logoutUserRequest: false,
 
     getUserError: null,
     getUserRequest: false,
@@ -183,6 +189,10 @@ const user = createSlice({
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.data = action.payload;
                 state.loginUserRequest = false;
+            })
+            .addCase(logoutUser.fulfilled, (state, action) => {
+                state.data = action.payload;
+                state.logoutUserRequest = false;
             })
             .addCase(forgotPassword.fulfilled, (state, action) => {
                 state.data = action.payload;
