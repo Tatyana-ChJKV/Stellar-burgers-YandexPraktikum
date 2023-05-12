@@ -24,8 +24,9 @@ export const App = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const background = location.state?.background as Location;
+    const background = location.state as Location;
     console.log('location', location)
+    console.log('background', background)
 
     useEffect(() => {
         dispatch(receiveIngredients())
@@ -52,52 +53,52 @@ export const App = () => {
                            }/>
                     <Route path="/profile"
                            element={
-                               // <ProtectedRoute>
+                               <ProtectedRoute>
                                    <ProfileNavigationFrame/>
-                               // </ProtectedRoute>
+                               </ProtectedRoute>
                            }>
                         <Route path="/profile"
                                element={
-                                   // <ProtectedRoute>
+                                   <ProtectedRoute>
                                        <ProfilePage/>
-                                   // </ProtectedRoute>
+                                   </ProtectedRoute>
                                }/>
                         <Route path="/profile/orders"
                                element={
-                                   // <ProtectedRoute>
+                                   <ProtectedRoute>
                                        <ProfileOrdersPage/>
-                                   // </ProtectedRoute>
+                                   </ProtectedRoute>
                                }/>
                     </Route>
                     <Route path="/profile/orders/:id"
                            element={
-                               // <ProtectedRoute>
+                               <ProtectedRoute>
                                    <FeedIdPage/>
-                               // </ProtectedRoute>
+                               </ProtectedRoute>
                            }/>
                     <Route path="/register"
                            element={
-                               // <ProtectedRoute onlyUnAuth>
+                               <ProtectedRoute onlyUnAuth>
                                    <RegisterPage/>
-                               // </ProtectedRoute>
+                               </ProtectedRoute>
                            }/>
                     <Route path="/login"
                            element={
-                               // <ProtectedRoute onlyUnAuth>
+                               <ProtectedRoute onlyUnAuth>
                                    <LoginPage/>
-                               // </ProtectedRoute>
+                               </ProtectedRoute>
                            }/>
                     <Route path="/forgot-password"
                            element={
-                               // <ProtectedRoute onlyUnAuth>
+                               <ProtectedRoute onlyUnAuth>
                                    <ForgotPasswordPage/>
-                               // </ProtectedRoute>
+                               </ProtectedRoute>
                            }/>
                     <Route path="/reset-password"
                            element={
-                               // <ProtectedRoute onlyUnAuth>
+                               <ProtectedRoute onlyUnAuth>
                                    <ResetPasswordPage/>
-                               // </ProtectedRoute>
+                               </ProtectedRoute>
                            }/>
                     <Route path="/ingredients/:idIngredient"
                            element={
@@ -130,12 +131,12 @@ export const App = () => {
                            }/>
                     <Route path="/profile/orders/:id"
                            element={
-                               // <ProtectedRoute>
+                               <ProtectedRoute>
                                    <Modal onClick={handleCloseModal}
                                           modalHeader={"Информация о заказе"}>
                                        <FeedIdPage/>
                                    </Modal>
-                               // </ProtectedRoute>
+                               </ProtectedRoute>
                            }/>
                 </Routes>)
             }

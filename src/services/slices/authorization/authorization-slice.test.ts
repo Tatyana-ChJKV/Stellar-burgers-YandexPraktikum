@@ -7,12 +7,7 @@ import userReducer, {
     resetPassword, updateUserInformation
 } from './authorization-slice'
 import {initialState} from "./authorization-slice";
-
-const data = {
-    email: "email@mail.ru",
-    name: "Tanya",
-    password: "password"
-}
+import {testUserData} from "../../../utils/test-constants";
 
 describe("user reducer", () => {
     it('should return initial state', () => {
@@ -24,31 +19,31 @@ describe("user reducer", () => {
             .toEqual({...initialState, isAuthChecked: true})
     })
     it('should handle checkUserAuth action', () => {
-        expect(userReducer(initialState, {type: checkUserAuth.fulfilled.type, payload: data}))
-            .toEqual({...initialState, data: data, getUserRequest: false})
+        expect(userReducer(initialState, {type: checkUserAuth.fulfilled.type, payload: testUserData}))
+            .toEqual({...initialState, data: testUserData, getUserRequest: false})
     })
     it('should handle registerUser action', () => {
-        expect(userReducer(initialState, {type: registerUser.fulfilled.type, payload: data}))
-            .toEqual({...initialState, data: data, registerUserRequest: false})
+        expect(userReducer(initialState, {type: registerUser.fulfilled.type, payload: testUserData}))
+            .toEqual({...initialState, data: testUserData, registerUserRequest: false})
     })
     it('should handle loginUser action', () => {
-        expect(userReducer(initialState, {type: loginUser.fulfilled.type, payload: data}))
-            .toEqual({...initialState, data: data, loginUserRequest: false})
+        expect(userReducer(initialState, {type: loginUser.fulfilled.type, payload: testUserData}))
+            .toEqual({...initialState, data: testUserData, loginUserRequest: false})
     })
     it('should handle logoutUser action', () => {
-        expect(userReducer(initialState, {type: logoutUser.fulfilled.type, payload: data}))
-            .toEqual({...initialState, data: data, logoutUserRequest: false})
+        expect(userReducer(initialState, {type: logoutUser.fulfilled.type, payload: testUserData}))
+            .toEqual({...initialState, data: testUserData, logoutUserRequest: false})
     })
     it('should handle updatePassword action', () => {
-        expect(userReducer(initialState, {type: updateUserInformation.fulfilled.type, payload: data}))
-            .toEqual({...initialState, data: data, updateUserInformationRequest: false})
+        expect(userReducer(initialState, {type: updateUserInformation.fulfilled.type, payload: testUserData}))
+            .toEqual({...initialState, data: testUserData, updateUserInformationRequest: false})
     })
     it('should handle forgotPassword action', () => {
-        expect(userReducer(initialState, {type: forgotPassword.fulfilled.type, payload: data}))
-            .toEqual({...initialState, data: data, forgotPasswordRequest: false})
+        expect(userReducer(initialState, {type: forgotPassword.fulfilled.type, payload: testUserData}))
+            .toEqual({...initialState, data: testUserData, forgotPasswordRequest: false})
     })
     it('should handle resetPassword action', () => {
-        expect(userReducer(initialState, {type: resetPassword.fulfilled.type, payload: data}))
-            .toEqual({...initialState, data: data, resetPasswordRequest: false})
+        expect(userReducer(initialState, {type: resetPassword.fulfilled.type, payload: testUserData}))
+            .toEqual({...initialState, data: testUserData, resetPasswordRequest: false})
     })
 })

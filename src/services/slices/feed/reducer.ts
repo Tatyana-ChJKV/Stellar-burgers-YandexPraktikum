@@ -13,7 +13,6 @@ export const initialState: TOrderState = {
 export const feedReducer = createReducer(initialState, (builder) => {
     builder
         .addCase(wsMessageFeed, (state, action) => {
-            console.log('wsMessageFeed_feed', action.payload);
             state.data = action.payload;
         })
 });

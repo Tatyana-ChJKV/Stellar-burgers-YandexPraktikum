@@ -13,7 +13,7 @@ describe("orders reducer", () => {
             total: 3,
             totalToday: 4,
         }
-        expect(ordersReducer(initialState, {type: wsMessageOrder.type, payload: data }))
+        expect(ordersReducer(initialState, {type: wsMessageOrder.type, payload: data}))
             .toEqual({...initialState, data: data})
     })
 })

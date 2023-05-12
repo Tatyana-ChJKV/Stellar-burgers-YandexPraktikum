@@ -15,7 +15,7 @@ export const sliceName = 'user';
 interface TAuthorisationSliceState {
     isAuthChecked: boolean,
     data: TUser | TUserRegisterInfo | null,
-    // либо собственный тип ошибки, который в action.payload
+
     registerUserError: SerializedError | null,
     registerUserRequest: boolean,
 
@@ -68,10 +68,6 @@ export const checkUserAuth = createAsyncThunk<TUser, void, ThunkApi>(`${sliceNam
     async (_, {extra: api, rejectWithValue, dispatch}) => {
         try {
             const data = await api.getUser();
-            // if (!data?.success) {
-            //     return rejectWithValue(data)
-            // }
-            // console.log(data.user)
             return data.user;
         } catch (error) {
             return rejectWithValue(error);
@@ -85,9 +81,6 @@ export const registerUser = createAsyncThunk<TUser, TUserRegisterInfo, ThunkApi>
     async (dataUser) => {
         const data = await api.registerUser(dataUser);
         console.log('register', data);
-        // if (!data?.success) {
-        //     return rejectWithValue(data)
-        // }
         setCookie('accessToken', data.accessToken, {'max-age': 1000});
         setCookie('refreshToken', data.refreshToken)
         return data.user;
@@ -98,9 +91,6 @@ export const loginUser = createAsyncThunk<TUser, TUserLoginInfo, ThunkApi>(`${sl
     async (dataUser) => {
         const data = await api.loginUser(dataUser);
         console.log('login', data);
-        // if (!data?.success) {
-        //     return rejectWithValue(data)
-        // }
         setCookie('accessToken', data.accessToken);
         setCookie('refreshToken', data.refreshToken)
         return data.user;
@@ -111,9 +101,6 @@ export const logoutUser = createAsyncThunk<TUser, TUserRegisterInfo, ThunkApi>(`
     async () => {
         const data = await api.logoutUser();
         console.log('logout', data);
-        // if (!data?.success) {
-        //     return rejectWithValue(data)
-        // }
         setCookie('refreshToken', data.refreshToken)
         return data.user;
     }
@@ -123,9 +110,6 @@ export const updateUserInformation = createAsyncThunk<TUser, TUserRegisterInfo, 
     async (dataUser) => {
         const data = await api.updateUserInformation(dataUser);
         console.log('update_user_information', data);
-        // if (!data?.success) {
-        //     return rejectWithValue(data)
-        // }
         return data.user;
     });
 
@@ -133,9 +117,6 @@ export const forgotPassword = createAsyncThunk<TUser, TUserForgotPassword, Thunk
     async (dataUser) => {
         const data = await api.forgotPassword(dataUser);
         console.log('forgot_pass', data);
-        // if (!data?.success) {
-        //     return rejectWithValue(data)
-        // }
         return data.user;
     }
 );
@@ -144,9 +125,6 @@ export const resetPassword = createAsyncThunk<TUser, TUserResetPassword, ThunkAp
     async (dataUser) => {
         const data = await api.resetPassword(dataUser);
         console.log('reset_pass', data);
-        // if (!data?.success) {
-        //     return rejectWithValue(data)
-        // }
         return data.user;
     }
 );
