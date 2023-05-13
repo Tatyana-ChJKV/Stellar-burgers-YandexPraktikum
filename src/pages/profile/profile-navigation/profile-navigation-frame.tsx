@@ -15,8 +15,6 @@ export const ProfileNavigationFrame = () => {
     });
 
     const handleLogout = () => {
-        // e.preventDefault()
-        console.log('hLogout', userData)
         dispatch(logoutUser(userData))
     };
 
