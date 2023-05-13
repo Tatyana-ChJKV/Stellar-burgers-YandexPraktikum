@@ -11,7 +11,7 @@ import {useNavigate} from "react-router-dom";
 import {makeOrder} from "../../services/slices/order/order-slice";
 
 export const BurgerConstructor = () => {
-    const bun = useSelector((state) => state.constructorStore.bun);
+    const bun = useSelector((state) => state.constructorStore.bun!);
     const card = useSelector((state) => state.constructorStore.ingredients);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -19,12 +19,10 @@ export const BurgerConstructor = () => {
     const number = order?.order.number;
     const [modalOpened, setModalOpened] = useState(false);
     const user = useSelector(state => state.authorizationStore.data);
-    // console.log('info', user)
 
     const orderNumber = () => {
-        const ingredientsId = {
-            ingredients: card.map((ingredient) => ingredient._id)
-        };
+        const ingredients = bun ? [...card, bun, bun] : card;
+        const ingredientsId = {ingredients: ingredients.map((ingredient) => ingredient._id)};
         dispatch(makeOrder(ingredientsId))
     };
 
@@ -33,8 +31,8 @@ export const BurgerConstructor = () => {
             if (!user) {
                 navigate('/login', {replace: true})
             }
-            setModalOpened(true);
             orderNumber();
+            setModalOpened(true);
         }
     };
 
