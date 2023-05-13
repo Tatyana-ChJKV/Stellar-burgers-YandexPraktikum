@@ -24,9 +24,7 @@ export const App = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const background = location.state as Location;
-    console.log('location', location)
-    console.log('background', background)
+    const background = location.state?.background as Location;
 
     useEffect(() => {
         dispatch(receiveIngredients())
