@@ -67,6 +67,7 @@ export const BurgerConstructor = () => {
     return (
         <section ref={dropTarget}
                  className={styles.section_constructor}
+                 data-cy="constructor"
         >
             <div className={`${styles.constructor_element} mt-25`}>
                 {bun && <ConstructorElement

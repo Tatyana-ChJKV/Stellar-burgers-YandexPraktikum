@@ -10,7 +10,7 @@ type TModalProps = {
     modalHeader: string;
 };
 
-export const Modal:React.FC<TModalProps> = ({onClick, children, modalHeader}) => {
+export const Modal: React.FC<TModalProps> = ({onClick, children, modalHeader}) => {
     const closeByEscape = (e: KeyboardEvent) => {
         if (e.key === "Escape") {
             onClick();
@@ -29,8 +29,10 @@ export const Modal:React.FC<TModalProps> = ({onClick, children, modalHeader}) =>
             <div className={styles.modal}>
                 <div className={`${styles.ingredient_details_header} mt-10 ml-10 mr-10`}>
                     <h2 className="text text_type_main-large">{modalHeader || ''}</h2>
-                    <CloseIcon type="primary"
-                               onClick={onClick}/>
+                    <button className={styles.modal_close} data-cy="modalClose">
+                        <CloseIcon type="primary"
+                                   onClick={onClick}/>
+                    </button>
                 </div>
                 {children}
             </div>
