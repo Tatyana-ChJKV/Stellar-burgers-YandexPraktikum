@@ -4,6 +4,14 @@ import {TCard} from "../../../utils/types";
 import {BASE_URL} from "../../../utils/url";
 import {getCookie} from "../../../utils/cookie";
 
+//   type TOrderResponse = {
+//     success: boolean;
+//     name: string;
+//     order: {
+//         number: number;
+//     };
+// }
+
 interface IOrderSliceState {
     order: TCard | null;
     isLoading: boolean;
@@ -28,7 +36,7 @@ export const makeOrder = createAsyncThunk<TCard, TIngredientsId>(
         const response = await fetch(`${BASE_URL}/orders`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json; charset=utf-8',
                 authorization: getCookie("accessToken"),
             } as HeadersInit,
             body: JSON.stringify(ingredients),

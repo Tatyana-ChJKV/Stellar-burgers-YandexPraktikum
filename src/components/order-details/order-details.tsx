@@ -11,17 +11,16 @@ type TOrderDetailsProps = {
 };
 
 export const OrderDetails:React.FC<TOrderDetailsProps> = ({orderNumber}) => {
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        const accessToken = getCookie("accessToken");
-
-        dispatch(wsConnectOrder({wsUrl:`${BURGER_API_WSS_FEED}?token=${accessToken?.replace("Bearer ", "")}` ,
-            withTokenRefresh: true}))
-        return () => {
-            dispatch(wsDisconnectOrder())
-        }
-    }, []);
+    // const dispatch = useDispatch()
+    //
+    // useEffect(() => {
+    //     const accessToken = getCookie("accessToken");
+    //     dispatch(wsConnectOrder({wsUrl:`${BURGER_API_WSS_FEED}?token=${accessToken?.replace("Bearer ", "")}` ,
+    //         withTokenRefresh: true}))
+    //     return () => {
+    //         dispatch(wsDisconnectOrder())
+    //     }
+    // }, []);
 
     return (
         <div className={`${styles.elements_display_flex} mt-4 mb-30`}>
