@@ -1,49 +1,56 @@
 import {BASE_URL} from "../../src/utils/url";
+import {testUrl} from "../../src/utils/test-constants";
+
+const testIngredients = "[data-cy=ingredients]";
+const testConstructor = "[data-cy=constructor]";
+const testBun = "Ingredient 1";
+const testMain = "Ingredient 5";
+const testSauce = "Ingredient 7";
 
 describe('dragging of ingredients and opening modal windows works properly', () => {
     beforeEach(function () {
         cy.intercept("GET", `${BASE_URL}/ingredients`, {fixture: "ingredients.json"})
         cy.viewport(1300, 800)
-        cy.visit("localhost:3000")
+        cy.visit(testUrl)
     })
     it("should drag and drop BunIngredient", function () {
-        cy.get("[data-cy=ingredients]")
-            .contains("Ingredient 5")
+        cy.get(testIngredients)
+            .contains(testBun)
             .trigger("dragstart");
-        cy.get("[data-cy=constructor]")
+        cy.get(testConstructor)
             .trigger("drop");
-        cy.get("[data-cy=constructor]")
-            .contains("Ingredient 5")
-            .should("exist")
-    })
-    it("should drag and drop SauceIngredient", function () {
-        cy.get("[data-cy=ingredients]")
-            .contains("Ingredient 1")
-            .trigger("dragstart");
-        cy.get("[data-cy=constructor]")
-            .trigger("drop");
-        cy.get("[data-cy=constructor]")
-            .contains("Ingredient 1")
+        cy.get(testConstructor)
+            .contains(testBun)
             .should("exist")
     })
     it("should drag and drop MainIngredient", function () {
-        cy.get("[data-cy=ingredients]")
-            .contains("Ingredient 9")
+        cy.get(testIngredients)
+            .contains(testMain)
             .trigger("dragstart");
-        cy.get("[data-cy=constructor]")
+        cy.get(testConstructor)
             .trigger("drop");
-        cy.get("[data-cy=constructor]")
-            .contains("Ingredient 9")
+        cy.get(testConstructor)
+            .contains(testMain)
+            .should("exist")
+    })
+    it("should drag and drop SauceIngredient", function () {
+        cy.get(testIngredients)
+            .contains(testSauce)
+            .trigger("dragstart");
+        cy.get(testConstructor)
+            .trigger("drop");
+        cy.get(testConstructor)
+            .contains(testSauce)
             .should("exist")
     })
     it('should open modal with IngredientDetails', function () {
-        cy.get("[data-cy=ingredients]")
-            .contains('Ingredient 7')
+        cy.get(testIngredients)
+            .contains(testSauce)
             .click();
     })
     it('should close modal with IngredientDetails', function () {
-        cy.get("[data-cy=ingredients]")
-            .contains('Ingredient 12')
+        cy.get(testIngredients)
+            .contains(testMain)
             .click()
             .should("exist");
         cy.get('[data-cy="modalClose"]').click()

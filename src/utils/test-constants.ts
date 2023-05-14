@@ -61,7 +61,7 @@ export const testIngredientsArray = [
         type: "bun",
         uuid: "50ccee5b-625a-4bb0-a9ca-0a6af2e1ab42"
     },
-]
+];
 
 export const testError = "Error";
 
@@ -70,3 +70,5 @@ export const testUserData = {
     name: "Tatyana",
     password: "password"
 };
+
+export const testUrl = "localhost:3000";
