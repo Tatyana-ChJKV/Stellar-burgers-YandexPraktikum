@@ -23,8 +23,8 @@ export const ForgotPasswordPage = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         dispatch(forgotPassword(userData))
-            .then(({payload}: {payload: any}) => {
-                if (payload?.success) {
+            .then((payload) => {
+                if (payload) {
                     navigate("/reset-password", {replace: true})
                 }
             })

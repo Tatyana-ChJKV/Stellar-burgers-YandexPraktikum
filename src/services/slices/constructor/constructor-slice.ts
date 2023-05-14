@@ -5,7 +5,9 @@ import {TCard} from "../../../utils/types";
 interface IConstructorSliceState {
     bun: TCard | null;
     ingredients: TCard[];
-    counters: any;
+    counters: {
+        [name: string]: number
+    }
 }
 
 export const initialState: IConstructorSliceState = {

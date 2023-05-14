@@ -131,7 +131,7 @@ export const resetPassword = createAsyncThunk<TUser, TUserResetPassword, ThunkAp
 
 interface actionType {
     type: string;
-    payload: any;
+    payload: unknown;
 }
 
 export function isActionPending(action: actionType) {
