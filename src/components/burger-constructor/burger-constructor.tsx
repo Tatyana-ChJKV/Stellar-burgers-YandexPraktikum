@@ -15,10 +15,13 @@ export const BurgerConstructor = () => {
     const card = useSelector((state) => state.constructorStore.ingredients);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const order = useSelector((state: any) => state.orderStore.order);
-    const number = order?.order.number;
     const [modalOpened, setModalOpened] = useState(false);
     const user = useSelector(state => state.authorizationStore.data);
+
+    const order = useSelector((state) => state.orderStore.order);
+    console.log("Order", order);
+    // const number = order?.order?.number;
+    console.log("Number", order?.order?.number);
 
     const orderNumber = () => {
         const ingredients = bun ? [...card, bun, bun] : card;
@@ -102,12 +105,12 @@ export const BurgerConstructor = () => {
                             disabled={!card.length || !bun}>
                         Оформить заказ
                     </Button>
-                    {modalOpened && number && (
+                    {modalOpened && order && (
                         <Modal onClick={closeModal}
                                modalHeader=" ">
-                            <OrderDetails orderNumber={number}/>
-                        </Modal>)
-                    }
+                            <OrderDetails orderNumber={order?.order?.number}/>
+                            </Modal>
+                    )}
                 </div>
             </div>
         </section>

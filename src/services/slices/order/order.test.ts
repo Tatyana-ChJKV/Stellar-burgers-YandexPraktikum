@@ -1,5 +1,5 @@
 import orderSlice, {initialState, makeOrder} from "./order-slice";
-import {testIngredientMain, testError} from "../../../utils/test-constants";
+import {testError, testOrderResponse} from "../../../utils/test-constants";
 
 describe("order reducer", () => {
     it('should return initial state', () => {
@@ -7,11 +7,11 @@ describe("order reducer", () => {
     })
     it('should handle makeOrder.pending', () => {
         expect(orderSlice(initialState, {type: makeOrder.pending.type}))
-            .toEqual({...initialState, isLoading: true, error: null, number: null})
+            .toEqual({...initialState, isLoading: true, error: null})
     })
     it('should handle makeOrder.fulfilled', () => {
-        expect(orderSlice(initialState, {type: makeOrder.fulfilled.type, payload: testIngredientMain}))
-            .toEqual({...initialState, order: testIngredientMain, isLoading: false, error: null})
+        expect(orderSlice(initialState, {type: makeOrder.fulfilled.type, payload: testOrderResponse}))
+            .toEqual({...initialState, order: testOrderResponse, isLoading: false, error: null})
     })
     it('should handle makeOrder.rejected', () => {
         expect(orderSlice(initialState, {type: makeOrder.rejected.type, payload: testError}))

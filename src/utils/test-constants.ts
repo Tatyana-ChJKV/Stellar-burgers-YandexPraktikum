@@ -72,3 +72,11 @@ export const testUserData = {
 };
 
 export const testUrl = "localhost:3000";
+
+export const testOrderResponse = {
+    success: true,
+    name: '',
+    order: {
+        number: 123
+    }
+}
