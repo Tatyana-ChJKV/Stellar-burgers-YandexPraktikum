@@ -8,7 +8,7 @@ import {ConstructorCard} from "./ingredient-card-in-burger-constructor/ingredien
 import {useDrop} from "react-dnd";
 import {addIngredient, clearConstructor} from "../../services/slices/constructor/constructor-slice";
 import {useNavigate} from "react-router-dom";
-import {makeOrder} from "../../services/slices/order/order-slice";
+import {clearNumber, makeOrder} from "../../services/slices/order/order-slice";
 
 export const BurgerConstructor = () => {
     const bun = useSelector((state) => state.constructorStore.bun!);
@@ -19,9 +19,6 @@ export const BurgerConstructor = () => {
     const user = useSelector(state => state.authorizationStore.data);
 
     const order = useSelector((state) => state.orderStore.order);
-    console.log("Order", order);
-    // const number = order?.order?.number;
-    console.log("Number", order?.order?.number);
 
     const orderNumber = () => {
         const ingredients = bun ? [...card, bun, bun] : card;
@@ -33,15 +30,17 @@ export const BurgerConstructor = () => {
         if (card.length || bun) {
             if (!user) {
                 navigate('/login', {replace: true})
+            } else {
+                setModalOpened(true);
+                orderNumber();
             }
-            orderNumber();
-            setModalOpened(true);
         }
     };
 
     const closeModal = () => {
         setModalOpened(false);
         dispatch(clearConstructor());
+        dispatch(clearNumber());
     };
 
     const [, dropTarget] = useDrop({
