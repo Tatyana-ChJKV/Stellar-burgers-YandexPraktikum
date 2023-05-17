@@ -2,7 +2,7 @@ import styles from "./feed-page.module.css"
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "../../services/hooks";
 import {BURGER_API_WSS_FEED} from "../../utils/url";
-import {wsConnectOrder, wsDisconnectOrder} from "../../services/slices/orders-reduces/actions";
+import {wsConnectOrder, wsDisconnectOrder} from "../../services/slices/orders/actions";
 import {OrderCardInFeed} from "./order-card-in-feed/order-card-in-feed";
 import clsx from "clsx";
 

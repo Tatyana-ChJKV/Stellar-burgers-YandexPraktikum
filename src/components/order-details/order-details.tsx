@@ -1,27 +1,26 @@
 import DonePicture from "../../images/done.svg"
 import styles from "./order-details.module.css"
-import React, {useEffect} from "react";
-import {getCookie} from "../../utils/cookie";
-import {wsConnectOrder, wsDisconnectOrder} from "../../services/slices/orders-reduces/actions";
-import {useDispatch} from "../../services/hooks";
-const BURGER_API_WSS_FEED = "wss://norma.nomoreparties.space/orders/all";
+import React from "react";
+// import {getCookie} from "../../utils/cookie";
+// import {wsConnectOrder, wsDisconnectOrder} from "../../services/slices/orders/actions";
+// import {useDispatch} from "../../services/hooks";
+// const BURGER_API_WSS_FEED = "wss://norma.nomoreparties.space/orders/all";
 
 type TOrderDetailsProps = {
     orderNumber: number;
 };
 
 export const OrderDetails:React.FC<TOrderDetailsProps> = ({orderNumber}) => {
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        const accessToken = getCookie("accessToken");
-
-        dispatch(wsConnectOrder({wsUrl:`${BURGER_API_WSS_FEED}?token=${accessToken?.replace("Bearer ", "")}` ,
-            withTokenRefresh: true}))
-        return () => {
-            dispatch(wsDisconnectOrder())
-        }
-    }, []);
+    // const dispatch = useDispatch()
+    //
+    // useEffect(() => {
+    //     const accessToken = getCookie("accessToken");
+    //     dispatch(wsConnectOrder({wsUrl:`${BURGER_API_WSS_FEED}?token=${accessToken?.replace("Bearer ", "")}` ,
+    //         withTokenRefresh: true}))
+    //     return () => {
+    //         dispatch(wsDisconnectOrder())
+    //     }
+    // }, []);
 
     return (
         <div className={`${styles.elements_display_flex} mt-4 mb-30`}>

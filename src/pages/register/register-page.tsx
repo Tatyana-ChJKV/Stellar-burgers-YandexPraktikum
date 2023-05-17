@@ -2,7 +2,7 @@ import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-deve
 import React, {useState} from "react";
 import styles from "./register-page.module.css"
 import {NavLink, useNavigate} from "react-router-dom";
-import {registerUser} from "../../services/slices/authorization-slice";
+import {registerUser} from "../../services/slices/authorization/authorization-slice";
 import {useDispatch} from "../../services/hooks";
 
 export const RegisterPage = () => {

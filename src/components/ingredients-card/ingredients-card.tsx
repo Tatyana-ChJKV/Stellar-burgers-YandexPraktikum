@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredients-card.module.css";
 import {useSelector} from "../../services/hooks";
@@ -16,9 +16,6 @@ export const IngredientsCard: React.FC<TIngredientsCardProps> = ({card}) => {
     const count = useSelector((state) => state.constructorStore.counters[card._id]);
     const location = useLocation();
 
-    // const [modalOpened, setModalOpened] = useState(false);
-    // const openModal = () => setModalOpened(true);
-
     const [{opacity}, dragTarget] = useDrag({
         type: "card",
         item: card,
@@ -33,9 +30,9 @@ export const IngredientsCard: React.FC<TIngredientsCardProps> = ({card}) => {
               className={`${styles.delete_underline_text} mb-8`}
               key={card.uuid}
               id="open-modal"
-              // onClick={openModal}
               ref={dragTarget}
-              style={{opacity}}>
+              style={{opacity}}
+              data-cy="ingredients">
             <img src={card.image}
                  className={styles.ingredient_image}
                  alt={card.name}/>

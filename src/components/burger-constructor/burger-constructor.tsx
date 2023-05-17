@@ -6,25 +6,23 @@ import styles from "./burger-constructor.module.css";
 import {useDispatch, useSelector} from "../../services/hooks";
 import {ConstructorCard} from "./ingredient-card-in-burger-constructor/ingredient-card-in-burger-constructor";
 import {useDrop} from "react-dnd";
-import {addIngredient, clearConstructor} from "../../services/slices/constructor-slice";
+import {addIngredient, clearConstructor} from "../../services/slices/constructor/constructor-slice";
 import {useNavigate} from "react-router-dom";
-import {makeOrder} from "../../services/slices/order-slice";
+import {clearNumber, makeOrder} from "../../services/slices/order/order-slice";
 
 export const BurgerConstructor = () => {
-    const bun = useSelector((state) => state.constructorStore.bun);
+    const bun = useSelector((state) => state.constructorStore.bun!);
     const card = useSelector((state) => state.constructorStore.ingredients);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const order = useSelector((state: any) => state.orderStore.order);
-    const number = order?.order.number;
     const [modalOpened, setModalOpened] = useState(false);
     const user = useSelector(state => state.authorizationStore.data);
-    // console.log('info', user)
+
+    const order = useSelector((state) => state.orderStore.order);
 
     const orderNumber = () => {
-        const ingredientsId = {
-            ingredients: card.map((ingredient) => ingredient._id)
-        };
+        const ingredients = bun ? [...card, bun, bun] : card;
+        const ingredientsId = {ingredients: ingredients.map((ingredient) => ingredient._id)};
         dispatch(makeOrder(ingredientsId))
     };
 
@@ -32,15 +30,17 @@ export const BurgerConstructor = () => {
         if (card.length || bun) {
             if (!user) {
                 navigate('/login', {replace: true})
+            } else {
+                setModalOpened(true);
+                orderNumber();
             }
-            setModalOpened(true);
-            orderNumber();
         }
     };
 
     const closeModal = () => {
         setModalOpened(false);
         dispatch(clearConstructor());
+        dispatch(clearNumber());
     };
 
     const [, dropTarget] = useDrop({
@@ -67,6 +67,7 @@ export const BurgerConstructor = () => {
     return (
         <section ref={dropTarget}
                  className={styles.section_constructor}
+                 data-cy="constructor"
         >
             <div className={`${styles.constructor_element} mt-25`}>
                 {bun && <ConstructorElement
@@ -103,12 +104,12 @@ export const BurgerConstructor = () => {
                             disabled={!card.length || !bun}>
                         Оформить заказ
                     </Button>
-                    {modalOpened && number && (
+                    {modalOpened && order && (
                         <Modal onClick={closeModal}
                                modalHeader=" ">
-                            <OrderDetails orderNumber={number}/>
-                        </Modal>)
-                    }
+                            <OrderDetails orderNumber={order?.order?.number}/>
+                            </Modal>
+                    )}
                 </div>
             </div>
         </section>

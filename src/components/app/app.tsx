@@ -1,4 +1,4 @@
-import {receiveIngredients} from "../../services/slices/ingredients-slice";
+import {receiveIngredients} from "../../services/slices/ingredients/ingredients-slice";
 import {useEffect} from "react";
 import {Route, Routes, useNavigate} from "react-router-dom";
 import {RegisterPage} from "../../pages/register/register-page";
@@ -10,7 +10,7 @@ import {AppHeaderFrame} from "../app-header-frame/app-header-frame";
 import {MainPage} from "../main-page/main-page";
 import {ProtectedRoute} from "../protected-route/protected-route";
 import {Page404} from "../../pages/page-404/page-404";
-import {checkUserAuth} from "../../services/slices/authorization-slice";
+import {checkUserAuth} from "../../services/slices/authorization/authorization-slice";
 import {IngredientDetails} from "../ingredient-details/ingredient-details";
 import {Modal} from "../modal/modal";
 import {useLocation} from "react-router";

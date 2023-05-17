@@ -1,34 +1,39 @@
 import {createAsyncThunk, createSlice, SerializedError} from '@reduxjs/toolkit';
-import {checkResponse} from "../../utils/request";
-import {TCard} from "../../utils/types";
-import {BASE_URL} from "../../utils/url";
-import {getCookie} from "../../utils/cookie";
+import {checkResponse} from "../../../utils/request";
+import {BASE_URL} from "../../../utils/url";
+import {getCookie} from "../../../utils/cookie";
 
 interface IOrderSliceState {
-    order: TCard | null;
+    order: TOrderResponse | null;
     isLoading: boolean;
     error: SerializedError | null | unknown;
-    number: number | null;
 }
 
-const initialState: IOrderSliceState = {
+export const initialState: IOrderSliceState = {
     order: null,
     isLoading: false,
     error: null,
-    number: null
 };
 
 type TIngredientsId = {
     ingredients: string[]
-}
+};
 
-export const makeOrder = createAsyncThunk<TCard, TIngredientsId>(
+type TOrderResponse = {
+    success: boolean;
+    name: string;
+    order: {
+        number: number;
+    };
+};
+
+export const makeOrder = createAsyncThunk<TOrderResponse, TIngredientsId>(
     'order/makeOrder',
     async (ingredients) => {
         const response = await fetch(`${BASE_URL}/orders`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json; charset=utf-8',
                 authorization: getCookie("accessToken"),
             } as HeadersInit,
             body: JSON.stringify(ingredients),
@@ -40,19 +45,21 @@ export const makeOrder = createAsyncThunk<TCard, TIngredientsId>(
 const orderSlice = createSlice({
     name: 'order',
     initialState,
-    reducers: {},
+    reducers: {
+        clearNumber: (state) => {
+            state.order = initialState.order;
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(makeOrder.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
-                state.number = null;
             })
             .addCase(makeOrder.fulfilled, (state, action) => {
                 state.order = action.payload;
                 state.isLoading = false;
                 state.error = null;
-                // state.number =
             })
             .addCase(makeOrder.rejected, (state, action) => {
                 state.isLoading = false;
@@ -60,5 +67,7 @@ const orderSlice = createSlice({
             })
     }
 });
+
+export const {clearNumber} = orderSlice.actions;
 
 export default orderSlice.reducer;

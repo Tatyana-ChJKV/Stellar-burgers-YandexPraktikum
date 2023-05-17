@@ -70,7 +70,8 @@ export class BurgerApi {
             method: "POST",
             headers: {
                 "Content-Type": "application/json;charset=utf-8",
-            },
+                authorization: getCookie("accessToken"),
+            } as HeadersInit,
             body: JSON.stringify({
                 email,
                 password,
@@ -88,8 +89,9 @@ export class BurgerApi {
         return fetch(`${BASE_URL}/auth/login`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json;charset=utf-8",
-            },
+                "Content-Type": "application/json; charset=utf-8",
+                authorization: getCookie("accessToken"),
+            } as HeadersInit,
             body: JSON.stringify({
                 email,
                 password

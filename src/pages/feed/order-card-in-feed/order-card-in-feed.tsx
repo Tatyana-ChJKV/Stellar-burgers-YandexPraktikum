@@ -21,7 +21,7 @@ export const OrderCardInFeed: React.FC<TOrderCardInFeed> = ({order, urlToCardId}
     return (
         <div className={styles.card}>
             <NavLink to={`${urlToCardId}/${order._id}`}
-                     state={{backgroundLocation: location}}
+                     state={{background: location}}
                      className={styles.delete_underline_text}>
                 <div className={clsx(styles.order_number_and_date, "pb-6")}>
                     <h2 className="text text_type_digits-default">

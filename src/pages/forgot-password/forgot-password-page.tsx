@@ -2,7 +2,7 @@ import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-compon
 import React, {useState} from "react";
 import styles from "../login/login-page.module.css"
 import {NavLink, useNavigate} from "react-router-dom";
-import {forgotPassword} from "../../services/slices/authorization-slice";
+import {forgotPassword} from "../../services/slices/authorization/authorization-slice";
 import {useDispatch} from "../../services/hooks";
 
 export const ForgotPasswordPage = () => {
@@ -23,8 +23,8 @@ export const ForgotPasswordPage = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         dispatch(forgotPassword(userData))
-            .then(({payload}: {payload: any}) => {
-                if (payload?.success) {
+            .then((payload) => {
+                if (payload) {
                     navigate("/reset-password", {replace: true})
                 }
             })

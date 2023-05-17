@@ -2,7 +2,7 @@ import styles from "../burger-constructor.module.css";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import React, {useRef} from "react";
 import {useDispatch} from "../../../services/hooks";
-import {deleteIngredient, orderIngredients} from "../../../services/slices/constructor-slice";
+import {deleteIngredient, orderIngredients} from "../../../services/slices/constructor/constructor-slice";
 import {useDrag, useDrop, XYCoord} from "react-dnd";
 import {TCard} from "../../../utils/types";
 

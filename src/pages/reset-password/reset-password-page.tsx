@@ -2,7 +2,7 @@ import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger
 import React, {useState} from "react";
 import styles from "../login/login-page.module.css"
 import {NavLink, useNavigate} from "react-router-dom";
-import {resetPassword} from "../../services/slices/authorization-slice";
+import {resetPassword} from "../../services/slices/authorization/authorization-slice";
 import {useDispatch} from "../../services/hooks";
 
 export const ResetPasswordPage = () => {

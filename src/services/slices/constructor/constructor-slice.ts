@@ -1,14 +1,16 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {v4 as uuidv4} from "uuid";
-import {TCard} from "../../utils/types";
+import {TCard} from "../../../utils/types";
 
 interface IConstructorSliceState {
     bun: TCard | null;
     ingredients: TCard[];
-    counters: any;
+    counters: {
+        [name: string]: number
+    }
 }
 
-const initialState: IConstructorSliceState = {
+export const initialState: IConstructorSliceState = {
     bun: null,
     ingredients: [],
     counters: {}
@@ -23,12 +25,18 @@ export const constructorSlice = createSlice({
                 if (state.bun) {
                     state.counters[state.bun._id] = 0;
                 }
-                state.bun = {...action.payload, uuid: uuidv4()};
+                state.bun = {...action.payload,
+                    uuid: uuidv4()
+                };
                 state.counters[action.payload._id] = 2;
             }
             if (action.payload.type !== 'bun') {
-                state.ingredients.push({...action.payload, uuid: uuidv4()});
-                state.counters[action.payload._id] = state.counters[action.payload._id] ? state.counters[action.payload._id] + 1 : 1;
+                state.ingredients.push({...action.payload,
+                    uuid: uuidv4()
+                });
+                state.counters[action.payload._id] = state.counters[action.payload._id]
+                    ? state.counters[action.payload._id] + 1
+                    : 1;
             }
         },
         deleteIngredient: (state, action) => {
